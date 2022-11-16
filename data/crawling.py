@@ -18,9 +18,11 @@ data = response.json()["genres"]
 for my_data in data:
     my_genre = {
             "model": "movies.genre",
+            "fields": {
             "genre_code": my_data.get("id"),
             "name": my_data.get("name")
-            }
+            }}
+
     genre_list.append(my_genre)
 
 
@@ -50,8 +52,8 @@ for idx, short_url in enumerate(url_list):
                         "movie_code": json_object.get("id"),
                         "title": json_object.get("title"),
                         "original_title": json_object.get("original_title"),
-                        # "genres": json.dumps(json_object.get("genres")[0].get("id")),
-                        "genres": [json_object.get("genres")[0].get("id")],
+                        # "genre_ids": json.dumps(json_object.get("genres")[0].get("id")),
+                        "genre_ids": [json_object.get("genres")[0].get("id")],
                         "release_date": json_object.get("release_date"),
                         "popularity": json_object.get("popularity"),
                         "overview": json_object.get("overview"),
@@ -65,9 +67,10 @@ for idx, short_url in enumerate(url_list):
                 my_object = {
                     "model": "movies.movie",
                     "fields": {
+                        "movie_code": json_object.get("id"),
                         "title": json_object.get("title"),
                         "original_title": json_object.get("original_title"),
-                        "genres": json_object.get("genres"),
+                        "genre_ids": json_object.get("genres"),
                         "release_date": json_object.get("release_date"),
                         "popularity": json_object.get("popularity"),
                         "overview": json_object.get("overview"),
@@ -77,11 +80,11 @@ for idx, short_url in enumerate(url_list):
                         # "vote_count": json_object.get("vote_count"),
                     }  
                 }
-            movie_list.append(json_object)
+            movie_list.append(my_object)
         response.close()
 
-with open('./data/movie.json', 'w',  encoding='UTF-8-sig') as f:
-    json.dump(movie_list, f, ensure_ascii = False)
+with open('./data/movie.json', 'w',  encoding='utf-8') as f:
+    json.dump(movie_list, f, ensure_ascii = False, indent="")
 
-with open('./data/genre.json', 'w',  encoding='UTF-8-sig') as f:
-    json.dump(genre_list, f, ensure_ascii = False)
+with open('./data/genre.json', 'w',  encoding='utf-8') as f:
+    json.dump(genre_list, f, ensure_ascii = False, indent="")
