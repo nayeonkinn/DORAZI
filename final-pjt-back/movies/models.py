@@ -5,7 +5,7 @@ class Movie(models.Model):
     movie_code = models.IntegerField()
     title = models.CharField(max_length=50)
     original_title = models.CharField(max_length=50)
-    genre_ids = models.JSONField(default=dict(), null=True)
+    genre_ids = models.JSONField(default=dict, null=True)
     release_date = models.DateField()
     popularity = models.FloatField()
     overview = models.TextField()
