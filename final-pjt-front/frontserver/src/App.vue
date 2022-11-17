@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link :to="{ name: 'SignupView' }">Signup</router-link> |
-      <router-link :to="{ name: 'LoginView' }">Login</router-link>
-    </nav>
+    <app-nav/>
     <router-view/>
   </div>
 </template>
+
+<script>
+import AppNav from '@/components/AppNav'
+
+export default {
+  components: {
+    AppNav,
+  }
+}
+</script>
 
 <style>
 #app {

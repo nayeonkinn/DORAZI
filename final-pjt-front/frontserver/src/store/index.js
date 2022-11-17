@@ -22,6 +22,10 @@ export default new Vuex.Store({
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
+    },
+    LOGOUT(state) {
+      state.token = null
+      localStorage.removeItem('token')
     }
   },
   actions: {
@@ -57,6 +61,9 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
+    },
+    logout(context) {
+      context.commit('LOGOUT')
     }
   },
   modules: {
