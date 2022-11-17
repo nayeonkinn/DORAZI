@@ -70,33 +70,50 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
-      },
-      save_user_info(context) {
-        axios({
-          method: 'get',
-          url: `${API_URL}/accounts/user/`,
-          headers: {
-            Authorization: `Token ${this.state.token}`
-          }
+    },
+    save_user_info(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${this.state.token}`
+        }
+      })
+        .then((response) => {
+          context.commit('SAVE_USER_INFO', response.data)
         })
-          .then((response) => {
-            context.commit('SAVE_USER_INFO', response.data)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      },
-      logout(context) {
-        axios({
-          method: 'post',
-          url: `${API_URL}/accounts/logout/`,
+        .catch((error) => {
+          console.log(error)
         })
-          .then(() => {
-            context.commit('LOGOUT')
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+    },
+    logout(context) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/logout/`,
+      })
+        .then(() => {
+          context.commit('LOGOUT')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    changePassword(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/password/change/`,
+        data: {
+          new_password1: payload.new_password1,
+          new_password2: payload.new_password2,
+          old_password: payload.old_password,
+        },
+        headers: {
+          Authorization: `Token ${this.state.token}`
+        }
+      })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   modules: {

@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView'
 import SignupView from '@/views/SignupView'
 import LoginView from '@/views/LoginView'
-import UserUpdateView from '@/views/UserUpdateView'
+import SettingView from '@/views/SettingView'
+import SettingPasswordView from '@/views/SettingPasswordView'
 import ProfileView from '@/views/ProfileView'
 
 Vue.use(VueRouter)
@@ -25,11 +26,14 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/accounts/settings/',
-    name: 'UserUpdateView',
-    component: UserUpdateView,
-    // children: {
-    // }
+    path: '/accounts/setting',
+    name: 'SettingView',
+    component: SettingView
+  },
+  {
+    path: '/accounts/setting/password',
+    name: 'SettingPasswordView',
+    component: SettingPasswordView
   },
   {
     path: '/accounts/profile/:username/',

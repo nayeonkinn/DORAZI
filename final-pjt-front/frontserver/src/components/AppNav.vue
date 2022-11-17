@@ -4,7 +4,7 @@
     <router-link v-if="!isLogin" :to="{ name: 'SignupView' }">Signup</router-link>
     <router-link v-if="!isLogin" :to="{ name: 'LoginView' }">Login</router-link>
     <button v-if="isLogin" @click="logout">Logout</button>
-    <router-link v-if="isLogin" :to="{ name: 'UserUpdateView' }">Change</router-link>
+    <router-link v-if="isLogin" :to="{ name: 'SettingView' }">Setting</router-link>
     <router-link v-if="isLogin" :to="{ name: 'ProfileView', params: {'username': username }}">My Profile</router-link>
   </nav>
 </template>
@@ -23,6 +23,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout')
+      this.$router.push({ name: 'home' })
     }
   }
 }

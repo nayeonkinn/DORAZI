@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+LOGOUT_ON_PASSWORD_CHANGE = False
+
 SITE_ID = 1
 
 REST_FRAMEWORK = {
