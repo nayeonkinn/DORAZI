@@ -6,28 +6,76 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import ArticleSerializer, ArticleCommentSerializer
 from .models import Article, ArticleComment
-
+from movies.models import Movie
 # Create your views here.
-def create(request, pk):
-    pass
 
-def detail(request, pk):
-    pass
+@api_view(('POST',))
+def create(request, movie_pk):
+    movie = get_object_or_404(Movie,pk=movie_pk)
+    serializer = ArticleSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(movie=movie, user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-def like(request, pk):
-    pass
+@api_view(('GET',))
+def detail(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    serializer = ArticleSerializer(article)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
-def comment_list(request, pk):
-    pass
+@api_view(('POST',))
+def like(request, article_pk):
+    if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=article_pk)
+        if article.like_users.filter(pk=request.user.pk).exists():
+            article.like_users.remove(request.user)
+        else:
+            article.like_users.add(request.user)
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-def comment_create(request, pk):
-    pass
+@api_view(('GET',))
+def comment_list(request, article_pk):
+    if request.method == 'GET':
+        article = get_object_or_404(Article, pk=article_pk)
+        comments = get_list_or_404(ArticleComment, article=article)
+        serializer = ArticleCommentSerializer(comments, many=True)
+        return Response(serializer.data)
 
-def comment_detail(request, ariticle_pk, comment_pk):
-    pass
+@api_view(('POST',))
+def comment_create(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    serializer = ArticleCommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(article=article, user_id=request.user.id)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-def comment_like(request, ariticle_pk, comment_pk):
-    pass
+@api_view(('GET','PUT','DELETE'))
+def comment_detail(request, article_pk, comment_pk):
+    comment = get_object_or_404(ArticleComment, pk=comment_pk)
+    if request.method == 'GET':
+        serializer = ArticleCommentSerializer(comment)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ArticleCommentSerializer(comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(article=comment.article)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    elif request.method == 'DELETE':
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(('POST',))
+def comment_like(request, article_pk, comment_pk):
+     if request.user.is_authenticated:
+        comment = get_object_or_404(ArticleComment, pk=comment_pk)
+        if comment.like_users.filter(pk=request.user.pk).exists():
+            comment.like_users.remove(request.user)
+        else:
+            comment.like_users.add(request.user)
+        serializer = ArticleCommentSerializer(comment)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(('GET',))
 def search(request, keyword):
     pass

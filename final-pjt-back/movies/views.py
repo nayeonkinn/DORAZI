@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view, renderer_classes
 
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from .serializers import MovieSerializer, GenreSerializer
+from .serializers import MovieSerializer, GenreSerializer, MovieListSerializer
 from .models import Movie, Genre
 
 # Create your views here.
@@ -12,7 +12,7 @@ from .models import Movie, Genre
 @api_view(('GET',))
 def movie_list(request):
     movies = get_list_or_404(Movie)
-    serializer = MovieSerializer(movies, many=True)
+    serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(('GET',))
@@ -37,10 +37,10 @@ def like(request, pk):
 def wish(request, pk):
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=pk)
-        if movie.like_users.filter(pk=request.user.pk).exists():
-            movie.like_users.remove(request.user)
+        if movie.wish_users.filter(pk=request.user.pk).exists():
+            movie.wish_users.remove(request.user)
         else:
-            movie.like_users.add(request.user)
+            movie.wish_users.add(request.user)
         serializer = MovieSerializer(movie)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
