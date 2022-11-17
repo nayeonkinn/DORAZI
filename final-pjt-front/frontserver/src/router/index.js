@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import SignupView from '@/views/SignupView.vue'
-import LoginView from '@/views/LoginView.vue'
+import HomeView from '@/views/HomeView'
+import SignupView from '@/views/SignupView'
+import LoginView from '@/views/LoginView'
+import UserUpdateView from '@/views/UserUpdateView'
+import ProfileView from '@/views/ProfileView'
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,18 @@ const routes = [
     path: '/accounts/login/',
     name: 'LoginView',
     component: LoginView
+  },
+  {
+    path: '/accounts/settings/',
+    name: 'UserUpdateView',
+    component: UserUpdateView,
+    // children: {
+    // }
+  },
+  {
+    path: '/accounts/profile/:username/',
+    name: 'ProfileView',
+    component: ProfileView
   }
 ]
 

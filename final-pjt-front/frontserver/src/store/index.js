@@ -13,6 +13,8 @@ export default new Vuex.Store({
   ],
   state: {
     token: null,
+    userId: null,
+    username: null,
   },
   getters: {
     isLogin(state) {
@@ -22,6 +24,10 @@ export default new Vuex.Store({
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
+    },
+    SAVE_USER_INFO(state, userData) {
+      state.userId = userData.pk
+      state.username = userData.username
     },
     LOGOUT(state) {
       state.token = null
@@ -58,12 +64,39 @@ export default new Vuex.Store({
         .then((response) => {
           context.commit('SAVE_TOKEN', response.data.key)
         })
+        .then(() => {
+          this.dispatch('save_user_info')
+        })
         .catch((error) => {
           console.log(error)
         })
-    },
-    logout(context) {
-      context.commit('LOGOUT')
+      },
+      save_user_info(context) {
+        axios({
+          method: 'get',
+          url: `${API_URL}/accounts/user/`,
+          headers: {
+            Authorization: `Token ${this.state.token}`
+          }
+        })
+          .then((response) => {
+            context.commit('SAVE_USER_INFO', response.data)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      },
+      logout(context) {
+        axios({
+          method: 'post',
+          url: `${API_URL}/accounts/logout/`,
+        })
+          .then(() => {
+            context.commit('LOGOUT')
+          })
+          .catch((error) => {
+            console.log(error)
+          })
     }
   },
   modules: {

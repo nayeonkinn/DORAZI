@@ -38,7 +38,7 @@ export default {
         password2: password2,
       }
       this.$store.dispatch('signup', payload)
-      this.$router.push('LoginView')
+      this.$router.push({ name: 'LoginView' })
     }
   }
 }
