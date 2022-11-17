@@ -6,6 +6,7 @@
     <button v-if="isLogin" @click="logout">Logout</button>
     <router-link v-if="isLogin" :to="{ name: 'SettingView' }">Setting</router-link>
     <router-link v-if="isLogin" :to="{ name: 'ProfileView', params: {'username': username }}">My Profile</router-link>
+    <router-link :to="{ name:'MovieView' }"> Movie </router-link>  
   </nav>
 </template>
 

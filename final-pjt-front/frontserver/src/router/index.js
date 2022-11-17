@@ -7,6 +7,10 @@ import SettingView from '@/views/SettingView'
 import SettingPasswordView from '@/views/SettingPasswordView'
 import ProfileView from '@/views/ProfileView'
 
+// Movies
+import MovieView from '@/views/MovieView'
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,7 +43,12 @@ const routes = [
     path: '/accounts/profile/:username/',
     name: 'ProfileView',
     component: ProfileView
-  }
+  },
+  {
+    path: '/movies/',
+    name: 'MovieView',
+    component: MovieView
+  },
 ]
 
 const router = new VueRouter({
