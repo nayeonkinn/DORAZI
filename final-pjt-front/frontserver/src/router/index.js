@@ -6,6 +6,7 @@ import LoginView from '@/views/LoginView'
 import SettingView from '@/views/SettingView'
 import SettingPasswordView from '@/views/SettingPasswordView'
 import ProfileView from '@/views/ProfileView'
+import MovieDetailView from '@/views/MovieDetailView' 
 
 // Movies
 import MovieView from '@/views/MovieView'
@@ -49,6 +50,12 @@ const routes = [
     name: 'MovieView',
     component: MovieView
   },
+  {
+    path: '/movies/:movie_pk',
+    name: 'MovieDetailView',
+    component: MovieDetailView
+  }
+
 ]
 
 const router = new VueRouter({
