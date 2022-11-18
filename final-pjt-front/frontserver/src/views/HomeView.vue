@@ -7,7 +7,7 @@
 
 <script>
 // @ is an alias to /src
-import MovieList from '@/components/Movie/MovieList.vue'
+import MovieList from '@/components/movies/MovieList.vue'
 
 
 export default {

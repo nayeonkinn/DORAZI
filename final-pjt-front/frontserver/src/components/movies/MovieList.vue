@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Movie from "@/components/Movie/Movie.vue";
+import Movie from "@/components/movies/Movie.vue";
 import axios from "axios";
 
 const API_URL = 'http://127.0.0.1:8000'

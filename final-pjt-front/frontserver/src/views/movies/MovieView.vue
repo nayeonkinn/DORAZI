@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import MovieList from '@/components/Movie/MovieList.vue';
+import MovieList from '@/components/movies/MovieList.vue';
 
 export default {
   name:"MovieView",
