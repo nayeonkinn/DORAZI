@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '@/views/HomeView'
-import SignupView from '@/views/SignupView'
-import LoginView from '@/views/LoginView'
-import SettingView from '@/views/SettingView'
-import SettingPasswordView from '@/views/SettingPasswordView'
-import ProfileView from '@/views/ProfileView'
-import MovieDetailView from '@/views/MovieDetailView' 
 
-// Movies
-import MovieView from '@/views/MovieView'
+import HomeView from '@/views/HomeView'
+
+// accounts
+import SignupView from '@/views/accounts/SignupView'
+import LoginView from '@/views/accounts/LoginView'
+import SettingView from '@/views/accounts/SettingView'
+import SettingPasswordView from '@/views/accounts/SettingPasswordView'
+import ProfileView from '@/views/accounts/ProfileView'
+
+// movies
+import MovieView from '@/views/movies/MovieView'
+import MovieDetailView from '@/views/movies/MovieDetailView' 
 
 
 Vue.use(VueRouter)
