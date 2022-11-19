@@ -4,12 +4,12 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework import filters
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ('id', 'username')
 
 
