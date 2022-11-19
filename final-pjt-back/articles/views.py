@@ -3,15 +3,24 @@ from rest_framework import status
 from rest_framework.decorators import api_view, renderer_classes
 
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.contrib.auth import get_user_model
 
 from .serializers import ArticleSerializer, ArticleCommentSerializer
 from movies.models import Movie
 from .models import Article
-# Create your views here.
+
+
+@api_view(('GET',))
+def articles_list(request):
+    followings = request.user.followings.all()
+    articles = get_list_or_404(Article.objects.order_by('-created_at'), user__in=followings)
+    serializer = ArticleSerializer(articles, many=True)
+    return Response(serializer.data)
+
 
 @api_view(('POST',))
 def create(request, movie_pk):
-    movie = get_object_or_404(Movie,pk=movie_pk)
+    movie = get_object_or_404(Movie, pk=movie_pk)
     print(request.data)
     serializer = ArticleSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
