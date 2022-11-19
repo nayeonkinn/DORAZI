@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'accounts',
     'articles',
     'movies',
-    'moviecollections',
     
     # DRF
     'rest_framework',

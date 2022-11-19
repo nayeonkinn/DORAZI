@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import User
+from django.contrib.auth.models import User
 from articles.models import Article
 from movies.models import Movie
 
@@ -30,9 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     followers_count = serializers.IntegerField(source='followers.count', read_only=True)
-    # followers_list = UserSerializer(source='followers', many=True, read_only=True)
     followings_count = serializers.IntegerField(source='followings.count', read_only=True)
-    # followings_list = UserSerializer(source='followings', many=True, read_only=True)
     articles_count = serializers.IntegerField(source='article_set.count', read_only=True)
     articles_list = ArticleSerializer(source='article_set', many=True, read_only=True)
     wishes_count = serializers.IntegerField(source='wish_movies.count', read_only=True)

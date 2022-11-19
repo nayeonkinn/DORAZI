@@ -4,13 +4,22 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework import filters
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
 
 
 class ArticleSerializer(serializers.ModelSerializer):
+    user2 = UserSerializer(read_only=True, source='user')
+
     class Meta:
         model = Article
         fields = '__all__'
-        read_only_fields = ('user','movie','like_users')
+        read_only_fields = ('user', 'movie','like_users')
 
 
 class ArticleCommentSerializer(serializers.ModelSerializer):

@@ -12,7 +12,6 @@ class Movie(models.Model):
     overview = models.TextField()
     poster_path = models.TextField()
     backdrop_path = models.TextField()
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     wish_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='wish_movies')
 
     def __str__(self):
