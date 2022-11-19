@@ -8,5 +8,5 @@ urlpatterns = [
     path('<int:pk>/', views.detail, name='detail'),
     path('<int:pk>/like/', views.like, name='like'),
     path('<int:pk>/wish/', views.wish, name='wish'),
-    path('search/<str:keyword>/', views.search, name='search'),
+    path('search/', views.SearchView.as_view()),
 ]

@@ -100,17 +100,8 @@ def comment_like(request, article_pk, comment_pk):
 from rest_framework import generics
 from rest_framework import filters
 
-
-class Searchlist(generics.ListAPIView):
+class SearchView(generics.ListCreateAPIView):
+    search_fields = ['content']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-
-    def get_queryset(self):
-        """
-        Optionally restricts the returned purchases to a given user,
-        by filtering against a `username` query parameter in the URL.
-        """
-        queryset = Article.objects.all()
-        username = self.request.query_params.get('username', None)
-        if username is not None:
-            queryset = queryset.filter(purchaser__username=username)
-        return queryset

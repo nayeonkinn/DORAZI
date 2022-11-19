@@ -45,5 +45,11 @@ def wish(request, pk):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-def search(reqest, keyword):
-    pass
+from rest_framework import generics
+from rest_framework import filters
+
+class SearchView(generics.ListCreateAPIView):
+    search_fields = ['title','original_title','genre_ids']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
