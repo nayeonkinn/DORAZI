@@ -12,16 +12,28 @@ from .models import Article
 @api_view(('POST',))
 def create(request, movie_pk):
     movie = get_object_or_404(Movie,pk=movie_pk)
+    print(request.data)
     serializer = ArticleSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie, user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-@api_view(('GET',))
+@api_view(('GET','PUT','DELETE'))
 def detail(request, article_pk):
+    print(request.data)
     article = get_object_or_404(Article, pk=article_pk)
-    serializer = ArticleSerializer(article)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method == 'GET':
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ArticleSerializer(article, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    elif request.method == 'DELETE':
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(('POST',))
 def like(request, article_pk):

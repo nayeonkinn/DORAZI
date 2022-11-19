@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    create
-  </div>
+  <div class="d-block text-center">
+  creates
+    </div>
 </template>
 
 <script>
