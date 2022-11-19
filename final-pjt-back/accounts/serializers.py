@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from articles.models import Article
 from movies.models import Movie
 
@@ -24,7 +24,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ('id', 'username')
 
 
@@ -37,5 +37,5 @@ class ProfileSerializer(serializers.ModelSerializer):
     wishes_list = MovieSerializer(source='wish_movies', many=True, read_only=True)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ('id', 'followers_count', 'followers', 'followings_count', 'articles_count', 'articles_list', 'wishes_count', 'wishes_list')
