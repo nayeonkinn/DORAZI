@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ username }}'s Profile</h1>
+    <h1>{{ username }}</h1>
   </div>
 </template>
 
@@ -11,7 +11,9 @@ export default {
     username() {
       return this.$store.state.username
     }
-  }
+  },
+  methods: {
+  },
 }
 </script>
 
