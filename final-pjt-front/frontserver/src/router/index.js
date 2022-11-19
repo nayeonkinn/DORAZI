@@ -14,6 +14,9 @@ import ProfileView from '@/views/accounts/ProfileView'
 import MovieView from '@/views/movies/MovieView'
 import MovieDetailView from '@/views/movies/MovieDetailView' 
 
+// article
+import ArticleCreateView from '@/views/articles/ArticleCreateView'
+
 
 Vue.use(VueRouter)
 
@@ -57,6 +60,12 @@ const routes = [
     path: '/movies/:movie_pk',
     name: 'MovieDetailView',
     component: MovieDetailView
+  },
+  {
+    path: '/arcitle/create/:movie_pk',
+    name: 'ArticleCreateView',
+    component: ArticleCreateView
+
   }
 
 ]

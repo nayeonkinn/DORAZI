@@ -1,6 +1,6 @@
 <template>
   <div>
-    <moviedetail />
+    <moviedetail/>
   </div>
 </template>
 
