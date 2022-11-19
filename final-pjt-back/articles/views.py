@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view, renderer_classes
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import ArticleSerializer, ArticleCommentSerializer
-from .models import Article, ArticleComment
 from movies.models import Movie
+from .models import Article
 # Create your views here.
 
 @api_view(('POST',))
@@ -76,6 +76,20 @@ def comment_like(request, article_pk, comment_pk):
         serializer = ArticleCommentSerializer(comment)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-@api_view(('GET',))
-def search(request, keyword):
-    pass
+from rest_framework import generics
+from rest_framework import filters
+
+
+class Searchlist(generics.ListAPIView):
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = Article.objects.all()
+        username = self.request.query_params.get('username', None)
+        if username is not None:
+            queryset = queryset.filter(purchaser__username=username)
+        return queryset
