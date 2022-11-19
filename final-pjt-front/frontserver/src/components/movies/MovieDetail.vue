@@ -57,7 +57,7 @@
     </form>
   </div>
   <div class="cotainer">
-      <ArticleList v-for="article in articlelist" :key="article.id" :article="article" @update="detaildata"/>
+      <ArticleList v-for="article in articlelist.slice().reverse()" :key="article.id" :article="article" @update="detaildata"/>
   </div>
 
   </div>
