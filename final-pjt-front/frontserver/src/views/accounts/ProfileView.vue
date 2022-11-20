@@ -101,9 +101,9 @@ export default {
   created() {
     this.getProfile();
   },
-  updated() {
-    this.getProfile()
-  },
+  // updated() {
+  //   this.getProfile()
+  // },
 };
 </script>
 

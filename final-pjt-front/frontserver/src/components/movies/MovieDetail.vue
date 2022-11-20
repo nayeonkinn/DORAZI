@@ -11,15 +11,13 @@
     <div>{{ release_date }}</div>
     <div>{{ overview }}</div>
 
-    <!-- <div>
+    <div>
       <b-button id="show-btn" @click="showModal">Open Modal</b-button>
 
       <b-modal ref="my-modal" hide-footer title="Using Component Methods">
         <div class="d-block text-center">
           <h3>게시글 작성</h3>
           <form @submit.prevent="createArticle">
-            <label for="title">제목 : </label>
-            <input type="text" id="title" v-model.trim="articletitle" /><br />
             <label for="content">내용 : </label>
             <textarea
               id="content"
@@ -47,8 +45,8 @@
       </form>
     </div>
       </b-modal>
-    </div> -->
-    <div>
+    </div>
+    <!-- <div>
       <h3>게시글 작성</h3>
       <form @submit.prevent="createArticle">
         <label for="content">내용 : </label>
@@ -61,7 +59,7 @@
         ><br />
         <input type="submit" id="submit" />
       </form>
-    </div>
+    </div> -->
     <div class="cotainer">
       <ArticleList
         v-for="article in articlelist.slice().reverse()"
@@ -125,6 +123,7 @@ export default {
           console.log(res);
           this.articlecontent = null;
           this.detaildata();
+          this.hideModal()
         })
         .catch((err) => {
           console.log(err);

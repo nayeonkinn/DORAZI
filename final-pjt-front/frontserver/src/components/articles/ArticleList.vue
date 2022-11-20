@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3>{{ writer }}</h3>
+    <router-link :to="{ name: 'ProfileView', params: {'username': writer }}" >
+      <h3>{{ writer }}</h3>
+    </router-link>
     <h4>{{ content }}</h4>
     <div> {{ updatedate }}</div>
     <div> {{ likenum }}</div>
@@ -32,7 +34,7 @@ data() {
 },
 computed: {
     writer() {
-      return this.article.user },
+      return this.article.user.username },
     updatedate() {
       return this.article.updated_at.slice(0,10) },
     spoiler () {
