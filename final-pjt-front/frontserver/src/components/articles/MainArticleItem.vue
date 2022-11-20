@@ -14,16 +14,23 @@
     <button @click="like">{{ likeMsg }}</button>
     <button @click="likeDivToggle">좋아요 {{ likeCount }}</button>
     <button @click="commentDivToggle">댓글 {{ commentCount }}</button>
+
     <div v-if="likeDiv">
       <div v-for="user in likeUsers" :key="`user-${user.id}`">
         <p @click="goProfile(user.username)">{{ user.username }}</p>
       </div>
     </div>
+    
     <div v-if="commentDiv">
       <MainArticleCommentList
         v-for="comment in comments"
         :key="`comment-${comment.id}`"
         :comment="comment"
+        :articleId="article.id"
+      />
+      <MainArticleCommentForm
+        :articleId="article.id"
+        @create-comment="createComment"
       />
     </div>
     <hr />
@@ -35,6 +42,7 @@ import axios from "axios";
 import moment from "moment";
 
 import MainArticleCommentList from "@/components/articles/MainArticleCommentList";
+import MainArticleCommentForm from "@/components/articles/MainArticleCommentForm";
 
 const API_URL = "http://127.0.0.1:8000";
 
@@ -42,6 +50,7 @@ export default {
   name: "MainArticleItem",
   components: {
     MainArticleCommentList,
+    MainArticleCommentForm,
   },
   props: {
     article: Object,
@@ -52,7 +61,7 @@ export default {
       likeCount: null,
       likeDiv: false,
       likeUsers: null,
-      commentDiv: false,
+      commentDiv: true, ///////////////////////////
       commentCount: null,
       comments: null,
     };
@@ -123,6 +132,9 @@ export default {
         },
       });
     },
+    createComment(comment) {
+      this.comments.push(comment)
+    }
   },
   created() {
     this.setLikeData(this.article);

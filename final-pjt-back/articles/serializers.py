@@ -30,7 +30,7 @@ class ChildCommentSerializer(serializers.ModelSerializer):
 
 class ArticleCommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    child_comment = ChildCommentSerializer(many=True)
+    child_comment = ChildCommentSerializer(many=True, read_only=True)
     
     class Meta:
         model = ArticleComment

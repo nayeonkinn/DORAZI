@@ -75,6 +75,7 @@ def comment_create(request, article_pk):
         serializer.save(article=article, user_id=request.user.id)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
 @api_view(('POST',))
 def child_comment_create(request, article_pk, comment_pk):
     article = get_object_or_404(Article, pk=article_pk)
