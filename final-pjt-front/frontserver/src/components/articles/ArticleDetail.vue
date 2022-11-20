@@ -1,84 +1,148 @@
 <template>
-  
+  <div>
+ <img
+      :src="poster_path"
+      alt="poster_img"
+      style="width: 200px; height: 300px"
+    />
+    <h3 @click="goProfile(article.user.username)">
+      {{ article.user.username }}
+    </h3>
+    <p>{{ article_created_at }}</p>
+    <p>{{ article.rating }}</p>
+    <p>{{ article.content }}</p>
+    <button @click="like">{{ likeMsg }}</button>
+    <button @click="likeDivToggle">좋아요 {{ likeCount }}</button>
+    <button @click="commentDivToggle">댓글 {{ commentCount }}</button>
+
+    <div v-if="likeDiv">
+      <div v-for="user in likeUsers" :key="`user-${user.id}`">
+        <p @click="goProfile(user.username)">{{ user.username }}</p>
+      </div>
+    </div>
+    
+    <div v-if="commentDiv">
+      <MainArticleCommentList
+        v-for="comment in comments"
+        :key="`comment-${comment.id}`"
+        :comment="comment"
+        :articleId="article.id"
+      />
+      <MainArticleCommentForm
+        :articleId="article.id"
+        @create-comment="createComment"
+      />
+    </div>
+    <hr />
+  </div>
 </template>
 
 <script>
 import axios from "axios";
+import moment from "moment";
+
+import MainArticleCommentList from "@/components/articles/MainArticleCommentList";
+import MainArticleCommentForm from "@/components/articles/MainArticleCommentForm";
+
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "ArticleDetail",
-
+  components: {
+    MainArticleCommentList,
+    MainArticleCommentForm,
+  },
+  props: {
+    article: Object,
+  },
   data() {
     return {
-      articleinfo: null,
-      poster: null,
-      movietitle: null,
-      user: null,
-      updatedate : null,
-      
+      isLiked: null,
+      likeCount: null,
+      likeDiv: false,
+      likeUsers: null,
+      commentDiv: true, ///////////////////////////
+      commentCount: null,
+      comments: null,
     };
   },
+  computed: {
+    token() {
+      return this.$store.state.token;
+    },
+    userId() {
+      return this.$store.state.userId;
+    },
+    article_created_at() {
+      return moment(String(this.article.created_at)).format("YYYY-MM-DD HH:mm");
+    },
+    poster_path() {
+      return (
+        "https://image.tmdb.org/t/p/original/" + this.article.movie.poster_path
+      );
+    },
+    likeMsg() {
+      return this.isLiked ? "♥" : "♡";
+    },
+  },
   methods: {
-    showModal() {
-      this.$refs["my-modal"].show();
+    setLikeData(article) {
+      const likeUsers = article.like_users;
+      this.isLiked = likeUsers.some((user) => user.id === this.userId);
+      this.likeCount = likeUsers.length;
+      this.likeUsers = article.like_users;
     },
-    hideModal() {
-      this.$refs["my-modal"].hide();
+    setCommentsData(article) {
+      this.comments = article.articlecomment_set;
+      this.commentCount = article.articlecomment_set.length;
     },
-    createComment() {
-      const content = this.articlecontent;
-      if (!content) {
-        alert("내용을 입력해주세요");
-        return;
-      }
+    like() {
       axios({
-        method: "POST",
-        url: `${API_URL}/articles/create/${this.movieinfo.id}/`,
-        data: {
-          content: content,
-          spoiler: false,
-        },
+        method: "post",
+        url: `${API_URL}/articles/${this.article.id}/like/`,
         headers: {
-          Authorization: `Token ${this.$store.state.token}`,
+          Authorization: `Token ${this.token}`,
         },
       })
-        .then((res) => {
-          console.log(res);
-          this.articlecontent = null;
-          this.detaildata()
-
+        .then((response) => {
+          // console.log(response)
+          this.setLikeData(response.data);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log(error);
         });
     },
-    detaildata() {
-      const article_pk = this.$route.params.article_pk;
-    axios({
-      method: "get",
-      url: `${API_URL}/articles/${article_pk}/`,
-      data: {},
-    })
-      .then((res) => {
-        console.log(res);
-        this.articleinfo = res.data;
-        this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
-        this.backdrop = this.movieinfo.backdrop_path;
-        this.movietitle = this.movieinfo.title;
-        this.overview = this.movieinfo.overview;
-        this.release_date = this.movieinfo.release_date.slice(0, 4);
-        this.articlelist = this.movieinfo.articles_list
-      })
-      .catch((err) => {
-        console.log(err);
+    likeDivToggle() {
+      if (this.commentDiv) {
+        this.commentDiv = !this.commentDiv;
+      }
+      this.likeDiv = !this.likeDiv;
+    },
+    commentDivToggle() {
+      if (this.likeDiv) {
+        this.likeDiv = !this.likeDiv;
+      }
+      this.commentDiv = !this.commentDiv;
+    },
+    goProfile(username) {
+      this.$router.push({
+        name: "ProfileView",
+        params: {
+          username: username,
+        },
       });
-    }
+    },
+    createComment(comment) {
+      this.comments.push(comment)
+    },
   },
   created() {
-    this.detaildata()
+    this.setLikeData(this.article);
+    this.setCommentsData(this.article);
   },
 };
+
+
 </script>
 
 

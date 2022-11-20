@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <router-link class="navbar-brand" :to="{ name:'MainView' }" >Console.log</router-link>
+    <router-link class="navbar-brand" :to="{ name:'MainView' }" >Cinema.log</router-link>
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> -->
@@ -28,7 +28,7 @@
         <router-link class="nav-link active" :to="{ name: 'SearchView', params: { q: search}}"> 
         </router-link>
         <form class="container d-flex" @submit.prevent="search">
-            <input class="form-control me-2" placeholder="Search" aria-label="Search" name="q" v-model="q">
+            <input class="form-control me-2" placeholder="Search" v-model="q">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>
@@ -60,7 +60,9 @@ export default {
     },
     search() {
       console.log(this.q)
-      this.$router.push({ name: 'SearchView' , params: { 'q': this.q } })
+      this.$store.commit('SEARCH', this.q)
+      this.$router.push({ name: 'SearchView' , params: { "q": this.q}})
+      this.$router.go()
     }
   }
 }

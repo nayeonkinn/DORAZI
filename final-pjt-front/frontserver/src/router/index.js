@@ -10,6 +10,7 @@ import ProfileView from '@/views/accounts/ProfileView'
 
 // article
 import MainView from '@/views/articles/MainView'
+import ArticleDetailView from '@/views/articles/ArticleDetailView'
 
 // movies
 import MovieView from '@/views/movies/MovieView'
@@ -65,7 +66,13 @@ const routes = [
     path: '/search/:q',
     name: 'SearchView',
     component: SearchView
+  },
+  {
+    path: '/articles/:article_id/',
+    name: 'ArticleDetailView',
+    component: ArticleDetailView
   }
+
 ]
 
 const router = new VueRouter({

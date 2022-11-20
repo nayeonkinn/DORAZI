@@ -15,6 +15,7 @@ export default new Vuex.Store({
     token: null,
     userId: null,
     username: null,
+    search:null,
   },
   getters: {
     isLogin(state) {
@@ -32,6 +33,10 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.token = null
       localStorage.removeItem('token')
+    },
+    SEARCH(state, q) {
+      state.search = null
+      state.search = q
     }
   },
   actions: {
@@ -114,7 +119,7 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
-    }
+    },
   },
   modules: {
   }
