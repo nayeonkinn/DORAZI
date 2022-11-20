@@ -75,6 +75,20 @@ def comment_create(request, article_pk):
         serializer.save(article=article, user_id=request.user.id)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(('POST',))
+def child_comment_create(request, article_pk, comment_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    comment = get_object_or_404(ArticleComment, pk=comment_pk)
+    mention_to = None
+    if comment.parent_comment:
+        comment = comment.parent_comment
+        mention_to = comment.user.username
+    serializer = ArticleCommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(article=article, user_id=request.user.id, parent_comment=comment, mention_to=mention_to)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 
 @api_view(('GET','PUT','DELETE'))
 def comment_detail(request, article_pk, comment_pk):

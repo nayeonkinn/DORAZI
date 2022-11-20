@@ -5,7 +5,9 @@
       alt="poster_img"
       style="width: 200px; height: 300px"
     />
-    <h3>{{ article.user.username }}</h3>
+    <h3 @click="goProfile(article.user.username)">
+      {{ article.user.username }}
+    </h3>
     <p>{{ article_created_at }}</p>
     <p>{{ article.rating }}</p>
     <p>{{ article.content }}</p>
@@ -14,16 +16,15 @@
     <button @click="commentDivToggle">댓글 {{ commentCount }}</button>
     <div v-if="likeDiv">
       <div v-for="user in likeUsers" :key="`user-${user.id}`">
-        <p>{{ user.username }}</p>
+        <p @click="goProfile(user.username)">{{ user.username }}</p>
       </div>
     </div>
     <div v-if="commentDiv">
-      <div v-for="comment in comments" :key="`comment-${comment.id}`">
-        <p v-if="!comment.parent_comment">
-          {{ comment.user.username }} - {{ comment.content }}
-					<button @click="likeComment(comment.id)">{{ commentMsg(comment) }} {{ comment.like_users.length }}</button>
-        </p>
-      </div>
+      <MainArticleCommentList
+        v-for="comment in comments"
+        :key="`comment-${comment.id}`"
+        :comment="comment"
+      />
     </div>
     <hr />
   </div>
@@ -33,10 +34,15 @@
 import axios from "axios";
 import moment from "moment";
 
+import MainArticleCommentList from "@/components/articles/MainArticleCommentList";
+
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "MainArticleItem",
+  components: {
+    MainArticleCommentList,
+  },
   props: {
     article: Object,
   },
@@ -78,7 +84,7 @@ export default {
       this.likeUsers = article.like_users;
     },
     setCommentsData(article) {
-			this.comments = article.articlecomment_set;
+      this.comments = article.articlecomment_set;
       this.commentCount = article.articlecomment_set.length;
     },
     like() {
@@ -96,37 +102,27 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-			},
-			likeComment(commentId) {
-				axios({
-					method: "post",
-					url: `${API_URL}/articles/${this.article.id}/comment/${commentId}/like/`,
-					headers: {
-						Authorization: `Token ${this.token}`,
-					},
-				})
-					.then((response) => {
-						// console.log(response)
-						this.comments.forEach((comment) => {
-							if (comment.id === commentId) {
-								const index = this.comments.indexOf(comment)
-								this.comments.splice(index, 1, response.data)
-							}
-						});
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-		},
+    },
     likeDivToggle() {
+      if (this.commentDiv) {
+        this.commentDiv = !this.commentDiv;
+      }
       this.likeDiv = !this.likeDiv;
     },
     commentDivToggle() {
+      if (this.likeDiv) {
+        this.likeDiv = !this.likeDiv;
+      }
       this.commentDiv = !this.commentDiv;
     },
-		commentMsg(comment) {
-			return comment.like_users.includes(this.userId)? "♥" : "♡";
-		}
+    goProfile(username) {
+      this.$router.push({
+        name: "ProfileView",
+        params: {
+          username: username,
+        },
+      });
+    },
   },
   created() {
     this.setLikeData(this.article);

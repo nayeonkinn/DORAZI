@@ -23,7 +23,8 @@ class ArticleComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_article_comments', blank=True)
-    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='child_comment')
+    mention_to = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return self.content

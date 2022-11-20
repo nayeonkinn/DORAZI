@@ -22,8 +22,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username')
 
 
+class ChildCommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = ArticleComment
+        fields = '__all__'
+
 class ArticleCommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    child_comment = ChildCommentSerializer(many=True)
+    
     class Meta:
         model = ArticleComment
         fields = '__all__'
