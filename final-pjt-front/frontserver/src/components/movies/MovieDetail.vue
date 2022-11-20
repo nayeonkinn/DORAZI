@@ -49,29 +49,39 @@
       </b-modal>
     </div> -->
     <div>
-    <h3>게시글 작성</h3>
-    <form @submit.prevent="createArticle">
-      <label for="content">내용 : </label>
-      <textarea id="content" cols="30" rows="10" v-model="articlecontent"></textarea><br>
-      <input type="submit" id="submit">
-    </form>
-  </div>
-  <div class="cotainer">
-      <ArticleList v-for="article in articlelist.slice().reverse()" :key="article.id" :article="article" @update="detaildata"/>
-  </div>
-
+      <h3>게시글 작성</h3>
+      <form @submit.prevent="createArticle">
+        <label for="content">내용 : </label>
+        <textarea
+          id="content"
+          cols="30"
+          rows="10"
+          v-model="articlecontent"
+        ></textarea
+        ><br />
+        <input type="submit" id="submit" />
+      </form>
+    </div>
+    <div class="cotainer">
+      <ArticleList
+        v-for="article in articlelist.slice().reverse()"
+        :key="article.id"
+        :article="article"
+        @update="detaildata"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
-import  ArticleList from '@/components/articles/ArticleList'
+import ArticleList from "@/components/articles/ArticleList";
 
 export default {
   name: "MovieDetail",
   components: {
-    ArticleList
+    ArticleList,
   },
   data() {
     return {
@@ -83,7 +93,7 @@ export default {
       release_date: null,
       articletitle: null,
       articlecontent: null,
-      articlelist: []
+      articlelist: [],
     };
   },
   methods: {
@@ -105,6 +115,7 @@ export default {
         data: {
           content: content,
           spoiler: false,
+          rating: 5
         },
         headers: {
           Authorization: `Token ${this.$store.state.token}`,
@@ -113,8 +124,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.articlecontent = null;
-          this.detaildata()
-
+          this.detaildata();
         })
         .catch((err) => {
           console.log(err);
@@ -122,28 +132,28 @@ export default {
     },
     detaildata() {
       const movie_pk = this.$route.params.movie_pk;
-    axios({
-      method: "get",
-      url: `${API_URL}/movies/${movie_pk}/`,
-      data: {},
-    })
-      .then((res) => {
-        console.log(res);
-        this.movieinfo = res.data;
-        this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
-        this.backdrop = this.movieinfo.backdrop_path;
-        this.movietitle = this.movieinfo.title;
-        this.overview = this.movieinfo.overview;
-        this.release_date = this.movieinfo.release_date.slice(0, 4);
-        this.articlelist = this.movieinfo.articles_list
+      axios({
+        method: "get",
+        url: `${API_URL}/movies/${movie_pk}/`,
+        data: {},
       })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
+        .then((res) => {
+          console.log(res);
+          this.movieinfo = res.data;
+          this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
+          this.backdrop = this.movieinfo.backdrop_path;
+          this.movietitle = this.movieinfo.title;
+          this.overview = this.movieinfo.overview;
+          this.release_date = this.movieinfo.release_date.slice(0, 4);
+          this.articlelist = this.movieinfo.articles_list;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
-    this.detaildata()
+    this.detaildata();
   },
 };
 </script>

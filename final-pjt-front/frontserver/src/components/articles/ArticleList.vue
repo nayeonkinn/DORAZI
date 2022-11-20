@@ -63,6 +63,7 @@ computed: {
           title: title,
           content: content,
           spoiler: false,
+          rating: 5,
         },
         headers: {
           Authorization: `Token ${this.$store.state.token}`,

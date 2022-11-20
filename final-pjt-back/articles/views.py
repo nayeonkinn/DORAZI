@@ -92,7 +92,7 @@ from rest_framework import generics
 from rest_framework import filters
 
 class SearchView(generics.ListCreateAPIView):
-    search_fields = ['content']
+    search_fields = ['content',]
     filter_backends = (filters.SearchFilter,)
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
