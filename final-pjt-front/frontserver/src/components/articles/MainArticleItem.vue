@@ -11,6 +11,7 @@
     <p>{{ article_created_at }}</p>
     <p>{{ article.rating }}</p>
     <p>{{ article.content }}</p>
+
     <button @click="like">{{ likeMsg }}</button>
     <button @click="likeDivToggle">좋아요 {{ likeCount }}</button>
     <button @click="commentDivToggle">댓글 {{ commentCount }}</button>
@@ -20,15 +21,22 @@
         <p @click="goProfile(user.username)">{{ user.username }}</p>
       </div>
     </div>
-    
+
     <div v-if="commentDiv">
-      <MainArticleCommentList
+      <MainCommentList
         v-for="comment in comments"
         :key="`comment-${comment.id}`"
         :comment="comment"
         :articleId="article.id"
+        @like-comment="likeComment"
+        @update-comment="updateComment"
+        @delete-comment="deleteComment"
+        @like-child-comment="likeChildComment"
+        @create-child-comment="createChildComment"
+        @create-child-child-comment="createChildChildComment"
+        @delete-child-comment="deleteChildComment"
       />
-      <MainArticleCommentForm
+      <MainCommentForm
         :articleId="article.id"
         @create-comment="createComment"
       />
@@ -41,16 +49,16 @@
 import axios from "axios";
 import moment from "moment";
 
-import MainArticleCommentList from "@/components/articles/MainArticleCommentList";
-import MainArticleCommentForm from "@/components/articles/MainArticleCommentForm";
+import MainCommentList from "@/components/articles/MainCommentList";
+import MainCommentForm from "@/components/articles/MainCommentForm";
 
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "MainArticleItem",
   components: {
-    MainArticleCommentList,
-    MainArticleCommentForm,
+    MainCommentList,
+    MainCommentForm,
   },
   props: {
     article: Object,
@@ -62,7 +70,6 @@ export default {
       likeDiv: false,
       likeUsers: null,
       commentDiv: true, ///////////////////////////
-      commentCount: null,
       comments: null,
     };
   },
@@ -84,6 +91,9 @@ export default {
     likeMsg() {
       return this.isLiked ? "♥" : "♡";
     },
+    commentCount() {
+      return this.comments.length;
+    },
   },
   methods: {
     setLikeData(article) {
@@ -91,10 +101,6 @@ export default {
       this.isLiked = likeUsers.some((user) => user.id === this.userId);
       this.likeCount = likeUsers.length;
       this.likeUsers = article.like_users;
-    },
-    setCommentsData(article) {
-      this.comments = article.articlecomment_set;
-      this.commentCount = article.articlecomment_set.length;
     },
     like() {
       axios({
@@ -133,12 +139,81 @@ export default {
       });
     },
     createComment(comment) {
-      this.comments.push(comment)
-    }
+      this.comments.push(comment);
+    },
+    updateComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          return commentData;
+        } else {
+          return comment;
+        }
+      });
+    },
+    likeComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          return commentData;
+        } else {
+          return comment;
+        }
+      });
+    },
+    deleteComment(commentId) {
+      this.comments = this.comments.filter((comment) => {
+        return comment.id != commentId;
+      });
+    },
+    likeChildComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          const newComment = comment;
+          newComment.child_comment = commentData;
+          return newComment;
+        } else {
+          return comment;
+        }
+      })
+    },
+    createChildChildComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          const newComment = comment;
+          newComment.child_comment = commentData;
+          return newComment;
+        } else {
+          return comment;
+        }
+      });
+      this.comments.push(commentData)
+    },
+    deleteChildComment(commentId, commentData, childId) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          const newComment = comment;
+          newComment.child_comment = commentData;
+          return newComment;
+        } else {
+          return comment;
+        }
+      })
+      this.comments = this.comments.filter((comment) => {
+        return comment.id !== childId;
+      })
+
+    },
+    createChildComment(commentId, commentData) {
+      this.comments.forEach((comment) => {
+        if (comment.id === commentId) {
+          comment.child_comment.push(commentData);
+        }
+      });
+      this.comments.push(commentData)
+    },
   },
   created() {
     this.setLikeData(this.article);
-    this.setCommentsData(this.article);
+    this.comments = this.article.articlecomment_set;
   },
 };
 </script>
