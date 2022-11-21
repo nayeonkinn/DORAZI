@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{ name: 'ProfileView', params: { username: writer } }">
+    <router-link :to="{ name: 'ProfileView', params: { 'username': writer } }">
       <h3>{{ writer }}</h3>
     </router-link>
     <h4>{{ content }}</h4>
