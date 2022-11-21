@@ -20,18 +20,19 @@
       </div>
       <div class="basic-info">
         <div class="title">{{ movietitle }}</div>
+        <b-button variant="light" @click="wishtoggle"> {{ wishMsg }}  </b-button>
         <div class="info-summary">
           <div class="story-summar">
             {{ overview }}
           </div>
-          <button> 더보기 </button>
+          <b-button class="button"> 더보기 </b-button>
         </div>
 
       </div>
     </div>
   </div>
     <div>
-      <b-button id="show-btn" @click="showModal">Open Modal</b-button>
+      <b-button variant="light" id="show-btn" @click="showModal">Open Modal</b-button>
 
       <b-modal ref="my-modal" hide-footer title="Using Component Methods">
         <div class="d-block text-center">
@@ -131,9 +132,34 @@ export default {
       articlelist: [],
       ratings : 0,
       spoiler : false,
+      iswished: null,
     };
   },
+  computed: {
+    wishMsg() {
+      return this.iswished?"♥":"♡";
+    },
+    userId() {
+      return this.$store.state.userId;
+    }
+  },
   methods: {
+    wishtoggle() { 
+      axios({
+        method: "post",
+        url: `${API_URL}/movies/${this.movieinfo.id}/wish/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res.data.wish_users)
+          this.iswished = !this.iswished;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     getActiveStar(index) {
       this.score = index + 1;
     },
@@ -181,12 +207,14 @@ export default {
         .then((res) => {
           console.log(res);
           this.movieinfo = res.data;
+          const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
           this.backdrop = this.movieinfo.backdrop_path;
           this.movietitle = this.movieinfo.title;
           this.overview = this.movieinfo.overview;
           this.release_date = this.movieinfo.release_date.slice(0, 4);
           this.articlelist = this.movieinfo.articles_list;
+          this.iswished = wishUsers.some((user) => user.id === this.userId);
         })
         .catch((err) => {
           console.log(err);
@@ -204,6 +232,12 @@ export default {
 </script>
 
 <style >
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent; 
+}
 .poster {
   width: 15%;
   height: 15%;
