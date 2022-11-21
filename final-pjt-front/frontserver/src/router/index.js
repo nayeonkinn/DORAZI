@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import store from '@/store/index'
+import store from '@/store/index.js'
 
 // accounts
 import SignupView from '@/views/accounts/SignupView'
@@ -23,6 +23,7 @@ import SearchView from '@/views/search/SearchView'
 
 Vue.use(VueRouter)
 
+
 const routes = [
   {
     path: '/',
@@ -38,6 +39,15 @@ const routes = [
     path: '/accounts/login/',
     name: 'LoginView',
     component: LoginView,
+    beforeEnter(to, from, next) {
+      // console.log('beforeEnter: ', from.name, ' -> ', to.name)
+      // console.log('isLoggedIn: ', store.getters.isLogin)
+      if (store.getters.isLogin) {
+        next({ name: 'MainView' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/accounts/setting',
@@ -83,16 +93,18 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const authPages = ['MainView']
-//   const isLoggedIn = store.getters.isLogin
-//   const isAuthRequired = authPages.includes(to.name)
-
-//   if (isAuthRequired && !isLoggedIn) {
-//     next({ name: 'LoginView' })
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.getters.isLogin
+  const authPages = ['MainView']
+  const isAuthRequired = authPages.includes(to.name)
+  
+  // console.log('beforeEach: ', from.name, ' -> ', to.name)
+  // console.log('loginRequired: ', isAuthRequired, ' isLoggedIn: ', isLoggedIn)
+  if (isAuthRequired && !isLoggedIn) {
+    next({ name: 'LoginView' })
+  } else if (to != from) {
+    next()
+  }
+})
 
 export default router

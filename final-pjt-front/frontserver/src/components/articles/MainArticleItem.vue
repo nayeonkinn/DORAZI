@@ -212,7 +212,7 @@ export default {
     },
   },
   created() {
-    console.log(this.article)
+    // console.log(this.article)
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
   },
