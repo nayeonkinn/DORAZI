@@ -97,6 +97,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+OLD_PASSWORD_FIELD_ENABLED = True
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
 ]
