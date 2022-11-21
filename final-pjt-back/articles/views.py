@@ -25,7 +25,7 @@ def articles_list(request):
 @api_view(('POST',))
 def create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    print(request.data)
+    # print(request.data)
     serializer = ArticleSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie, user=request.user)

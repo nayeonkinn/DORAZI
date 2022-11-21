@@ -1,25 +1,28 @@
 <template>
   <div>
+    <MainArticleForm @create-article="createArticle" />
     <MainArticleItem
-			v-for="article in articles"
-			:key="`article-${article.id}`"
-			:article="article"
+      v-for="article in articles"
+      :key="`article-${article.id}`"
+      :article="article"
       @delete-article="deleteArticle"
-		/>
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import MainArticleItem from "@/components/articles/MainArticleItem"
+import MainArticleForm from "@/components/articles/MainArticleForm";
+import MainArticleItem from "@/components/articles/MainArticleItem";
 
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "MainArticleList",
-	components: {
-		MainArticleItem,
-	},
+  components: {
+    MainArticleForm,
+    MainArticleItem,
+  },
   data() {
     return {
       articles: null,
@@ -48,11 +51,16 @@ export default {
         });
     },
     deleteArticle(articleId) {
-      let index
+      let index;
       this.articles.forEach((article, idx) => {
-        if (article.id === articleId) {index = idx}
-      })
+        if (article.id === articleId) {
+          index = idx;
+        }
+      });
       this.articles.splice(index, 1);
+    },
+    createArticle(article) {
+      this.articles.unshift(article);
     }
   },
   created() {

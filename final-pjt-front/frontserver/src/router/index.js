@@ -1,11 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// <<<<<<< HEAD
-import store from '@/store/index'
-// =======
-// import store from '@/store/index.js'
-// >>>>>>> e7c2437f31ee5ddb75c480f26768dab9accbcd70
+import store from '@/store/index.js'
 
 // accounts
 import SignupView from '@/views/accounts/SignupView'
