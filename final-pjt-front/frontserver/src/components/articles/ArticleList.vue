@@ -11,9 +11,9 @@
       <button @click="Delete">삭제하기</button>
       <b-button id="show-btn" @click="showModal"> 수정하기 </b-button>
     </div>
-    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
+    <b-modal ref="my-modal" hide-footer title="게시물 수정">
       <div class="d-block text-center">
-        <h3>게시글 작성</h3>
+        <h3>게시글 수정</h3>
         <form @submit.prevent="sending">
           <label for="content">내용 : </label>
           <textarea
