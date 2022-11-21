@@ -8,6 +8,7 @@ import SignupView from '@/views/accounts/SignupView'
 import LoginView from '@/views/accounts/LoginView'
 import SettingView from '@/views/accounts/SettingView'
 import SettingPasswordView from '@/views/accounts/SettingPasswordView'
+import SettingDeleteView from '@/views/accounts/SettingDeleteView'
 import ProfileView from '@/views/accounts/ProfileView'
 
 // article
@@ -58,6 +59,11 @@ const routes = [
     path: '/accounts/setting/password',
     name: 'SettingPasswordView',
     component: SettingPasswordView
+  },
+  {
+    path: '/accounts/setting/delete',
+    name: 'SettingDeleteView',
+    component: SettingDeleteView
   },
   {
     path: '/accounts/profile/:username/',

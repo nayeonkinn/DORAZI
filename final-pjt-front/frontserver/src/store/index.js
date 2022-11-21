@@ -15,7 +15,7 @@ export default new Vuex.Store({
     token: null,
     userId: null,
     username: null,
-    search:null,
+    search: null,
     articledetail: null,
   },
   getters: {
@@ -31,8 +31,10 @@ export default new Vuex.Store({
       state.userId = userData.pk
       state.username = userData.username
     },
-    LOGOUT(state) {
+    DELETE_USER_INFO(state) {
       state.token = null
+      state.userId = null
+      state.username = null
       localStorage.removeItem('token')
     },
     SEARCH(state, q) {
@@ -101,29 +103,44 @@ export default new Vuex.Store({
         url: `${API_URL}/accounts/logout/`,
       })
         .then(() => {
-          context.commit('LOGOUT')
+          context.commit('DELETE_USER_INFO')
         })
         .catch((error) => {
           console.log(error)
         })
-    },
-    changePassword(context, payload) {
-      axios({
-        method: 'post',
-        url: `${API_URL}/accounts/password/change/`,
-        data: {
-          new_password1: payload.new_password1,
-          new_password2: payload.new_password2,
-          old_password: payload.old_password,
-        },
-        headers: {
-          Authorization: `Token ${this.state.token}`
-        }
-      })
+      },
+      changePassword(context, payload) {
+        axios({
+          method: 'post',
+          url: `${API_URL}/accounts/password/change/`,
+          data: {
+            new_password1: payload.new_password1,
+            new_password2: payload.new_password2,
+            old_password: payload.old_password,
+          },
+          headers: {
+            Authorization: `Token ${this.state.token}`
+          }
+        })
         .catch((error) => {
           console.log(error)
         })
-    },
+      },
+      deleteAccount(context) {
+        axios({
+          method: 'delete',
+          url: `${API_URL}/profile/delete/`,
+          headers: {
+            Authorization: `Token ${this.state.token}`
+          }
+        })
+        .then(() => {
+          context.commit('DELETE_USER_INFO')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   },
   modules: {
   }
