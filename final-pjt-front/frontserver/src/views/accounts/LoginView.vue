@@ -24,22 +24,22 @@ export default {
   },
   methods: {
     login() {
-      const username = this.username
-      const password = this.password
-
-      if (!username) {
+      if (!this.username) {
         alert('아이디를 입력해 주세요.')
         return
-      } else if (!password) {
+      } else if (!this.password) {
         alert('비밀번호를 입력해 주세요.')
         return
       }
 
       const payload = {
-        username: username,
-        password: password,
+        username: this.username,
+        password: this.password,
       }
       this.$store.dispatch('login', payload)
+      this.username = null
+      this.password = null
+      
       this.$router.push({ name: 'MainView'}).catch(() => {})
       // console.log(this.$store.getters.isLogin)
     }
