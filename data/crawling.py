@@ -63,7 +63,7 @@ for idx, short_url in enumerate(url_list):
                         "overview": json_object.get("overview"),
                         "poster_path": json_object.get("poster_path"),
                         "backdrop_path": json_object.get("backdrop_path"),
-                        # "vote_average": json_object.get("vote_average"),
+                        "vote_average": json_object.get("vote_average"),
                         # "vote_count": json_object.get("vote_count"),
                     }  
                 }

@@ -4,7 +4,6 @@ from articles.models import Article
 from django.contrib.auth import get_user_model
 from articles.serializers import ArticleSerializer
 
-
 # class UserSerializer(serializers.ModelSerializer):
 
 #     class Meta:
@@ -34,7 +33,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class MovieSerializer(serializers.ModelSerializer):
     articles_list = ArticleSerializer(source='article_set', many=True, read_only=True)
-
+    our_ratings = ArticleSerializer(source='rating|average', read_only=True)
     class Meta:
         model = Movie
         fields = '__all__'

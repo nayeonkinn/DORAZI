@@ -41,8 +41,8 @@
 import axios from "axios";
 import moment from "moment";
 
-import MainArticleCommentList from "@/components/articles/MainArticleCommentList";
-import MainArticleCommentForm from "@/components/articles/MainArticleCommentForm";
+import MainArticleCommentList from "@/components/articles/MainCommentList";
+import MainArticleCommentForm from "@/components/articles/MainCommentForm";
 
 const API_URL = "http://127.0.0.1:8000";
 

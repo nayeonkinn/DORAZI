@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-
 class Movie(models.Model):
     movie_code = models.IntegerField()
     title = models.CharField(max_length=50)
@@ -13,6 +12,7 @@ class Movie(models.Model):
     poster_path = models.TextField()
     backdrop_path = models.TextField()
     wish_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='wish_movies')
+    vote_average = models.FloatField(null=True)
 
     def __str__(self):
         return self.title
