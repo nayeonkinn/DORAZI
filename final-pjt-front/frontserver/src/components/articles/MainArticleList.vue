@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainArticleForm @create-article="createArticle" />
+    <MainArticleForm v-if="formOn" @create-article="createArticle" />
     <MainArticleItem
       v-for="article in articles"
       :key="`article-${article.id}`"
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       articles: null,
+      formOn: true,
     };
   },
   computed: {
@@ -50,6 +51,7 @@ export default {
           console.error(error);
           if (!this.articles) {
             this.$emit('no-articles')
+            this.formOn = false
           }
         });
     },
