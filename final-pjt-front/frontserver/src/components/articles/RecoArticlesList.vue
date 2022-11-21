@@ -1,27 +1,24 @@
 <template>
   <div>
-    <MainArticleForm @create-article="createArticle" />
-    <MainArticleItem
+    <h3>RECOMMEND POPULAR ARTICLES</h3>
+    <RecoArticlesItem
       v-for="article in articles"
       :key="`article-${article.id}`"
       :article="article"
-      @delete-article="deleteArticle"
-    />
+    ></RecoArticlesItem>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import MainArticleForm from "@/components/articles/MainArticleForm";
-import MainArticleItem from "@/components/articles/MainArticleItem";
+import RecoArticlesItem from "@/components/articles/RecoArticlesItem";
 
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
-  name: "MainArticleList",
+  name: 'RecoArticlesList',
   components: {
-    MainArticleForm,
-    MainArticleItem,
+    RecoArticlesItem,
   },
   data() {
     return {
@@ -37,7 +34,7 @@ export default {
     getArticles() {
       axios({
         method: "get",
-        url: `${API_URL}/articles/`,
+        url: `${API_URL}/articles/recommend/articles/`,
         headers: {
           Authorization: `Token ${this.token}`,
         },
@@ -48,29 +45,15 @@ export default {
         })
         .catch((error) => {
           console.error(error);
-          if (!this.articles) {
-            this.$emit('no-articles')
-          }
         });
     },
-    deleteArticle(articleId) {
-      let index;
-      this.articles.forEach((article, idx) => {
-        if (article.id === articleId) {
-          index = idx;
-        }
-      });
-      this.articles.splice(index, 1);
-    },
-    createArticle(article) {
-      this.articles.unshift(article);
-    }
   },
   created() {
     this.getArticles();
   },
-};
+}
 </script>
 
 <style>
+
 </style>

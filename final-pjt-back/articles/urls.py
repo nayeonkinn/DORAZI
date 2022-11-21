@@ -14,4 +14,6 @@ urlpatterns = [
     path('<int:article_pk>/comment/<int:comment_pk>/', views.comment_detail, name='comment_detail'),
     path('<int:article_pk>/comment/<int:comment_pk>/like/', views.comment_like, name='comment_like'),
     path('search/',views.SearchView.as_view()),
+    path('recommend/friends/', views.recommend_friends, name='recommend_friends'),
+    path('recommend/articles/', views.recommend_articles, name='recommend_articles'),
 ]

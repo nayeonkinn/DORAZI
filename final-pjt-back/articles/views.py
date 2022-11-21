@@ -1,14 +1,17 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
+from rest_framework.permissions import IsAuthenticated
+from django.db.models import Count
 
-from .serializers import ArticleSerializer, ArticleCommentSerializer
-from movies.models import Movie
+from .serializers import ArticleSerializer, ArticleCommentSerializer, UserSerializer, ArticleExampleSerializer
 from .models import Article, ArticleComment
+from movies.models import Movie
 
 from itertools import chain
 
@@ -128,3 +131,20 @@ class SearchView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+
+@api_view(('GET',))
+@permission_classes([IsAuthenticated])
+def recommend_friends(request):
+    friends = get_list_or_404(get_user_model().objects.annotate(followers_count=Count('followers')).order_by('-followers_count'))
+    serializer = UserSerializer(friends[:5], many=True)
+    return Response(serializer.data)
+
+
+@api_view(('GET',))
+@permission_classes([IsAuthenticated])
+def recommend_articles(request):
+    articles = get_list_or_404(Article.objects.annotate(like_count=Count('like_users')).order_by('-like_count'))
+    serializer = ArticleExampleSerializer(articles[:5], many=True)
+    return Response(serializer.data)
+
