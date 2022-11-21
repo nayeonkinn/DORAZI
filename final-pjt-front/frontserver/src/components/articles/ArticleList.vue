@@ -8,8 +8,8 @@
     <div>{{ likenum }}</div>
 
     <div v-if="userId === article.user.id">
-      <button @click="Delete">삭제하기</button>
-      <b-button id="show-btn" @click="showModal"> 수정하기 </b-button>
+      <b-button variant="light" @click="Delete">삭제하기</b-button>
+      <b-button variant="light" id="show-btn" @click="showModal"> 수정하기 </b-button>
     </div>
     <b-modal ref="my-modal" hide-footer title="게시물 수정">
       <div class="d-block text-center">
