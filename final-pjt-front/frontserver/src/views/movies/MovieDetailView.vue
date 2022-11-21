@@ -7,7 +7,6 @@
 <script>
 import moviedetail from "@/components/movies/MovieDetail.vue";
 
-
 export default {
   components: {
     moviedetail,

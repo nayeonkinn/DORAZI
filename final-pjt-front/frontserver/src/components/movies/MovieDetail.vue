@@ -220,9 +220,25 @@ export default {
           console.log(err);
         });
     },
+    searchadd() {
+      axios({
+        method: "get",
+        url: `${API_URL}/profile/newenter/${this.movieinfo.id}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   },
   created() {
     this.detaildata();
+    this.searchadd()
   },
   mounted() {
     this.detaildata()
