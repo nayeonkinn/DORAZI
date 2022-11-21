@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Search</h1>
-    <div>User</div>
     <div>{{ this.$router.params }}    </div>
     <div>
         <div>
@@ -10,6 +9,9 @@
         <router-link class="" v-for="article in articles" :key="article.id" :to="{ name: 'ArticleDetailView', params: {'article_id': article.id }}" >
             <ArticleSimple :article="article"/>
         </router-link>
+        <div>
+          <UserSearch v-for="user in users" :key="user.id" :user="user" />
+        </div>
     </div>
   </div>
 </template>
@@ -17,6 +19,7 @@
 <script>
 import Movie from "@/components/movies/Movie";
 import ArticleSimple from '@/components/articles/ArticleSimple'
+import UserSearch from '@/components/accounts/UserSearch'
 
 import axios from "axios";
 
@@ -27,11 +30,14 @@ export default {
   components: {
     Movie,
     ArticleSimple,
+    UserSearch
+
   },
   data() {
     return {
       movielist: {},
       articles : {},
+      users: {},
     };
   },
 //   computed:{
@@ -66,10 +72,26 @@ export default {
           console.error(error);
         });
     },
+    getUsers(){
+      axios({
+        method: "get",
+        url: `${API_URL}/profile/search/`,
+        params: {'search': this.$store.state.search},
+      })
+        .then((response) => {
+          console.log(response);
+          this.users = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   },
   mounted() {
     this.makelist();
     this.getArticles();
+    this.getUsers();
+    
   },
 
 };

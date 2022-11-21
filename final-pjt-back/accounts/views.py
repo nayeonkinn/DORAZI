@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import ArticleSerializer, MovieSerializer, ProfileSerializer
+from .serializers import ArticleSerializer, MovieSerializer, ProfileSerializer, UserSerializer
 
 
 @api_view(['GET'])
@@ -51,3 +51,13 @@ def follow(request, username):
             'followings_count' : you.followings.count()
         }
         return JsonResponse(context)
+
+from rest_framework import generics
+from rest_framework import filters
+
+class SearchView(generics.ListCreateAPIView):
+    search_fields = ['username',]
+    filter_backends = (filters.SearchFilter,)
+    User = get_user_model()
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

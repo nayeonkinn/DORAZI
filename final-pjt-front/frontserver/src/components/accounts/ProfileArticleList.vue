@@ -9,6 +9,9 @@
 			class="col"
 			/>
 		</div>
+		<div>
+			{{movie_list}}
+		</div>
 	</div>
 </template>
 
@@ -22,8 +25,23 @@ export default {
 	},
 	props: {
 		articles_list: Array,
+	},
+	computed:{
+		// movie_list() {
+		// 	const articles = this.articles_list
+		// 	console.log(articles)
+		// 	var movies = {}
+		// 	// var movies = {}
+		// 	for(pk in articles) {
+		// 		if (Object.prototype.hasOwnProperty.call(article, article.movie)) {
+		// 			movies.push(article.movie)
+		// 		}
+		// 	};
+		// 	console.log(movies)
+		// 	return {} 
 	}
 }
+
 </script>
 
 <style>

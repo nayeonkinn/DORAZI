@@ -27,6 +27,13 @@
         :key="`comment-${comment.id}`"
         :comment="comment"
         :articleId="article.id"
+        @like-comment="likeComment"
+        @update-comment="updateComment"
+        @delete-comment="deleteComment"
+        @like-child-comment="likeChildComment"
+        @create-child-comment="createChildComment"
+        @create-child-child-comment="createChildChildComment"
+        @delete-child-comment="deleteChildComment"
       />
       <MainArticleCommentForm
         :articleId="article.id"
@@ -57,6 +64,7 @@ export default {
   // },
   data() {
     return {
+      article: this.$store.state.articledetail,
       isLiked: null,
       likeCount: null,
       likeDiv: false,
@@ -67,6 +75,7 @@ export default {
     };
   },
   computed: {
+
     token() {
       return this.$store.state.token;
     },

@@ -101,6 +101,11 @@ export default {
   created() {
     this.getProfile();
   },
+  watch: {
+    '$route.params': function() {
+      this.getProfile();
+    },
+  }
   // updated() {
   //   this.getProfile()
   // },

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import store from '@/store/index'
+import store from '@/store/index'
 
 // accounts
 import SignupView from '@/views/accounts/SignupView'
@@ -83,16 +83,16 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const authPages = ['MainView']
-//   const isLoggedIn = store.getters.isLogin
-//   const isAuthRequired = authPages.includes(to.name)
+router.beforeEach((to, from, next) => {
+  const authPages = ['MainView']
+  const isLoggedIn = store.getters.isLogin
+  const isAuthRequired = authPages.includes(to.name)
 
-//   if (isAuthRequired && !isLoggedIn) {
-//     next({ name: 'LoginView' })
-//   } else {
-//     next()
-//   }
-// })
+  if (isAuthRequired && !isLoggedIn) {
+    next({ name: 'LoginView' })
+  } else {
+    next()
+  }
+})
 
 export default router
