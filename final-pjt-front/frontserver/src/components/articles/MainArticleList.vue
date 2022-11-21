@@ -1,5 +1,6 @@
 <template>
   <div>
+    <MainArticleForm/>
     <MainArticleItem
 			v-for="article in articles"
 			:key="`article-${article.id}`"
@@ -11,6 +12,7 @@
 
 <script>
 import axios from "axios";
+import MainArticleForm from '@/components/articles/MainArticleForm'
 import MainArticleItem from "@/components/articles/MainArticleItem"
 
 const API_URL = "http://127.0.0.1:8000";
@@ -18,6 +20,7 @@ const API_URL = "http://127.0.0.1:8000";
 export default {
   name: "MainArticleList",
 	components: {
+		MainArticleForm,
 		MainArticleItem,
 	},
   data() {
