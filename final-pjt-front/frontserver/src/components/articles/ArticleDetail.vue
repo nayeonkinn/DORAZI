@@ -1,6 +1,6 @@
 <template>
   <div>
- <img
+    <img
       :src="poster_path"
       alt="poster_img"
       style="width: 200px; height: 300px"
@@ -20,7 +20,7 @@
         <p @click="goProfile(user.username)">{{ user.username }}</p>
       </div>
     </div>
-    
+
     <div v-if="commentDiv">
       <MainArticleCommentList
         v-for="comment in comments"
@@ -52,18 +52,18 @@ export default {
     MainArticleCommentList,
     MainArticleCommentForm,
   },
-  props: {
-    article: Object,
-  },
+  // props: {
+  //   article: Object,
+  // },
   data() {
     return {
       isLiked: null,
       likeCount: null,
       likeDiv: false,
       likeUsers: null,
-      commentDiv: true, ///////////////////////////
+      commentDiv: true,
       commentCount: null,
-      comments: null,
+      comments: [],
     };
   },
   computed: {
@@ -84,6 +84,12 @@ export default {
     likeMsg() {
       return this.isLiked ? "♥" : "♡";
     },
+    user() {
+      return this.$store.state.user;
+    },
+    username() {
+      return this.user.username;
+    },
   },
   methods: {
     setLikeData(article) {
@@ -91,10 +97,6 @@ export default {
       this.isLiked = likeUsers.some((user) => user.id === this.userId);
       this.likeCount = likeUsers.length;
       this.likeUsers = article.like_users;
-    },
-    setCommentsData(article) {
-      this.comments = article.articlecomment_set;
-      this.commentCount = article.articlecomment_set.length;
     },
     like() {
       axios({
@@ -133,19 +135,86 @@ export default {
       });
     },
     createComment(comment) {
-      this.comments.push(comment)
+      this.comments.push(comment);
+    },
+    updateComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          return commentData;
+        } else {
+          return comment;
+        }
+      });
+    },
+    likeComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          return commentData;
+        } else {
+          return comment;
+        }
+      });
+    },
+    deleteComment(commentId) {
+      this.comments = this.comments.filter((comment) => {
+        return comment.id != commentId;
+      });
+    },
+    likeChildComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          const newComment = comment;
+          newComment.child_comment = commentData;
+          return newComment;
+        } else {
+          return comment;
+        }
+      })
+    },
+    createChildChildComment(commentId, commentData) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          const newComment = comment;
+          newComment.child_comment = commentData;
+          return newComment;
+        } else {
+          return comment;
+        }
+      });
+      this.comments.push(commentData)
+    },
+    deleteChildComment(commentId, commentData, childId) {
+      this.comments = this.comments.map((comment) => {
+        if (comment.id === commentId) {
+          const newComment = comment;
+          newComment.child_comment = commentData;
+          return newComment;
+        } else {
+          return comment;
+        }
+      })
+      this.comments = this.comments.filter((comment) => {
+        return comment.id !== childId;
+      })
+
+    },
+    createChildComment(commentId, commentData) {
+      this.comments.forEach((comment) => {
+        if (comment.id === commentId) {
+          comment.child_comment.push(commentData);
+        }
+      });
+      this.comments.push(commentData)
     },
   },
   created() {
+    this.article = this.$store.state.detailarticle
     this.setLikeData(this.article);
-    this.setCommentsData(this.article);
+    this.comments = this.article.articlecomment_set;
   },
-};
-
-
+}
 </script>
 
 
 <style>
-
 </style>

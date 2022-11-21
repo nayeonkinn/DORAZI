@@ -33,7 +33,7 @@ export default {
         }
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.movielist = res.data
       })
       .catch((err) =>{

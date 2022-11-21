@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ArticleDetail :article="article"/>
+    <ArticleDetail/>
   </div>
 </template>
 
@@ -17,15 +17,7 @@ export default {
   },
   data() {
     return {
-      article: {
-        like_users: {},
-        movie:{},
-        username:{},
-        likeUsers:{
-            some() {}
-        },
-        
-      },
+      article: null,
     };
   },
   methods: {
@@ -34,11 +26,13 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/articles/${article_pk}/`,
-        data: {},
+        // headers: {
+        //   Authorization: `Token ${this.token}`,
+        // },
       })
         .then((res) => {
           console.log(res);
-          this.article = res.data;
+          this.$store.state.detailarticle = res.data;
         })
         .catch((err) => {
           console.log(err);
