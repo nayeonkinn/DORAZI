@@ -16,6 +16,7 @@ export default new Vuex.Store({
     userId: null,
     username: null,
     search:null,
+    articledetail: null,
   },
   getters: {
     isLogin(state) {
