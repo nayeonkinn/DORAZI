@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>후기를 남긴 영화</h1>
+		<h1>작성한 후기</h1>
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			<ProfileArticleItem
 			v-for="article in articles_list"
@@ -9,9 +9,7 @@
 			class="col"
 			/>
 		</div>
-		<div>
-			{{movie_list}}
-		</div>
+
 	</div>
 </template>
 
@@ -26,19 +24,7 @@ export default {
 	props: {
 		articles_list: Array,
 	},
-	computed:{
-		// movie_list() {
-		// 	const articles = this.articles_list
-		// 	console.log(articles)
-		// 	var movies = {}
-		// 	// var movies = {}
-		// 	for(pk in articles) {
-		// 		if (Object.prototype.hasOwnProperty.call(article, article.movie)) {
-		// 			movies.push(article.movie)
-		// 		}
-		// 	};
-		// 	console.log(movies)
-		// 	return {} 
+	methods:{
 	}
 }
 

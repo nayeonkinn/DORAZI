@@ -1,29 +1,16 @@
 <template>
   <div>
-    <div>
-
-      <div
+    <div
       class="single"
       :style="{
         'background-image': `url(https://image.tmdb.org/t/p/original/${this.backdrop})`,
       }"
     ></div>
-    <div class="movie-infos">
-      <header>
-        <img :src="poster" class="poster movie-poster" alt="poster" />
-        <div class="movie-release">
-          <div class="title">{{ release_date }}</div>
-          <span></span>
-        </div>
-      </header>
-      <div class="movie-info-all">
-        <div class="movie-title">{{ movietitle }}</div>
-        <div>{{ overview }}</div>
-      </div>
+    <img :src="poster" class="poster" alt="poster" />
+    <div>{{ movietitle }}</div>
+    <div>{{ release_date }}</div>
+    <div>{{ overview }}</div>
 
-    </div>
-  </div>
-  <hr>
     <div>
       <b-button id="show-btn" @click="showModal">Open Modal</b-button>
 
@@ -232,94 +219,5 @@ export default {
 .star-rating label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
 }
-</style>
 
-<style lang="scss" scoped>
-.movie-infos {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 220px;
-  margin: 0 auto 20px;
-  padding: 0 200px;
-  background-color: white;
-  border-bottom: 1px solid #e3e3e3;
-
-  > header {
-    position: relative;
-
-    .movie-poster {
-      width: 165px;
-      height: 234px;
-      margin-top: -36px;
-      border: 2px solid white;
-      border-radius: 5px;
-    }
-
-    .movie-release {
-      position: absolute;
-      width: 200px;
-      top: -25px;
-      left: 190px;
-      text-align: left;
-      color: white;
-      font-size: small;
-      font-weight: 400;
-
-      > span {
-        opacity: 0.75;
-        &:first-child {
-          opacity: 0.4;
-        }
-      }
-    }
-  }
-
-  .movie-info-all {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 16px 0 23px 25px;
-    text-align: left;
-
-    .movie-title {
-      .title {
-        font-size: 34px;
-        font-weight: 700;
-      }
-
-      .text {
-        width: 780px;
-        margin: 6px 0;
-        font-size: 17px;
-        color: #7f7f7f;
-      }
-    }
-
-    .rating-star {
-      width: 769px;
-      font-size: 19px;
-
-      &::before {
-        content: '';
-        display: block;
-        width: 100%;
-        margin-bottom: 10px;
-        border-top: 1px solid #f0f0f0;
-      }
-      &::after {
-        content: '';
-        display: block;
-        width: 100%;
-        margin-top: 8px;
-        border-bottom: 1px solid #f0f0f0;
-      }
-
-      .rating-mystar {
-        color: pink;
-        margin-left: 16px;
-      }
-    }
-  }
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="card text-bg-dark">
+	<div class="card text-bg-dark" 	@click="toarticle">
 		<img :src="poster_path" alt="poster_img" style="width: 300px; height: 400px;">
 		<div class="card-img-overlay">
 			<h5 class="card-title">{{ movie_title }}</h5>
@@ -24,7 +24,17 @@ export default {
 		movie_release_date() {
 			return this.article.movie.release_date.substr(0, 4)
 		}
+	},
+	methods: {
+		
+		toarticle() {
+			this.$store.state.articledetail = this.article
+			this.$router.push({name:'ArticleDetailView', params:{'article_id' : this.article.id}})
 	}
+},
+created() {
+	console.log(this.article)
+}
 }
 </script>
 

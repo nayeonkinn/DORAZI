@@ -221,6 +221,11 @@ export default {
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
   },
+  watch: {
+    '$store.state.detailarticle': function() {
+      this.article = this.$store.state.detailarticle
+    }
+  }
 }
 </script>
 
