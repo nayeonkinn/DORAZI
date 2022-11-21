@@ -12,6 +12,11 @@
     <p>{{ article.rating }}</p>
     <p>{{ article.content }}</p>
 
+    <div v-if="userId === article.user.id">
+      <button>수정</button>
+      <button @click="deleteArticle">삭제</button>
+    </div>
+
     <button @click="like">{{ likeMsg }}</button>
     <button @click="likeDivToggle">좋아요 {{ likeCount }}</button>
     <button @click="commentDivToggle">댓글 {{ commentCount }}</button>
@@ -69,7 +74,7 @@ export default {
       likeCount: null,
       likeDiv: false,
       likeUsers: null,
-      commentDiv: true, ///////////////////////////
+      commentDiv: false,
       comments: null,
     };
   },
@@ -173,7 +178,7 @@ export default {
         } else {
           return comment;
         }
-      })
+      });
     },
     createChildChildComment(commentId, commentData) {
       this.comments = this.comments.map((comment) => {
@@ -185,7 +190,7 @@ export default {
           return comment;
         }
       });
-      this.comments.push(commentData)
+      this.comments.push(commentData);
     },
     deleteChildComment(commentId, commentData, childId) {
       this.comments = this.comments.map((comment) => {
@@ -196,11 +201,10 @@ export default {
         } else {
           return comment;
         }
-      })
+      });
       this.comments = this.comments.filter((comment) => {
         return comment.id !== childId;
-      })
-
+      });
     },
     createChildComment(commentId, commentData) {
       this.comments.forEach((comment) => {
@@ -208,8 +212,25 @@ export default {
           comment.child_comment.push(commentData);
         }
       });
-      this.comments.push(commentData)
+      this.comments.push(commentData);
     },
+    deleteArticle() {
+      axios({
+        method: "delete",
+        url: `${API_URL}/articles/${this.article.id}/`,
+        headers: {
+          Authorization: `Token ${this.token}`,
+        },
+      })
+        .then(() => {
+          // console.log(response)
+          this.$emit('delete-article', this.article.id)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 영민이가 수정 모달로 해준다
   },
   created() {
     // console.log(this.article)

@@ -10,10 +10,13 @@ from .serializers import ArticleSerializer, ArticleCommentSerializer
 from movies.models import Movie
 from .models import Article, ArticleComment
 
+from itertools import chain
+
 
 @api_view(('GET',))
 def articles_list(request):
     followings = request.user.followings.all()
+    followings = chain(followings, [request.user])
     articles = get_list_or_404(Article.objects.order_by('-created_at'), user__in=followings)
     serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
