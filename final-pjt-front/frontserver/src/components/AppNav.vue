@@ -54,7 +54,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout')
-      this.$router.push({ name: 'MainView' })
+      this.$router.push({ name: 'LoginView' }).catch(() => {})
     },
     search() {
       console.log(this.q)

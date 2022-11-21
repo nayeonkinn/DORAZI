@@ -32,7 +32,7 @@ export default {
         password: password,
       }
       this.$store.dispatch('login', payload)
-      this.$router.push({ name: 'MainView'})
+      this.$router.push({ name: 'MainView'}).catch(() => {})
     }
   }
 }
