@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<textarea v-model="comment" @keyup.enter="createComment" cols="40" rows="1"></textarea>
-		<button type='button' @click="createComment">등록</button>
+		<form @submit.prevent="createComment">
+			<input v-model="comment" cols="40" rows="1"/>
+			<button>등록</button>
+		</form>
 	</div>
 </template>
 

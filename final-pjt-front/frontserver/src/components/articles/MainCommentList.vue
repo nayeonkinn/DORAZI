@@ -29,13 +29,14 @@
     </span>
 
     <div v-if="childDiv">
-      <textarea
+      <form @submit.prevent="createChildComment">
+        <input
         v-model="childComment"
-        @keyup.enter="createChildComment"
         cols="40"
         rows="1"
-      ></textarea>
-      <button type="button" @click="createChildComment">등록</button>
+        />
+        <button>등록</button>
+      </form>
     </div>
 
     <MainCommentChild
