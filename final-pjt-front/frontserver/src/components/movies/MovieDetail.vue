@@ -17,13 +17,19 @@
         </div>
       </header>
       <div class="movie-info-all">
-        <div class="movie-title">{{ movietitle }}</div>
-        <div>{{ overview }}</div>
       </div>
+      <div class="basic-info">
+        <div class="title">{{ movietitle }}</div>
+        <div class="info-summary">
+          <div class="story-summar">
+            {{ overview }}
+          </div>
+          <button> 더보기 </button>
+        </div>
 
+      </div>
     </div>
   </div>
-  <hr>
     <div>
       <b-button id="show-btn" @click="showModal">Open Modal</b-button>
 
@@ -318,6 +324,74 @@ export default {
       .rating-mystar {
         color: pink;
         margin-left: 16px;
+      }
+    }
+  }
+}
+
+.basic-info {
+  margin: 20px;
+
+  .title {
+    margin: 20px 0 20px;
+  }
+
+  .info-summary {
+    position: relative;
+    width: 598px;
+    margin: 10px 0 30px;
+
+    &::after {
+      content: '';
+      display: block;
+      margin: 0 auto;
+      width: 598px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .little-summary {
+      width: 598px;
+      margin-top: 8px;
+    }
+
+    .story-summary {
+      position: relative;
+      display: -webkit-box;
+      margin: 15px 0;
+      max-height: 4.5rem;
+      line-height: 23px;
+      overflow: hidden;
+      -webkit-line-clamp: 3; /* 라인수 */
+
+      &.show {
+        display: block;
+        max-height: none;
+        overflow: auto;
+        -webkit-line-clamp: unset;
+      }
+    }
+
+    > button {
+      position: absolute;
+      bottom: 19px;
+      right: 0;
+      max-height: 2rem;
+      line-height: 23px;
+      padding-left: 20px;
+      background: rgb(2, 0, 36);
+      background: linear-gradient(
+        90deg,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 18%
+      );
+      font-size: 15px;
+      font-weight: 500;
+      color: pink;
+      cursor: pointer;
+
+      &.hide {
+        display: none;
       }
     }
   }
