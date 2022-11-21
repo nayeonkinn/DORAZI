@@ -11,7 +11,9 @@
     </h3>
     <p>{{ article_created_at }}</p>
     <p>{{ article.rating }}</p>
-    <p>{{ article.content }}</p>
+
+    <p v-if="!spoiler">{{ article.content }}</p>
+    <p v-else>주의! 스포일러가 포함되어 있습니다. <span @click="spoilerToggle">내용 확인하기</span></p>
 
     <div v-if="userId === article.user.id">
       <button>수정</button>
@@ -77,6 +79,7 @@ export default {
       likeUsers: null,
       commentDiv: false,
       comments: null,
+      spoiler: null,
     };
   },
   computed: {
@@ -234,12 +237,16 @@ export default {
           console.log(error);
         });
     },
+    spoilerToggle() {
+      this.spoiler = !this.spoiler;
+    }
     // 영민이가 수정 모달로 해준다
   },
   created() {
     // console.log(this.article)
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
+    this.spoiler = this.article.spoiler
   },
 };
 </script>
