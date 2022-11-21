@@ -33,6 +33,7 @@ export default {
       }
       this.$store.dispatch('login', payload)
       this.$router.push({ name: 'MainView'}).catch(() => {})
+      // console.log(this.$store.getters.isLogin)
     }
   }
 }

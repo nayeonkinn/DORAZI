@@ -4,6 +4,7 @@
 			v-for="article in articles"
 			:key="`article-${article.id}`"
 			:article="article"
+      @delete-article="deleteArticle"
 		/>
   </div>
 </template>
@@ -39,13 +40,20 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.articles = response.data;
         })
         .catch((error) => {
           console.error(error);
         });
     },
+    deleteArticle(articleId) {
+      let index
+      this.articles.forEach((article, idx) => {
+        if (article.id === articleId) {index = idx}
+      })
+      this.articles.splice(index, 1);
+    }
   },
   created() {
     this.getArticles();

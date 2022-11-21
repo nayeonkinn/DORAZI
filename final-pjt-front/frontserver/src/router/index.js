@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+<<<<<<< HEAD
 import store from '@/store/index'
+=======
+import store from '@/store/index.js'
+>>>>>>> e7c2437f31ee5ddb75c480f26768dab9accbcd70
 
 // accounts
 import SignupView from '@/views/accounts/SignupView'
@@ -23,6 +27,7 @@ import SearchView from '@/views/search/SearchView'
 
 Vue.use(VueRouter)
 
+
 const routes = [
   {
     path: '/',
@@ -38,6 +43,15 @@ const routes = [
     path: '/accounts/login/',
     name: 'LoginView',
     component: LoginView,
+    beforeEnter(to, from, next) {
+      // console.log('beforeEnter: ', from.name, ' -> ', to.name)
+      // console.log('isLoggedIn: ', store.getters.isLogin)
+      if (store.getters.isLogin) {
+        next({ name: 'MainView' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/accounts/setting',
@@ -84,6 +98,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+<<<<<<< HEAD
   const authPages = ['MainView']
   const isLoggedIn = store.getters.isLogin
   const isAuthRequired = authPages.includes(to.name)
@@ -91,6 +106,17 @@ router.beforeEach((to, from, next) => {
   if (isAuthRequired && !isLoggedIn) {
     next({ name: 'LoginView' })
   } else {
+=======
+  const isLoggedIn = store.getters.isLogin
+  const authPages = ['MainView']
+  const isAuthRequired = authPages.includes(to.name)
+  
+  // console.log('beforeEach: ', from.name, ' -> ', to.name)
+  // console.log('loginRequired: ', isAuthRequired, ' isLoggedIn: ', isLoggedIn)
+  if (isAuthRequired && !isLoggedIn) {
+    next({ name: 'LoginView' })
+  } else if (to != from) {
+>>>>>>> e7c2437f31ee5ddb75c480f26768dab9accbcd70
     next()
   }
 })
