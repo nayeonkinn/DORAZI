@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+// import store from '@/store/index'
+
 // accounts
 import SignupView from '@/views/accounts/SignupView'
 import LoginView from '@/views/accounts/LoginView'
@@ -14,7 +16,7 @@ import ArticleDetailView from '@/views/articles/ArticleDetailView'
 
 // movies
 import MovieView from '@/views/movies/MovieView'
-import MovieDetailView from '@/views/movies/MovieDetailView' 
+import MovieDetailView from '@/views/movies/MovieDetailView'
 
 // search
 import SearchView from '@/views/search/SearchView'
@@ -25,7 +27,7 @@ const routes = [
   {
     path: '/',
     name: 'MainView',
-    component: MainView
+    component: MainView,
   },
   {
     path: '/accounts/signup/',
@@ -35,7 +37,7 @@ const routes = [
   {
     path: '/accounts/login/',
     name: 'LoginView',
-    component: LoginView
+    component: LoginView,
   },
   {
     path: '/accounts/setting',
@@ -80,5 +82,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   const authPages = ['MainView']
+//   const isLoggedIn = store.getters.isLogin
+//   const isAuthRequired = authPages.includes(to.name)
+
+//   if (isAuthRequired && !isLoggedIn) {
+//     next({ name: 'LoginView' })
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainArticleList/>
+    <MainArticleList v-if="isLoggedIn"/>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   name: "MainView",
   components: {
       MainArticleList
-  }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLogin
+    }
+  },
 }
 </script>

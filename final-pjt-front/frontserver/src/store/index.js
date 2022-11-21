@@ -53,6 +53,9 @@ export default new Vuex.Store({
         .then((response) => {
           context.commit('SAVE_TOKEN', response.data.key)
         })
+        .then(() => {
+          this.dispatch('save_user_info')
+        })
         .catch((error) => {
           console.log(error)
         })

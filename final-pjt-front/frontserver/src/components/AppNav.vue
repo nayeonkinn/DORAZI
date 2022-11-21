@@ -7,11 +7,9 @@
     </button> -->
     <div class="navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <router-link class="nav-link active" v-if="!isLogin" :to="{ name: 'SignupView' }">Signup</router-link>
-        </li>
-
-        <li class="nav-item">
+        <li class="nav-item d-flex">
+          <router-link class="nav-link" v-if="!isLogin" :to="{ name: 'SignupView' }">Signup</router-link>
+          <router-link class="nav-link" v-if="!isLogin" :to="{ name: 'LoginView' }" >Login</router-link>
           <router-link class="nav-link active" :to="{ name:'MovieView' }"> Movie </router-link>  
         </li>
         <div>
@@ -56,7 +54,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout')
-      this.$router.push({ name: 'home' })
+      this.$router.push({ name: 'MainView' })
     },
     search() {
       console.log(this.q)
