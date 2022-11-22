@@ -1,11 +1,9 @@
 <template>
-  <div class="text-start">
-      <Movie v-for="movie in movielist" :key="movie.id" :movie="movie"/>
+  <div>
   </div>
 </template>
 
 <script>
-import Movie from "@/components/movies/Movie.vue";
 import axios from "axios";
 
 const API_URL = 'http://127.0.0.1:8000'

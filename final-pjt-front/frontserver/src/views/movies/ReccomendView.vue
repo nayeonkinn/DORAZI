@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container3">
     <section class="movies">
       <h1>MovieView</h1>
       <div class="movies-grid">
