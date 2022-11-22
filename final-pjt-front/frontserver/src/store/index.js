@@ -60,7 +60,10 @@ export default new Vuex.Store({
           this.dispatch('save_user_info')
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
+          const errors = error.response.data
+          const firstError = Object.values(errors)[0][0]
+          alert(firstError)
         })
     },
     login(context, payload) {
