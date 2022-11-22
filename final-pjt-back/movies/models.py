@@ -13,6 +13,8 @@ class Movie(models.Model):
     backdrop_path = models.TextField()
     wish_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='wish_movies')
     vote_average = models.FloatField(null=True)
+    search_history = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='search_movies')
+
 
     def __str__(self):
         return self.title

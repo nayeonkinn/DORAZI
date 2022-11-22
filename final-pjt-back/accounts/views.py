@@ -10,6 +10,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import ArticleSerializer, MovieSerializer, ProfileSerializer, UserSerializer
+from movies.models import Movie
 
 
 @api_view(['GET'])
@@ -70,9 +71,3 @@ def delete(request):
     user.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['POST'])
-def search_add(request, movie_pk):
-    user = get_object_or_404(get_user_model(), pk=request.user.pk)
-    if not(movie_pk in user.search_history):
-        user.search_history.append(movie_pk)
-    return Response(status=status.HTTP_200_OK)

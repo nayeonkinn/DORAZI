@@ -53,3 +53,13 @@ class SearchView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+
+@api_view(['POST'])
+def search_add(request, pk):
+    user = request.user
+    movie = get_object_or_404(Movie, pk=pk)
+    if not(movie.search_history.filter(pk=user.pk).exists()):
+        movie.search_history.add(user)
+        print(movie.search_history)
+
+    return Response(status=status.HTTP_200_OK)

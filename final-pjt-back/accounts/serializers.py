@@ -36,7 +36,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     articles_list = ArticleSerializer(source='article_set', many=True, read_only=True)
     wishes_count = serializers.IntegerField(source='wish_movies.count', read_only=True)
     wishes_list = MovieSerializer(source='wish_movies', many=True, read_only=True)
-
+    search_movies = MovieSerializer(source='search_movies', many=True, read_only=True)
     class Meta:
         model = get_user_model()
         fields = ('id', 'followers_count', 'followers', 'followings_count', 'articles_count', 'articles_list', 'wishes_count', 'wishes_list')

@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/like/', views.like, name='like'),
     path('<int:pk>/wish/', views.wish, name='wish'),
     path('search/', views.SearchView.as_view()),
+    path('<int:pk>/enter/', views.search_add, name='search_add'),
 ]
