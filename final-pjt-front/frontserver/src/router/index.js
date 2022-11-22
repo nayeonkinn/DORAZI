@@ -32,7 +32,7 @@ const routes = [
     component: MainView,
   },
   {
-    path: '/accounts/signup/',
+    path: '/accounts/signup',
     name: 'SignupView',
     component: SignupView,
     beforeEnter(to, from, next) {
@@ -44,7 +44,7 @@ const routes = [
     }
   },
   {
-    path: '/accounts/login/',
+    path: '/accounts/login',
     name: 'LoginView',
     component: LoginView,
     beforeEnter(to, from, next) {
@@ -71,7 +71,7 @@ const routes = [
     component: SettingDeleteView
   },
   {
-    path: '/accounts/profile/:username/',
+    path: '/accounts/profile/:username',
     name: 'ProfileView',
     component: ProfileView
   },
@@ -91,7 +91,7 @@ const routes = [
     component: SearchView
   },
   {
-    path: '/articles/:article_id/',
+    path: '/articles/:article_id',
     name: 'ArticleDetailView',
     component: ArticleDetailView
   }

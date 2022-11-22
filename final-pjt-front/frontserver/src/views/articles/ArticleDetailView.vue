@@ -1,19 +1,23 @@
 <template>
   <div>
-    <ArticleDetail/>
+    {{ article }}
+    <MainArticleItem :article="article" />
+    <!-- <ArticleDetail/> -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import ArticleDetail from "@/components/articles/ArticleDetail.vue";
+import MainArticleItem from "@/components/articles/MainArticleItem";
+// import ArticleDetail from "@/components/articles/ArticleDetail.vue";
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "ArticleDetailView",
   components: {
-    ArticleDetail,
+    // ArticleDetail,
+    MainArticleItem,
   },
   data() {
     return {
@@ -31,8 +35,9 @@ export default {
         // },
       })
         .then((res) => {
-          console.log(res);
-          this.$store.state.detailarticle = res.data;
+          // console.log(res);
+          this.article = res.data;
+          // this.$store.state.detailarticle = res.data;
         })
         .catch((err) => {
           console.log(err);
@@ -42,7 +47,7 @@ export default {
   created() {
     this.detaildata();
   },
-}
+};
 </script>
 
 <style>
