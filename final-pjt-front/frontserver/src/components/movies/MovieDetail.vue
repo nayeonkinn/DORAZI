@@ -18,13 +18,14 @@
       </header>
       <div class="movie-info-all">
       </div>
-      <div class="basic-info">
-        <div class="title">{{ movietitle }}</div>
+      <div class="basic-info row">
+        <div class="title col-10">{{ movietitle }}
+        </div>
+        <button @click="wishToggle" class="flex-right col-2"> Wish </button>
         <div class="info-summary">
-          <div class="story-summar">
+          <div class="story-summary">
             {{ overview }}
           </div>
-          <button> 더보기 </button>
         </div>
 
       </div>
@@ -134,6 +135,29 @@ export default {
     };
   },
   methods: {
+    wishToggle () { 
+      axios({
+        method: "POST",
+        url: `${API_URL}/articles/create/${this.movieinfo.id}/`,
+        data: {
+          content: this.articlecontent,
+          spoiler: this.spoiler,
+          rating: this.ratings,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.articlecontent = null;
+          this.detaildata();
+          this.hideModal()
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     getActiveStar(index) {
       this.score = index + 1;
     },
