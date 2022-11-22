@@ -11,6 +11,100 @@
     <p>{{ article_created_at }}</p>
     <p>{{ article.rating }}</p>
     <p>{{ article.content }}</p>
+    <!-- 수정 삭제 -->
+    <div v-if="userId === article.user.id">
+      <b-button id="show-btn" @click="showModal"> 수정하기 </b-button>
+      <button @click="deleteArticle">삭제</button>
+      </div>
+
+      <b-modal ref="my-modal" hide-footer title="게시물 수정">
+        <div class="d-block text-center">
+          <h3>게시글 수정</h3>
+          <form @submit.prevent="sending">
+            <label for="content">내용 : </label>
+            <textarea
+              id="content"
+              cols="30"
+              rows="10"
+              v-model="content"
+            ></textarea>
+            <!-- 별점 -->
+            <!-- https://melthleeth.tistory.com/entry/HTML-CSS%EB%A1%9C-%EB%B3%84%EC%B0%8D%EA%B8%B0-Star-Rating -->
+            <div class="star-rating space-x-4 mx-auto">
+              <input
+                type="radio"
+                id="5-stars"
+                name="rating"
+                value="5"
+                v-model="rating"
+              />
+              <label for="5-stars" class="star pr-4">★</label>
+              <input
+                type="radio"
+                id="4-stars"
+                name="rating"
+                value="4"
+                v-model="rating"
+              />
+              <label for="4-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="3-stars"
+                name="rating"
+                value="3"
+                v-model="rating"
+              />
+              <label for="3-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="2-stars"
+                name="rating"
+                value="2"
+                v-model="rating"
+              />
+              <label for="2-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="1-star"
+                name="rating"
+                value="1"
+                v-model="rating"
+              />
+              <label for="1-star" class="star">★</label>
+            </div>
+            <!-- 스포일러 여부 -->
+            <label for="spoiler"> 스포일러 여부 </label>
+            <input
+              type="checkbox"
+              v-model="spoiler"
+              true-value="yes"
+              false-value="no"
+              name="spolier"
+            />
+
+            <br />
+
+            <b-button
+              class="mt-3"
+              variant="outline-success"
+              block
+              @click="sending"
+            >
+              수정
+            </b-button>
+            <b-button
+              class="mt-3"
+              variant="outline-danger"
+              block
+              @click="hideModal"
+            >
+              취소
+            </b-button>
+          </form>
+        </div>
+      </b-modal>
+
+
     <button @click="like">{{ likeMsg }}</button>
     <button @click="likeDivToggle">좋아요 {{ likeCount }}</button>
     <button @click="commentDivToggle">댓글 {{ commentCount }}</button>
@@ -69,7 +163,7 @@ export default {
       likeCount: null,
       likeDiv: false,
       likeUsers: null,
-      commentDiv: true,
+      commentDiv: false,
       commentCount: null,
       comments: [],
     };
@@ -99,13 +193,75 @@ export default {
     username() {
       return this.user.username;
     },
+    rating() {
+      return this.article.rating
+    },
+    spoiler() {
+      return this.article.spoiler
+    },
+    content () {
+      return this.article.content
+    }
   },
   methods: {
+    deleteArticle() {
+      axios({
+        method: "delete",
+        url: `${API_URL}/articles/${this.article.id}/`,
+        headers: {
+          Authorization: `Token ${this.token}`,
+        },
+      })
+        .then(() => {
+          // console.log(response)
+          this.$emit("delete-article", this.article.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getActiveStar(index) {
+      this.score = index + 1;
+    },
+    showModal() {
+      this.$refs["my-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
     setLikeData() {
       const likeUsers = this.article.like_users;
       this.isLiked = likeUsers.some((user) => user.id === this.userId);
       this.likeCount = likeUsers.length;
       this.likeUsers = this.article.like_users;
+    },
+    sending() {
+      const content = this.articlecontent;
+      if (!content) {
+        alert("내용을 입력해주세요");
+        return;
+      }
+      console.log(content);
+      axios({
+        method: "PUT",
+        url: `${API_URL}/articles/${this.article.id}/`,
+        data: {
+          content: content,
+          spoiler: this.spoiler,
+          rating: this.rating,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.hideModal();
+          this.$emit("update", this.article);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     like() {
       axios({
@@ -217,7 +373,7 @@ export default {
     },
   },
   created() {
-    // console.log(this.$store.state.articledetail)
+    console.log(this.$store.state.articledetail)
     this.article = this.$store.state.articledetail
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
