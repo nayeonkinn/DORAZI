@@ -76,11 +76,19 @@ def recommend(request):
     user = request.user
     serializer = ProfileSerializer(user)
     search_data = serializer.data["search"]
-    return Response(serializer, status=status.HTTP_200_OK)
+    return Response(search_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def recommend_friend(request):
     user = request.user
     serializer = ProfileSerializer(user)
-    search_data = serializer.data["search"]
+    followers = serializer.data["followers"]
+    result = []
+    for follower in followers:
+        you = get_object_or_404(get_user_model(), pk=follower)
+        you_serializer = ProfileSerializer(you)
+        articles = you_serializer.data["articles_list"]
+        for article in articles:
+            result.append(article["movie"])
+    return Response(result, status=status.HTTP_200_OK)

@@ -162,7 +162,7 @@ export default {
     return {
       movieinfo: null,
       poster: null,
-      backdrop: null,
+      backdrop: '?',
       movietitle: null,
       overview: null,
       release_date: null,
@@ -243,6 +243,7 @@ export default {
       })
         .then((res) => {
           this.movieinfo = res.data;
+          console.log(this.movieinfo)
           const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
           this.backdrop = this.movieinfo.backdrop_path;
@@ -268,24 +269,11 @@ export default {
           console.log(err);
         });
     },
-    // searchadd() {
-    //   axios({
-    //     method: "get",
-    //     url: `${API_URL}/profile/newenter/${this.movieinfo.id}/`,
-    //     headers: {
-    //       Authorization: `Token ${this.$store.state.token}`,
-    //     },
-    //   })
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
+
   },
   created() {
     this.detaildata();
+    
   },
   mounted() {
     this.detaildata();

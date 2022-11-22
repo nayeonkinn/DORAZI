@@ -1,16 +1,20 @@
 <template>
-<div class="card" style="width: 18rem;">
+<div class="section" style="width: 18rem;">
   <router-link :to="{ name:'MovieDetailView' , params: { 'movie_pk': movie.id }}"> 
-    <img :src="poster" class="card-img-top" alt="poster">
+  <figure class="figure">
+      <img class='poster' :src="poster"  alt="poster">
+      
+      <figcaption class="caption">
+        {{ title }} <br>
+        {{ releasedate.slice(0,4)}}
+      </figcaption>
+    </figure>
   </router-link>  
-  <div class="card-body">
-    <h5 class="card-title">{{ title }}</h5>
-    <p class="card-text">{{ releasedate.slice(0,4)}}</p>
-  </div>
 </div>
 </template>
 
 <script>
+
 export default {
     name:'SingleMovie',
     props:{
@@ -31,5 +35,6 @@ export default {
 
 
 <style>
+  @import '@/assets/main.css';
 
 </style>
