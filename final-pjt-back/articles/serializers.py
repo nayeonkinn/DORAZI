@@ -41,16 +41,22 @@ class UserSerializer(serializers.ModelSerializer):
         response['hot_article'] = sorted(response['hot_article'], key=lambda x: -x['like_count'])[:1]
         return response
 
+class SimpleUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username')
+
 
 class ChildCommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = SimpleUserSerializer(read_only=True)
     class Meta:
         model = ArticleComment
         fields = '__all__'
 
 
 class ArticleCommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = SimpleUserSerializer(read_only=True)
     child_comment = ChildCommentSerializer(many=True, read_only=True)
     
     class Meta:
@@ -59,10 +65,11 @@ class ArticleCommentSerializer(serializers.ModelSerializer):
         read_only_fields = ('article', 'like_users', 'parent_comment')
 
 
+
 class ArticleSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     movie = MovieSerializer(read_only=True)
-    like_users = UserSerializer(many=True, read_only=True)
+    like_users = SimpleUserSerializer(many=True, read_only=True)
     articlecomment_set = ArticleCommentSerializer(many=True, read_only=True)
 
     class Meta:

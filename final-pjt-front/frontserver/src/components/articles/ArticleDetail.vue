@@ -101,11 +101,11 @@ export default {
     },
   },
   methods: {
-    setLikeData(article) {
-      const likeUsers = article.like_users;
+    setLikeData() {
+      const likeUsers = this.article.like_users;
       this.isLiked = likeUsers.some((user) => user.id === this.userId);
       this.likeCount = likeUsers.length;
-      this.likeUsers = article.like_users;
+      this.likeUsers = this.article.like_users;
     },
     like() {
       axios({
@@ -217,13 +217,14 @@ export default {
     },
   },
   created() {
-    this.article = this.$store.state.detailarticle
+    console.log(this.$store.state.articledetail)
+    this.article = this.$store.state.articledetail
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
   },
   watch: {
     '$store.state.detailarticle': function() {
-      this.article = this.$store.state.detailarticle
+      this.article = this.$store.state.articledetail
     }
   }
 }

@@ -6,9 +6,7 @@
         <div>
             <Movie v-for="movie in movielist" :key="movie.id" :movie="movie"/>
         </div>
-        <router-link class="" v-for="article in articles" :key="article.id" :to="{ name: 'ArticleDetailView', params: {'article_id': article.id }}" >
-            <ArticleSimple :article="article"/>
-        </router-link>
+            <ArticleSimple v-for="article in articles" :key="article.id" :article="article"/>
         <div>
           <UserSearch v-for="user in users" :key="user.id" :user="user" />
         </div>

@@ -1,3 +1,5 @@
+from rest_framework import generics
+from rest_framework import filters
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
@@ -46,18 +48,31 @@ def follow(request, username):
             you.followers.add(me)
             is_followed = True
         context = {
-            'is_followed' : is_followed,
-            'followers_count' : you.followers.count(),
-            'followings_count' : you.followings.count()
+            'is_followed': is_followed,
+            'followers_count': you.followers.count(),
+            'followings_count': you.followings.count()
         }
         return JsonResponse(context)
 
-from rest_framework import generics
-from rest_framework import filters
 
 class SearchView(generics.ListCreateAPIView):
-    search_fields = ['username',]
+    search_fields = ['username', ]
     filter_backends = (filters.SearchFilter,)
     User = get_user_model()
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete(request):
+    user = get_object_or_404(get_user_model(), pk=request.user.pk)
+    user.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def search_add(request, movie_pk):
+    user = get_object_or_404(get_user_model(), pk=request.user.pk)
+    if not(movie_pk in user.search_history):
+        user.search_history.append(movie_pk)
+    return Response(status=status.HTTP_200_OK)

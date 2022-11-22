@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @click="todetail">
       <router-link :to="{ name: 'ProfileView', params: {'username': writer }}" >
         <h3>{{ writer }}</h3>
       </router-link>
@@ -37,6 +37,10 @@
   
     },
     methods: {
+      todetail() {
+        this.$store.state.articledetail = this.article
+        this.$router.push({ name: 'ArticleDetailView', params: {'article_id': this.article.id }})
+      }
 
     }}
   

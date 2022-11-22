@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from articles.models import Article
 from movies.models import Movie
+from articles.serializers import ArticleSerializer
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -12,13 +13,13 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'release_date', 'poster_path',)
 
 
-class ArticleSerializer(serializers.ModelSerializer):
-    movie = MovieSerializer(read_only=True)
-    likes_count = serializers.IntegerField(source='like_users.count', read_only=True)
+# class ArticleSerializer(serializers.ModelSerializer):
+#     movie = MovieSerializer(read_only=True)
+#     likes_count = serializers.IntegerField(source='like_users.count', read_only=True)
 
-    class Meta:
-        model = Article
-        fields = ('id', 'content', 'spoiler', 'created_at', 'likes_count', 'movie')
+#     class Meta:
+#         model = Article
+#         fields = ('id', 'content', 'spoiler', 'created_at', 'likes_count', 'movie')
 
 
 class UserSerializer(serializers.ModelSerializer):
