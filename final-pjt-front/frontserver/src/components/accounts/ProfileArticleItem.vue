@@ -27,13 +27,13 @@ export default {
 	},
 	methods: {
 		toarticle() {
-			console.log(this.article)
+			// console.log(this.article)
 			this.$store.state.articledetail = this.article
 			this.$router.push({name:'ArticleDetailView', params:{'article_id' : this.article.id}})
 	}
 },
 created() {
-	console.log(this.article)
+	// console.log(this.article)
 }
 }
 </script>

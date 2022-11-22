@@ -71,3 +71,16 @@ def delete(request):
     user.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET'])
+def recommend(request):
+    user = request.user
+    serializer = ProfileSerializer(user)
+    search_data = serializer.data["search"]
+    return Response(serializer, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def recommend_friend(request):
+    user = request.user
+    serializer = ProfileSerializer(user)
+    search_data = serializer.data["search"]

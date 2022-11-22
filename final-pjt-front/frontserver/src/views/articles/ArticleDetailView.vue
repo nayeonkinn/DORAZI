@@ -1,23 +1,23 @@
 <template>
   <div>
-    {{ article }}
-    <MainArticleItem :article="article" />
-    <!-- <ArticleDetail/> -->
+    <!-- {{ article }} -->
+    <!-- <MainArticleItem :article="article" /> -->
+    <ArticleDetail/>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import MainArticleItem from "@/components/articles/MainArticleItem";
-// import ArticleDetail from "@/components/articles/ArticleDetail.vue";
+// import MainArticleItem from "@/components/articles/MainArticleItem";
+import ArticleDetail from "@/components/articles/ArticleDetail.vue";
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
   name: "ArticleDetailView",
   components: {
-    // ArticleDetail,
-    MainArticleItem,
+    ArticleDetail,
+    // MainArticleItem,
   },
   data() {
     return {

@@ -6,6 +6,7 @@
       :key="`article-${article.id}`"
       :article="article"
       @delete-article="deleteArticle"
+      @update="getArticles"
     />
   </div>
 </template>

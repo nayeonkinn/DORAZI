@@ -191,8 +191,7 @@ export default {
           Authorization: `Token ${this.$store.state.token}`,
         },
       })
-        .then((res) => {
-          console.log(res.data.wish_users);
+        .then(() => {
           this.iswished = !this.iswished;
         })
         .catch((error) => {
@@ -226,8 +225,7 @@ export default {
           Authorization: `Token ${this.$store.state.token}`,
         },
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.articlecontent = null;
           this.detaildata();
           this.hideModal();
@@ -244,7 +242,6 @@ export default {
         data: {},
       })
         .then((res) => {
-          console.log(res);
           this.movieinfo = res.data;
           const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
@@ -263,9 +260,6 @@ export default {
               Authorization: `Token ${this.$store.state.token}`,
             },
           })
-            .then((res) => {
-              console.log(res);
-            })
             .catch((err) => {
               console.log(err);
             });
