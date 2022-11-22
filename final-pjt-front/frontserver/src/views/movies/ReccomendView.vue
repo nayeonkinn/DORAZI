@@ -1,9 +1,15 @@
 <template>
   <div class="container3">
     <section class="movies">
-      <h1>MovieView</h1>
+      <h1>추천 영화 리스트</h1>
+      <h2> 내가 검색해 본 영화들 </h2>
       <div class="movies-grid">
-        <Movie v-for="movie in movielist" :key="movie.id" :movie="movie"/>
+        <Movie v-for="movie in recommendlist" :key="movie.id" :movie="movie" />
+      </div>
+      <hr>
+      <h2> 친구가 리뷰를 작성한 영화들</h2>
+      <div class="movies-grid">
+        <Movie v-for="movie in friend_recommendlist" :key="movie.id" :movie="movie" />
       </div>
       <button class="load-more">LOAD MORE</button>
     </section>
@@ -23,34 +29,44 @@ export default {
   },
   data() {
     return {
-      movielist: []
+      recommendlist: [],
+      friend_recommendlist: [],
     };
   },
-  computed: {
 
-  },
   methods: {
     makelist() {
       axios({
         method: 'get',
-        url: `${API_URL}/movies/`,
-        data: {
-
-        }
+        url: `${API_URL}/profile/recommend/`,
       })
       .then((res) => {
-        // console.log(res);
-        this.movielist = res.data
+        console.log(res.data);
+        this.recommendlist = res.data
       })
       .catch((err) =>{
         console.log(err);
       })
-    }
+    },
+    friendlist() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/profile/recommend_friend/`,
+      })
+      .then((res) => {
+        console.log(res.data);
+        this.friend_recommendlist = res.data
+      })
+      .catch((err) =>{
+        console.log(err);
+      })
   },
-  mounted(){
+  created(){
     this.makelist()
+    this.friendlist()
+
   }
-}
+}}
 </script>
 
 <style>
