@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{ name: 'ProfileView', params: { 'username': writer } }">
+    <router-link :to="{ name: 'ProfileView', params: { username: writer } }">
       <h3>{{ writer }}</h3>
     </router-link>
     <h4>{{ content }}</h4>
@@ -9,7 +9,9 @@
 
     <div v-if="userId === article.user.id">
       <b-button variant="light" @click="Delete">삭제하기</b-button>
-      <b-button variant="light" id="show-btn" @click="showModal"> 수정하기 </b-button>
+      <b-button variant="light" id="show-btn" @click="showModal">
+        수정하기
+      </b-button>
     </div>
     <b-modal ref="my-modal" hide-footer title="게시물 수정">
       <div class="d-block text-center">
@@ -182,14 +184,12 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          this.update();
           this.hideModal();
           this.$emit("update");
         })
         .catch((err) => {
           console.log(err);
         });
-      this.$emit("update", this.article);
     },
   },
 };

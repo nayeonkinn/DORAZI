@@ -58,9 +58,12 @@ export default {
     },
     search() {
       console.log(this.q)
+      if (!this.q) {
+        alert('검색어를 입력해 주세요')
+      } else{
       this.$store.commit('SEARCH', this.q)
       this.$router.push({ name: 'SearchView' , params: { "q": this.q}})
-      this.$router.go()
+      this.$router.go() }
     }
   }
 }
