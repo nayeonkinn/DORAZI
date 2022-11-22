@@ -224,7 +224,11 @@ header { background: var(--rich-black-fogra-29); }
   cursor: pointer;
 }
 
-.banner-img { object-position: top; }
+.banner-img { 
+  object-position: top; 
+  width: 110%;
+  height: 140%;
+}
 
 .banner-card:hover .banner-img { transform: scale(1.1); }
 
