@@ -18,7 +18,7 @@
  * import variables.css file 
  */
 
-@import url(./variable.css);
+/* @import url(./variable.css); */
 
 
 
@@ -32,7 +32,7 @@
  * import reset.css file 
  */
 
-@import url(./reset.css);
+/* @import url(./reset.css); */
 
 
 
@@ -45,10 +45,9 @@
 /**
  * reused style
  */
+/* 
+header { background: var(--rich-black-fogra-29); }
 
-header, nav { background: var(--rich-black-fogra-29); }
-
-.navbar,
 .banner,
 .movies,
 .category,
@@ -60,7 +59,7 @@ header, nav { background: var(--rich-black-fogra-29); }
   font-size: var(--section-heading);
   font-weight: var(--fw-5);
   margin-bottom: 60px;
-}
+} */
 
 
 
@@ -73,11 +72,11 @@ header, nav { background: var(--rich-black-fogra-29); }
 /**
  * main container style 
  */
-
+/* 
 .container {
   max-width: 1440px;
   margin: auto;
-}
+} */
 
 
 
@@ -90,25 +89,25 @@ header, nav { background: var(--rich-black-fogra-29); }
 /**
  * navbar style 
  */
-
+/* 
 .navbar {
   height: 100px;
   display:         flex;
   justify-content: space-between;
   align-items:     center;
-}
+} */
 
 /**
  * small screen menu button style 
  */
 
-.navbar-menu-btn { display: none; }
+/* .navbar-menu-btn { display: none; } */
 
 /**
  * navbar navigation style 
  */
 
-nav { margin-right: 200px; }
+/* nav { margin-right: 200px; }
 
 .navbar-nav { display: flex; }
 
@@ -119,7 +118,7 @@ nav { margin-right: 200px; }
   font-weight: var(--fw-5);
 }
 
-.navbar-link:hover { color: var(--light-azure); }
+.navbar-link:hover { color: var(--light-azure); } */
 
 /**
  * live indicator style 
