@@ -34,7 +34,7 @@
     </div>
     <div>
       <b-button variant="light" id="show-btn" @click="showModal"
-        >Open Modal</b-button
+        >게시글 작성</b-button
       >
 
       <b-modal ref="my-modal" hide-footer title="Using Component Methods">
@@ -332,7 +332,7 @@ export default {
   height: 220px;
   margin: 0 auto 20px;
   padding: 0 200px;
-  background-color: white;
+  background-color: black;
   border-bottom: 1px solid #e3e3e3;
 
   > header {
@@ -402,7 +402,7 @@ export default {
         display: block;
         width: 100%;
         margin-top: 8px;
-        border-bottom: 1px solid #f0f0f0;
+        // border-bottom: 1px solid #f0f0f0;
       }
 
       .rating-mystar {
@@ -430,7 +430,7 @@ export default {
       display: block;
       margin: 0 auto;
       width: 598px;
-      border-bottom: 1px solid #f0f0f0;
+      // border-bottom: 1px solid #f0f0f0;
     }
 
     .little-summary {

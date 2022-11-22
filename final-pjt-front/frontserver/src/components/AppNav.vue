@@ -71,7 +71,6 @@
           </svg>
           {{ usernameField }}
         </router-link>
-
         <b-dropdown right size="lg" variant="link" no-caret>
           <template #button-content>
             <svg

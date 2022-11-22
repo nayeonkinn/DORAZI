@@ -31,17 +31,18 @@ export default {
     return {
       recommendlist: [],
       friend_recommendlist: [],
+      username: this.$store.state.username,
     };
   },
 
   methods: {
     makelist() {
       axios({
-        method: 'get',
-        url: `${API_URL}/profile/recommend/`,
+        method: 'GET',
+        url: `${API_URL}/profile/${this.username}/recommend/`,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data);  
         this.recommendlist = res.data
       })
       .catch((err) =>{
@@ -51,22 +52,23 @@ export default {
     friendlist() {
       axios({
         method: 'get',
-        url: `${API_URL}/profile/recommend_friend/`,
+        url: `${API_URL}/profile/${this.username}/recommend_friend/`,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         this.friend_recommendlist = res.data
       })
       .catch((err) =>{
         console.log(err);
       })
   },
+},
   created(){
     this.makelist()
     this.friendlist()
 
   }
-}}
+}
 </script>
 
 <style>
