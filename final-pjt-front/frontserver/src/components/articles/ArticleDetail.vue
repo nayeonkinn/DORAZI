@@ -217,7 +217,7 @@ export default {
     },
   },
   created() {
-    console.log(this.$store.state.articledetail)
+    // console.log(this.$store.state.articledetail)
     this.article = this.$store.state.articledetail
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
