@@ -33,8 +33,11 @@
         />
       </form>
 
-      <div class="d-flex" style="margin-top: 7px;">
-        <router-link :to="{ name: 'SearchView' }" class="d-block d-md-none px-2">
+      <div class="d-flex" style="margin-top: 7px">
+        <router-link
+          :to="{ name: 'SearchView' }"
+          class="d-block d-md-none px-2"
+        >
           <svg
             id="searchBtnSmall"
             xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +133,7 @@ export default {
       return this.$store.state.username;
     },
     usernameField() {
-      return this.isLogin ? this.username : "로그인하세요";
+      return this.isLogin ? this.username : "로그인";
     },
   },
   methods: {
@@ -168,7 +171,7 @@ nav {
 #searchForm {
   position: relative;
   height: 40px;
-  width: 600px;
+  width: 320px;
 }
 
 #searchBtn {
