@@ -16,7 +16,7 @@ import MainView from '@/views/articles/MainView'
 import ArticleDetailView from '@/views/articles/ArticleDetailView'
 
 // movies
-import MovieView from '@/views/movies/MovieView'
+import ReccomendView from '@/views/movies/ReccomendView'
 import MovieDetailView from '@/views/movies/MovieDetailView'
 
 // search
@@ -78,8 +78,8 @@ const routes = [
   },
   {
     path: '/movies/',
-    name: 'MovieView',
-    component: MovieView
+    name: 'ReccomendView',
+    component: ReccomendView
   },
   {
     path: '/movies/:movie_pk',

@@ -1,7 +1,13 @@
 <template>
+<<<<<<< HEAD
+  <div>
+    <app-nav/>
+    <router-view/>
+=======
   <div id="app" class="p-2">
     <app-nav />
     <router-view />
+>>>>>>> 738fde6862379ec66a74e7f90ee4aa2edf878ef8
   </div>
 </template>
 

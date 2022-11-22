@@ -100,7 +100,7 @@ a {
 /**
  * change default scrollbar style 
  */
-
+/* 
 ::-webkit-scrollbar {
   background: transparent;
   border-left: 1px solid var(--oxford-blue);
@@ -110,4 +110,4 @@ a {
   background: var(--light-azure);
   border-radius: 5em;
   border: 3px solid var(--rich-black-fogra-29);
-}
+} */
