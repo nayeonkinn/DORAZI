@@ -27,22 +27,27 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/main',
     name: 'MainView',
     component: MainView,
   },
   {
     path: '/accounts/signup/',
     name: 'SignupView',
-    component: SignupView
+    component: SignupView,
+    beforeEnter(to, from, next) {
+      if (store.getters.isLogin) {
+        next({ name: 'MainView' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/accounts/login/',
     name: 'LoginView',
     component: LoginView,
     beforeEnter(to, from, next) {
-      // console.log('beforeEnter: ', from.name, ' -> ', to.name)
-      // console.log('isLoggedIn: ', store.getters.isLogin)
       if (store.getters.isLogin) {
         next({ name: 'MainView' })
       } else {
@@ -101,11 +106,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isLoggedIn = store.getters.isLogin
-  const authPages = ['MainView']
-  const isAuthRequired = authPages.includes(to.name)
-  
-  // console.log('beforeEach: ', from.name, ' -> ', to.name)
-  // console.log('loginRequired: ', isAuthRequired, ' isLoggedIn: ', isLoggedIn)
+  const allowedPaged = ['SignupView', 'LoginView']
+  const isAuthRequired = !allowedPaged.includes(to.name)
+
   if (isAuthRequired && !isLoggedIn) {
     next({ name: 'LoginView' })
   } else if (to != from) {

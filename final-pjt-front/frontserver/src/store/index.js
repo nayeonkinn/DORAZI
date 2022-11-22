@@ -65,16 +65,16 @@ export default new Vuex.Store({
           const firstError = Object.values(errors)[0][0]
           alert(firstError)
         })
-    },
-    login(context, payload) {
-      axios({
-        method: 'post',
-        url: `${API_URL}/accounts/login/`,
-        data: {
-          username: payload.username,
-          password: payload.password,
-        }
-      })
+      },
+      login(context, payload) {
+        axios({
+          method: 'post',
+          url: `${API_URL}/accounts/login/`,
+          data: {
+            username: payload.username,
+            password: payload.password,
+          }
+        })
         .then((response) => {
           context.commit('SAVE_TOKEN', response.data.key)
         })
@@ -85,17 +85,18 @@ export default new Vuex.Store({
           console.log(error)
           alert('아이디 또는 비밀번호가 올바르지 않습니다.')
         })
-    },
-    save_user_info(context) {
-      axios({
+      },
+      save_user_info(context) {
+        axios({
         method: 'get',
         url: `${API_URL}/accounts/user/`,
         headers: {
           Authorization: `Token ${this.state.token}`
         }
       })
-        .then((response) => {
-          context.commit('SAVE_USER_INFO', response.data)
+      .then((response) => {
+        context.commit('SAVE_USER_INFO', response.data)
+        window.location.reload(true)
         })
         .catch((error) => {
           console.log(error)
@@ -108,27 +109,28 @@ export default new Vuex.Store({
       })
         .then(() => {
           context.commit('DELETE_USER_INFO')
+          window.location.reload(true)
         })
         .catch((error) => {
           console.log(error)
         })
-    },
-    changePassword(context, payload) {
-      axios({
-        method: 'post',
-        url: `${API_URL}/accounts/password/change/`,
-        data: {
-          new_password1: payload.new_password1,
-          new_password2: payload.new_password2,
-          old_password: payload.old_password,
-        },
+      },
+      changePassword(context, payload) {
+        axios({
+          method: 'post',
+          url: `${API_URL}/accounts/password/change/`,
+          data: {
+            new_password1: payload.new_password1,
+            new_password2: payload.new_password2,
+            old_password: payload.old_password,
+          },
         headers: {
           Authorization: `Token ${this.state.token}`
         }
       })
-        .catch((error) => {
-          console.log(error)
-        })
+      .catch((error) => {
+        console.log(error)
+      })
     },
     deleteAccount(context) {
       axios({
@@ -138,12 +140,13 @@ export default new Vuex.Store({
           Authorization: `Token ${this.state.token}`
         }
       })
-        .then(() => {
-          context.commit('DELETE_USER_INFO')
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      .then(() => {
+        context.commit('DELETE_USER_INFO')
+        window.location.reload(true)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
   },
   modules: {
