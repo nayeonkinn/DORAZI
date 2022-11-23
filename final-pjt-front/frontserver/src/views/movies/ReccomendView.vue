@@ -1,19 +1,19 @@
 <template>
   <div class="container3">
     <!-- 영화 배너 -->
-    <section class="banner">
+    <section class="banner" @click="todetail">
       <div class="banner-card">
-        <img class="banner-img" :src="url" alt="none">
+        <img class="banner-img" :src="url" alt="none" >
         <div class="card-content">
           <div class="card-info">
             <div class="genre">
               <ion-icon name="film"></ion-icon>
-              <span>Action/Thriller</span>
+              <span>{{ genres }}</span>
             </div>
             
             <div class="year">
               <ion-icon name="calendar"></ion-icon>
-              <span>{{ titlemovie.release_date.slice(0, 4) }}</span>
+              <span>{{ releasedate }}</span>
             </div>
           </div>
           <h2 class="card-title"> {{ titlemovie.title }}</h2>
@@ -40,6 +40,7 @@
 import Movie from "@/components/movies/Movie.vue";
 import axios from "axios";
 import _ from 'lodash'
+import moment from 'moment';
 
 
 const APIURL = 'http://127.0.0.1:8000'
@@ -56,6 +57,8 @@ export default {
       username: this.$store.state.username,
       titlemovie: [],
       url : null,
+      genres: null,
+
     };
   },
   computed: {
@@ -63,10 +66,16 @@ export default {
     // const friend = _.sample(this.friendrecommendlist)
     const search = _.sample(this.recommendlist)
     return search
-    }
+    },
+    releasedate() {
+        return moment(String(this.titlemovie.release_date)).format("YYYY")
+      }
   },
 
   methods: {
+    todetail(){
+        this.$router.push({ name:'MovieDetailView' , params: { 'movie_pk': this.titlemovie.id }})
+      },
     makelist() {
       axios({
         method: 'GET',
@@ -103,6 +112,13 @@ export default {
         this.titlemovie = res.data
         const back = this.titlemovie.backdrop_path
         this.url = `https://image.tmdb.org/t/p/original/${back}`
+        const genre_ids = this.titlemovie.genre_ids.split(' ')
+          if (genre_ids[1]) {
+            this.genres = genre_ids[0] + '/' + genre_ids[1]
+          }
+          else {
+            this.genres =  genre_ids[0]
+          }
 
       })
       .catch((err) =>{

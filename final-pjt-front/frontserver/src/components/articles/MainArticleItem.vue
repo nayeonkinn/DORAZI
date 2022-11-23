@@ -373,7 +373,6 @@ export default {
     spoilerToggle() {
       this.spoiler = !this.spoiler;
     },
-    // 영민이가 수정 모달로 해준다
   },
   created() {
     // console.log(this.article)
