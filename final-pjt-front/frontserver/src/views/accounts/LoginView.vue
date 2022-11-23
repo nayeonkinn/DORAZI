@@ -1,7 +1,7 @@
 <template>
   <div class="container" style="min-height: 100vh">
     <h1 class="mb-5" style="margin-top: 270px;">
-      로그인하고 친구들과 <span style="color: rgb(255, 200, 47)">영화</span>로 대화를 나눠 보세요
+      로그인하고 친구들과 영화로 대화를 나눠 보세요
     </h1>
     <div class="d-flex justify-content-center align-items-center">
       <img
@@ -36,7 +36,7 @@
             <button id="loginBtn" class="btn">로그인</button>
           </div>
         </form>
-        <p style="font-size: 18px">
+        <p style="font-size: 18px" class="mt-5">
           계정이 없으신가요?
           <router-link id="toSignup" :to="{ name: 'SignupView' }"
             >회원가입</router-link
