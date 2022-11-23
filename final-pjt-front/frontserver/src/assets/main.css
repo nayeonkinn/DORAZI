@@ -230,7 +230,7 @@ header { background: var(--rich-black-fogra-29); }
   height: 140%;
 }
 
-.banner-card:hover .banner-img { transform: scale(1.1); }
+.banner-card:hover .banner-img { transform: scale(1.03); }
 
 .banner-card .card-content {
   position: absolute;

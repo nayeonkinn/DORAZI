@@ -1,41 +1,61 @@
 <template>
   <div>
-    <div>
-      <div
-        class="single"
-        :style="{
-          'background-image': `url(https://image.tmdb.org/t/p/original/${this.backdrop})`,
-        }"
-      ></div>
-      <div class="movie-infos">
-        <header>
-          <img :src="poster" class="poster movie-poster" alt="poster" />
-          <div class="movie-release">
-            <div class="title">{{ release_date }}</div>
-            <span></span>
-          </div>
-        </header>
-        <div class="movie-info-all"></div>
-
-        <div class="basic-info">
-          <div class="title">{{ movietitle }}</div>
-          <b-button variant="light" @click="wishtoggle">
-            {{ wishMsg }}
-          </b-button>
-          <div class="info-summary">
-            <div class="story-summary">
-              {{ overview }}
+    <div
+      id="header"
+      :style="{background: `linear-gradient(
+            to left,
+            rgba(20, 20, 20, 0) 10%,
+            rgba(20, 20, 20, 0.25) 25%,
+            rgba(20, 20, 20, 0.5) 50%,
+            rgba(20, 20, 20, 0.75) 75%,
+            rgba(20, 20, 20, 1) 100%
+          ),url(https://image.tmdb.org/t/p/original/${this.backdrop}) center fixed`,
+      }"
+    >
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <div class="header-content">
+              <h2>{{ movietitle }}</h2>
+              <p>{{ movieinfo.original_title }}</p>
+              <div id="contact">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="contact-info">
+                        <h2>{{ movieinfo.vote_average }}</h2>
+                        <p>
+                          {{ movieinfo.genre_ids }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <b-button variant="light" @click="wishtoggle">
+                {{ wishMsg }}
+              </b-button>
             </div>
-
-            <b-button class="button"> 더보기 </b-button>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="container">
+      <div class="row align-items-center text-start">
+        <div class="col-md-3">
+          <img :src="poster" alt="poster" />
+        </div>
+        <div class="product col-md-6">
+          <h3>{{ movietitle }}</h3>
+          <p class="desc">{{ overview }}</p>
+        </div>
+      </div>
+    </div>
+    <b-button class="button"> 더보기 </b-button>
     <div>
       <b-button variant="light" id="show-btn" @click="showModal"
-        >게시글 작성</b-button
-      >
+        >게시글 작성</b-button>
 
       <b-modal ref="my-modal" hide-footer title="Using Component Methods">
         <div class="d-block text-center">
@@ -162,7 +182,7 @@ export default {
     return {
       movieinfo: null,
       poster: null,
-      backdrop: '?',
+      backdrop: "?",
       movietitle: null,
       overview: null,
       release_date: null,
@@ -243,7 +263,7 @@ export default {
       })
         .then((res) => {
           this.movieinfo = res.data;
-          console.log(this.movieinfo)
+          console.log(this.movieinfo);
           const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
           this.backdrop = this.movieinfo.backdrop_path;
@@ -260,20 +280,17 @@ export default {
             headers: {
               Authorization: `Token ${this.$store.state.token}`,
             },
-          })
-            .catch((err) => {
-              console.log(err);
-            });
+          }).catch((err) => {
+            console.log(err);
+          });
         })
         .catch((err) => {
           console.log(err);
         });
     },
-
   },
   created() {
     this.detaildata();
-    
   },
   mounted() {
     this.detaildata();
@@ -282,16 +299,14 @@ export default {
 </script>
 
 <style >
+@import "@/assets/style.css";
 .button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background-color: transparent;
 }
-.poster {
-  width: 15%;
-  height: 15%;
-}
+
 .star-rating {
   display: flex;
   flex-direction: row-reverse;
@@ -321,163 +336,5 @@ export default {
 .star-rating label:hover,
 .star-rating label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
-}
-</style>
-
-<style lang="scss" scoped>
-.movie-infos {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 220px;
-  margin: 0 auto 20px;
-  padding: 0 200px;
-  background-color: black;
-  border-bottom: 1px solid #e3e3e3;
-
-  > header {
-    position: relative;
-
-    .movie-poster {
-      width: 165px;
-      height: 234px;
-      margin-top: -36px;
-      border: 2px solid white;
-      border-radius: 5px;
-    }
-
-    .movie-release {
-      position: absolute;
-      width: 200px;
-      top: -25px;
-      left: 190px;
-      text-align: left;
-      color: white;
-      font-size: small;
-      font-weight: 400;
-
-      > span {
-        opacity: 0.75;
-        &:first-child {
-          opacity: 0.4;
-        }
-      }
-    }
-  }
-
-  .movie-info-all {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 16px 0 23px 25px;
-    text-align: left;
-
-    .movie-title {
-      .title {
-        font-size: 34px;
-        font-weight: 700;
-      }
-
-      .text {
-        width: 780px;
-        margin: 6px 0;
-        font-size: 17px;
-        color: #7f7f7f;
-      }
-    }
-
-    .rating-star {
-      width: 769px;
-      font-size: 19px;
-
-      &::before {
-        content: "";
-        display: block;
-        width: 100%;
-        margin-bottom: 10px;
-        border-top: 1px solid #f0f0f0;
-      }
-      &::after {
-        content: "";
-        display: block;
-        width: 100%;
-        margin-top: 8px;
-        // border-bottom: 1px solid #f0f0f0;
-      }
-
-      .rating-mystar {
-        color: pink;
-        margin-left: 16px;
-      }
-    }
-  }
-}
-
-.basic-info {
-  margin: 20px;
-
-  .title {
-    margin: 20px 0 20px;
-  }
-
-  .info-summary {
-    position: relative;
-    width: 598px;
-    margin: 10px 0 30px;
-
-    &::after {
-      content: "";
-      display: block;
-      margin: 0 auto;
-      width: 598px;
-      // border-bottom: 1px solid #f0f0f0;
-    }
-
-    .little-summary {
-      width: 598px;
-      margin-top: 8px;
-    }
-
-    .story-summary {
-      position: relative;
-      display: -webkit-box;
-      margin: 15px 0;
-      max-height: 4.5rem;
-      line-height: 23px;
-      overflow: hidden;
-      -webkit-line-clamp: 3; /* 라인수 */
-
-      &.show {
-        display: block;
-        max-height: none;
-        overflow: auto;
-        -webkit-line-clamp: unset;
-      }
-    }
-
-    > button {
-      position: absolute;
-      bottom: 19px;
-      right: 0;
-      max-height: 2rem;
-      line-height: 23px;
-      padding-left: 20px;
-      background: rgb(2, 0, 36);
-      background: linear-gradient(
-        90deg,
-        rgba(2, 0, 36, 1) 0%,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 18%
-      );
-      font-size: 15px;
-      font-weight: 500;
-      color: pink;
-      cursor: pointer;
-
-      &.hide {
-        display: none;
-      }
-    }
-  }
 }
 </style>
