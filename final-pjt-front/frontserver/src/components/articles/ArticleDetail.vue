@@ -4,7 +4,7 @@
       :src="poster_path"
       alt="poster_img"
       style="width: 200px; height: 300px"
-      @click="goMovie" 
+      @click="tomovie" 
     />
     <h3 @click="goProfile(article.user.username)">
       {{ article.user.username }}

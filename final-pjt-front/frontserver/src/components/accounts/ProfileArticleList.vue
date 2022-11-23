@@ -30,4 +30,12 @@ export default {
 </script>
 
 <style>
+.movies-grid {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	/* grid-template-rows: repeat(2, 100px); */
+  gap: 40px;
+  margin-bottom: 60px;
+}
 </style>

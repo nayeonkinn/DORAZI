@@ -71,6 +71,14 @@ export default {
 </script>
 
 <style>
+.movie-card {
+  /**
+   * variable for scaling overlay element on card hover 
+   */
+  --scale: 0.9;
+
+  cursor: pointer;
+}
 .play {
   width: 150px; /* 너비는 변경될수 있습니다. */
   height: 100px;
