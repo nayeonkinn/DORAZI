@@ -1,15 +1,23 @@
 <template>
   <div class="container" style="min-height: 100vh">
-    <h1 class="mb-5" style="margin-top: 270px;">
-      로그인하고 친구들과 영화로 대화를 나눠 보세요
-    </h1>
-    <div class="d-flex justify-content-center align-items-center">
-      <img
-        class="img"
-        src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c910822a-823a-4980-8cc0-0bf381faeb47/8CB9973E-7241-4F21-9F54-9F1C32855215.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221123%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221123T001331Z&X-Amz-Expires=86400&X-Amz-Signature=6857b763fd0f8f1323e4fed976f68924ea141bf54d389e8070449dbf97188df5&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%228CB9973E-7241-4F21-9F54-9F1C32855215.jpeg%22&x-id=GetObject"
-        alt="happy developers"
-        style="width: 200px"
+    <img
+      v-if="fakeLogo"
+      @click="changeLogo"
+      class="img mb-5"
+      src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/ff60be88-063a-4ff0-a57f-ccab09f7997c/logo1_wh.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221123%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221123T122435Z&X-Amz-Expires=86400&X-Amz-Signature=d25ccbefa73ad508a2ac003fe9edb607c3396ab14f49ea860de31aedecc1ddd0&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22logo1_wh.png%22&x-id=GetObject"
+      alt="fake logo"
+      style="width: 250px; margin-top: 270px"
       />
+      <img
+      v-else
+      @click="changeLogo"
+      class="img mb-5"
+      src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8fdba63a-7c45-4094-bb51-8a4f5723a6ae/Picture1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221123%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221123T123549Z&X-Amz-Expires=86400&X-Amz-Signature=31fd3855f09fc521fd15210886d7265ecb64c2ea48589c1dde6035316c0c4f8f&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Picture1.png%22&x-id=GetObject"
+      alt="real logo (happy developers)"
+      style="width: 250px; margin-top: 270px"
+    />
+    <h1 class="mb-5">로그인하고 친구들과 영화로 대화를 나눠 보세요</h1>
+    <div class="d-flex justify-content-center align-items-center">
       <div id="loginForm" style="width: 500px">
         <form @submit.prevent="login">
           <div class="form-floating mb-3">
@@ -54,6 +62,7 @@ export default {
     return {
       username: null,
       password: null,
+      fakeLogo: true,
     };
   },
   methods: {
@@ -77,6 +86,9 @@ export default {
       this.$router.push({ name: "MainView" }).catch(() => {});
       // console.log(this.$store.getters.isLogin)
     },
+    changeLogo() {
+      this.fakeLogo =!this.fakeLogo;
+    }
   },
 };
 </script>
