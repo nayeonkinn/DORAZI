@@ -28,7 +28,7 @@
           id="searchInput"
           type="text"
           class="form-control"
-          placeholder="Search"
+          placeholder="영화, 후기, 유저를 검색해보세요"
           v-model="q"
         />
       </form>
@@ -142,9 +142,10 @@ export default {
       this.$router.push({ name: "LoginView" }).catch(() => {});
     },
     search() {
-      console.log(this.q);
-      if (!this.q) {
-        alert("검색어를 입력해 주세요");
+      // console.log(this.q);
+      if (!this.q.trim()) {
+        alert("검색어를 입력해 주세요.");
+        this.q = null
       } else {
         this.$store.commit("SEARCH", this.q);
         this.$router.push({ name: "SearchResultView", params: { q: this.q } });

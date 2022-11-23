@@ -17,6 +17,7 @@ export default new Vuex.Store({
     username: null,
     search: null,
     articledetail: null,
+    resultOn: false,
   },
   getters: {
     isLogin(state) {
@@ -40,6 +41,7 @@ export default new Vuex.Store({
     SEARCH(state, q) {
       state.search = null
       state.search = q
+      state.resultOn = true
     }
   },
   actions: {

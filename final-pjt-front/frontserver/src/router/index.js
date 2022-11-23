@@ -120,6 +120,15 @@ router.beforeEach((to, from, next) => {
   } else if (to != from) {
     next()
   }
+
+  const searchPages = ['SearchView', 'SearchResultView']
+  const isFromSearch = searchPages.includes(from.name)
+  const isToSearch = searchPages.includes(to.name)
+
+  if (isFromSearch && !isToSearch) {
+    store.state.q = null
+    store.state.resultOn = false
+  }
 })
 
 export default router

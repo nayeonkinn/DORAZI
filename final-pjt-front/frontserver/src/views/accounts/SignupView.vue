@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="min-height: 100vh">
+  <div class="container">
     <h1 class="mb-5" style="margin-top: 250px; line-height: 170%">
       <span class="logoFont">cinema.log</span>에 가입하고<br />친구들과 영화로
       대화를 나눠 보세요
@@ -42,7 +42,7 @@
           </div>
         </form>
         <p style="font-size: 18px">
-          계정이 있으신가요?
+          계정이 이미 있으신가요?
           <router-link id="toLogin" :to="{ name: 'LoginView' }"
             >로그인</router-link
           >
