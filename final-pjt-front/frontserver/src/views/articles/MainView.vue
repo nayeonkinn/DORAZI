@@ -52,7 +52,9 @@ export default {
   letter-spacing: 2.5px;
   font-weight: 700;
   color: #000;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: rgb(241, 241, 241);
+  /* background-color: rgb(158, 158, 158); */
   border: none;
   border-radius: 40px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);

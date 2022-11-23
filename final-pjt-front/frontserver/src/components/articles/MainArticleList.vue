@@ -1,6 +1,9 @@
 <template>
   <div>
     <MainArticleForm v-if="formOn" @create-article="createArticle" />
+    <div class="container">
+      <div class="boxForLine mb-5"></div>
+    </div>
     <MainArticleItem
       v-for="article in articles"
       :key="`article-${article.id}`"
@@ -76,4 +79,12 @@ export default {
 </script>
 
 <style>
+
+.boxForLine {
+  height: 0.5px;
+  outline: none;
+  background: white;
+  border-radius: 5px;
+}
+
 </style>
