@@ -142,16 +142,22 @@
           />
         </form>
       </div>
-      <div v-if="result">
-        <p>검색 결과</p>
+      <div v-if="result" class="mt-3">
+        <p style="color: rgb(158, 158, 158)">검색 결과</p>
         <div v-if="result.length">
-          <div v-for="movie in result" :key="`movie-${movie.id}`">
-            <span @click="selectMovie(movie)">
+          <div v-for="movie in result" :key="`movie-${movie.id}`" class="p-1">
+            <span
+              @click="selectMovie(movie)"
+              class="d-flex align-items-center mb-2"
+              style="cursor: pointer"
+            >
               <img
                 :src="posterPath(movie.poster_path)"
                 style="width: 20px; height: 30px"
               />
-              <p>{{ movie.title }}</p>
+              <span style="margin-left: 8px; font-size: 18px">{{
+                movie.title
+              }}</span>
             </span>
           </div>
         </div>
@@ -218,7 +224,7 @@ export default {
       this.keyword = null;
     },
     posterPath(path) {
-      return "https://image.tmdb.org/t/p/original/" + path;
+      return "https://image.tmdb.org/t/p/w185/" + path;
     },
     selectMovie(movie) {
       this.selectedMovieId = movie.id;
@@ -259,6 +265,7 @@ export default {
           this.ratings = null;
           this.spoiler = null;
           this.content = null;
+          alert('후기가 작성되었습니다.')
         })
         .catch((err) => {
           console.log(err);
@@ -403,6 +410,11 @@ export default {
   bottom: 10px;
   color: black;
   text-decoration: none;
+}
+
+#searchForm {
+  width: 100%;
+  margin-bottom: 5px;
 }
 
 #searchBtn2 {
