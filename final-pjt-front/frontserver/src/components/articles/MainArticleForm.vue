@@ -19,96 +19,100 @@
         </div>
       </div>
       <div id="content" class="p-2" style="width: 100%">
-        <div v-if="selectedMovieTitle">
-          <form @submit.prevent="createArticle">
-            <div class="d-flex">
-              <p style="font-size: 20px; font-weight: 600; margin-right: 10px">
-                {{ selectedMovieTitle }} {{ selectedMovieDate }}
-              </p>
-              <label class="checkbox">
-                <input
-                  id="spoiler"
-                  type="checkbox"
-                  v-model="spoiler"
-                  true-value="yes"
-                  false-value="no"
-                  name="spolier"
-                />
-                <span class="checkbox_icon"></span>
-                <span class="checkbox_text">스포일러</span>
-              </label>
-            </div>
+        <form @submit.prevent="createArticle">
+          <div class="d-flex">
+            <p
+              v-if="selectedMovieTitle"
+              style="font-size: 20px; font-weight: 600; margin-right: 10px"
+            >
+              {{ selectedMovieTitle }} {{ selectedMovieDate }}
+            </p>
+            <p
+              v-else
+              style="font-size: 20px; font-weight: 600; margin-right: 10px;"
+            >
+              영화를 선택해주세요
+            </p>
+            <label class="checkbox">
+              <input
+                id="spoiler"
+                type="checkbox"
+                v-model="spoiler"
+                true-value="yes"
+                false-value="no"
+                name="spolier"
+              />
+              <span class="checkbox_icon"></span>
+              <span class="checkbox_text">스포일러</span>
+            </label>
+          </div>
 
-            <div class="star-rating2 space-x-4 mx-1">
-              <input
-                type="radio"
-                id="5-stars"
-                name="rating"
-                value="5"
-                v-model="ratings"
-              />
-              <label for="5-stars" class="star pr-4">★</label>
-              <input
-                type="radio"
-                id="4-stars"
-                name="rating"
-                value="4"
-                v-model="ratings"
-              />
-              <label for="4-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="3-stars"
-                name="rating"
-                value="3"
-                v-model="ratings"
-              />
-              <label for="3-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="2-stars"
-                name="rating"
-                value="2"
-                v-model="ratings"
-              />
-              <label for="2-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="1-star"
-                name="rating"
-                value="1"
-                v-model="ratings"
-              />
-              <label for="1-star" class="star">★</label>
-            </div>
-            <form id="contentForm">
-              <textarea
-                id="contentInput"
-                class="p-3"
-                v-model="content"
-                placeholder="후기를 입력해주세요"
-              ></textarea>
-              <button id="contentBtn" class="btn btn-link">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  class="bi bi-arrow-right"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-                  />
-                </svg>
-              </button>
-            </form>
+          <div class="star-rating2 space-x-4 mx-1">
+            <input
+              type="radio"
+              id="5-stars"
+              name="rating"
+              value="5"
+              v-model="ratings"
+            />
+            <label for="5-stars" class="star pr-4">★</label>
+            <input
+              type="radio"
+              id="4-stars"
+              name="rating"
+              value="4"
+              v-model="ratings"
+            />
+            <label for="4-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="3-stars"
+              name="rating"
+              value="3"
+              v-model="ratings"
+            />
+            <label for="3-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="2-stars"
+              name="rating"
+              value="2"
+              v-model="ratings"
+            />
+            <label for="2-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="1-star"
+              name="rating"
+              value="1"
+              v-model="ratings"
+            />
+            <label for="1-star" class="star">★</label>
+          </div>
+          <form id="contentForm">
+            <textarea
+              id="contentInput"
+              class="p-3"
+              v-model="content"
+              placeholder="후기를 입력해주세요"
+            ></textarea>
+            <button id="contentBtn" class="btn btn-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-arrow-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                />
+              </svg>
+            </button>
           </form>
-        </div>
-        <div v-else>
-          <p>먼저 영화를 선택해 주세요</p>
-        </div>
+        </form>
       </div>
     </div>
     <b-modal ref="my-modal" hide-footer title="Search Movie">
