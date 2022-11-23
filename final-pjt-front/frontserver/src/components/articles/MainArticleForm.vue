@@ -115,6 +115,7 @@
         </form>
       </div>
     </div>
+    <!-- 영화 검색 모달창 -->
     <b-modal ref="my-modal" hide-footer title="Search Movie">
       <div class="d-block text-center">
         <form @submit.prevent="searchMovie">

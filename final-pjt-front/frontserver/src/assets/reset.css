@@ -76,10 +76,10 @@ input, button, select {
  * add button default
  */
 
-button {
+/* button {
   color: var(--off-white);
   cursor: pointer;
-}
+} */
 
 /**
  * remove list item marker 
