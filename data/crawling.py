@@ -14,7 +14,7 @@ params = {"api_key": api_key,"language" : "ko-KR" }
 genre_list = {}
 
 response = requests.get(url, params=params, timeout=5)
-data = response.json()["genres"]
+data = response.json()["genres"]    
 for my_data in data:
     genre_list[my_data.get('id')] =  my_data.get('name')
     
@@ -31,8 +31,8 @@ now_playing_url = "/3/movie/now_playing?"
 popular_url = "/3/movie/popular?"
 top_rated_url = "/3/movie/top_rated?"
 
-url_list = [now_playing_url,popular_url,top_rated_url]
-count = [5,5,5]
+url_list = [popular_url]
+count = [70]
 for idx, short_url in enumerate(url_list):
     for i in range(1,count[idx]):
         params = {

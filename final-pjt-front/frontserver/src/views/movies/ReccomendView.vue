@@ -9,7 +9,7 @@
       <hr>
       <h2> 친구가 리뷰를 작성한 영화들</h2>
       <div class="movies-grid">
-        <Movie v-for="movie in friend_recommendlist" :key="movie.id" :movie="movie" />
+        <Movie v-for="friend_movie in friend_recommendlist" :key="friend_movie.id" :movie="friend_movie" />
       </div>
       <button class="load-more">LOAD MORE</button>
     </section>
@@ -21,6 +21,7 @@ import Movie from "@/components/movies/Movie.vue";
 import axios from "axios";
 
 const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name:"MovieView",
   components:{
