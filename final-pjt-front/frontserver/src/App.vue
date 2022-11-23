@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="p-2" style="min-height:100vh;">
+  <div id="app" class="p-2" style="min-height: 100vh">
     <app-nav />
     <router-view />
   </div>
