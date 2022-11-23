@@ -22,90 +22,105 @@
       <button @click="deleteArticle">삭제</button>
       </div>
 
-      <b-modal ref="my-modal" hide-footer title="게시물 수정">
-        <div class="d-block text-center">
-          <h3>게시글 수정</h3>
-          <form @submit.prevent="sending">
-            <label for="content">내용 : </label>
-            <textarea
-              id="content"
-              cols="30"
-              rows="10"
-              v-model="articlecontent"
-            ></textarea>
-            <!-- 별점 -->
-            <!-- https://melthleeth.tistory.com/entry/HTML-CSS%EB%A1%9C-%EB%B3%84%EC%B0%8D%EA%B8%B0-Star-Rating -->
-            <div class="star-rating space-x-4 mx-auto">
-              <input
-                type="radio"
-                id="5-stars"
-                name="rating"
-                value="5"
-                v-model="ratings"
-              />
-              <label for="5-stars" class="star pr-4">★</label>
-              <input
-                type="radio"
-                id="4-stars"
-                name="rating"
-                value="4"
-                v-model="ratings"
-              />
-              <label for="4-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="3-stars"
-                name="rating"
-                value="3"
-                v-model="ratings"
-              />
-              <label for="3-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="2-stars"
-                name="rating"
-                value="2"
-                v-model="ratings"
-              />
-              <label for="2-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="1-star"
-                name="rating"
-                value="1"
-                v-model="ratings"
-              />
-              <label for="1-star" class="star">★</label>
+      <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer hide-header-close title="게시글 작성">
+        <div class="formBox d-flex mb-5">
+          <div id="poster" @click="showModal"></div>
+          <div id="content" class="p-2" style="width: 100%">
+            <form @submit.prevent="createArticle">
+              <div class="container d-flex">
+                <div class="col-md-4">
+                  <p 
+                  style="font-size: 20px; font-weight: 600; margin-right: 10px"
+                  >
+                  {{ movietitle }}
+                </p>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-2 mt-2">
+                <label class="checkbox">
+                  <input
+                    id="spoiler"
+                    type="checkbox"
+                    v-model="spoiler"
+                    true-value="yes"
+                    false-value="no"
+                    name="spolier"
+                  />
+                  <span class="checkbox_icon"></span>
+                  <span class="checkbox_text">스포일러</span>
+                </label>
+              </div>
+              <!-- <div class="col-md-1"></div> -->
+
+              <div class="star-rating2 space-x-4 mx-1 col-md-2">
+                <input
+                  type="radio"
+                  id="5-stars"
+                  name="rating"
+                  value="5"
+                  v-model="ratings"
+                />
+                <label for="5-stars" class="star pr-4">★</label>
+                <input
+                  type="radio"
+                  id="4-stars"
+                  name="rating"
+                  value="4"
+                  v-model="ratings"
+                />
+                <label for="4-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="3-stars"
+                  name="rating"
+                  value="3"
+                  v-model="ratings"
+                />
+                <label for="3-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="2-stars"
+                  name="rating"
+                  value="2"
+                  v-model="ratings"
+                />
+                <label for="2-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="1-star"
+                  name="rating"
+                  value="1"
+                  v-model="ratings"
+                />
+                <label for="1-star" class="star">★</label>
+              </div>
             </div>
-            <!-- 스포일러 여부 -->
-            <label for="spoiler"> 스포일러 여부 </label>
-            <input
-              type="checkbox"
-              v-model="spoiler"
-              true-value="yes"
-              false-value="no"
-              name="spolier"
-            />
 
-            <br />
-
-            <b-button
-              class="mt-3"
-              variant="outline-success"
-              block
-              @click="sending"
-            >
-              수정
-            </b-button>
-            <b-button
-              class="mt-3"
-              variant="outline-danger"
-              block
-              @click="hideModal"
-            >
-              취소
-            </b-button>
-          </form>
+              <div id="contentForm">
+                <textarea
+                  id="contentInput2"
+                  class="p-3"
+                  v-model="articlecontent"
+                  placeholder="후기를 입력해주세요"
+                ></textarea>
+                <button id="contentBtn" class="btn btn-link">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-arrow-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </b-modal>
 

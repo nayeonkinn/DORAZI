@@ -2,7 +2,8 @@
   <div>
     <div
       id="header"
-      :style="{background: `linear-gradient(
+      :style="{
+        background: `linear-gradient(
             to left,
             rgba(20, 20, 20, 0) 10%,
             rgba(20, 20, 20, 0.25) 25%,
@@ -17,7 +18,7 @@
           <div class="col-md-6">
             <div class="header-content">
               <h2>{{ movietitle }}</h2>
-              <hr>
+              <hr />
               <p>{{ originaltitle }}</p>
               <div id="contact">
                 <div class="container-fluid">
@@ -25,9 +26,7 @@
                     <div class="col-md-6">
                       <div class="contact-info">
                         <h2>평점 : {{ voteaverage }}</h2>
-                        <p>
-                          장르 : {{ genres }}
-                        </p>
+                        <p>장르 : {{ genres }}</p>
                       </div>
                     </div>
                   </div>
@@ -45,12 +44,12 @@
     <div class="container">
       <div class="row align-items-center text-start">
         <div class="col-md-3 my-3 mx-1">
-          <img :src="poster" alt="poster" style="border: 3px solid white"/>
+          <img :src="poster" alt="poster" style="border: 3px solid white" />
         </div>
-        <div class="product col-md-8 m-3" >
+        <div class="product col-md-8 m-3">
           <h3>{{ movietitle }}</h3>
-          <h5> 유저 평점 : {{ ourrating }} </h5>
-          <hr>
+          <h5>유저 평점 : {{ ourrating }}</h5>
+          <hr />
           <p class="desc">{{ overview }}</p>
         </div>
       </div>
@@ -58,105 +57,108 @@
     <!-- <b-button class="button"> 더보기 </b-button> -->
     <div>
       <b-button variant="light" id="show-btn" @click="showModal"
-        >게시글 작성</b-button>
+        >게시글 작성</b-button
+      >
 
-      <b-modal ref="my-modal" hide-footer title="게시글 작성">
+      <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer hide-header-close title="게시글 작성">
         <div class="formBox d-flex mb-5">
-      <div id="poster" @click="showModal">
+          <div id="poster" @click="showModal"></div>
+          <div id="content" class="p-2" style="width: 100%">
+            <form @submit.prevent="createArticle">
+              <div class="container d-flex">
+                <div class="col-md-8">
+                  <p 
+                  style="font-size: 20px; font-weight: 600; margin-right: 10px"
+                  >
+                  {{ movietitle }}
+                </p>
+              </div>
+              <div class="col-md-2 mt-2">
+                <label class="checkbox">
+                  <input
+                    id="spoiler"
+                    type="checkbox"
+                    v-model="spoiler"
+                    true-value="yes"
+                    false-value="no"
+                    name="spolier"
+                  />
+                  <span class="checkbox_icon"></span>
+                  <span class="checkbox_text">스포일러</span>
+                </label>
+              </div>
+              <!-- <div class="col-md-1"></div> -->
 
-      </div>
-      <div id="content" class="p-2" style="width: 100%">
-        <form @submit.prevent="createArticle">
-          <div class="d-flex">
-            <p
-              style="font-size: 20px; font-weight: 600; margin-right: 10px"
-            >
-              {{ movietitle }} 
-            </p>
-            </div>
-            <div>
-            <label class="checkbox">
-              <input
-                id="spoiler"
-                type="checkbox"
-                v-model="spoiler"
-                true-value="yes"
-                false-value="no"
-                name="spolier"
-              />
-              <span class="checkbox_icon"></span>
-              <span class="checkbox_text">스포일러</span>
-            </label>
-          </div>
-
-          <div class="star-rating2 space-x-4 mx-1">
-            <input
-              type="radio"
-              id="5-stars"
-              name="rating"
-              value="5"
-              v-model="ratings"
-            />
-            <label for="5-stars" class="star pr-4">★</label>
-            <input
-              type="radio"
-              id="4-stars"
-              name="rating"
-              value="4"
-              v-model="ratings"
-            />
-            <label for="4-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="3-stars"
-              name="rating"
-              value="3"
-              v-model="ratings"
-            />
-            <label for="3-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="2-stars"
-              name="rating"
-              value="2"
-              v-model="ratings"
-            />
-            <label for="2-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="1-star"
-              name="rating"
-              value="1"
-              v-model="ratings"
-            />
-            <label for="1-star" class="star">★</label>
-          </div>
-          <form id="contentForm">
-            <textarea
-              id="contentInput"
-              class="p-3"
-              v-model="articlecontent"
-              placeholder="후기를 입력해주세요"
-            ></textarea>
-            <button id="contentBtn" class="btn btn-link">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="bi bi-arrow-right"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+              <div class="star-rating2 space-x-4 mx-1 col-md-2">
+                <input
+                  type="radio"
+                  id="5-stars"
+                  name="rating"
+                  value="5"
+                  v-model="ratings"
                 />
-              </svg>
-            </button>
-          </form>
-        </form>
-      </div>
-    </div>
+                <label for="5-stars" class="star pr-4">★</label>
+                <input
+                  type="radio"
+                  id="4-stars"
+                  name="rating"
+                  value="4"
+                  v-model="ratings"
+                />
+                <label for="4-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="3-stars"
+                  name="rating"
+                  value="3"
+                  v-model="ratings"
+                />
+                <label for="3-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="2-stars"
+                  name="rating"
+                  value="2"
+                  v-model="ratings"
+                />
+                <label for="2-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="1-star"
+                  name="rating"
+                  value="1"
+                  v-model="ratings"
+                />
+                <label for="1-star" class="star">★</label>
+              </div>
+            </div>
+
+              <div id="contentForm">
+                <textarea
+                  id="contentInput2"
+                  class="p-3"
+                  v-model="articlecontent"
+                  placeholder="후기를 입력해주세요"
+                ></textarea>
+                <button id="contentBtn" class="btn btn-link">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-arrow-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </b-modal>
     </div>
 
@@ -196,9 +198,9 @@ export default {
       spoiler: false,
       iswished: null,
       originaltitle: null,
-      voteaverage : 0,
-      genres : null,
-      ourrating: '아직 평가가 없어요',
+      voteaverage: 0,
+      genres: null,
+      ourrating: "아직 평가가 없어요",
     };
   },
   computed: {
@@ -279,11 +281,11 @@ export default {
           this.release_date = this.movieinfo.release_date.slice(0, 4);
           this.articlelist = this.movieinfo.articles_list;
           this.iswished = wishUsers.some((user) => user.id === this.userId);
-          this.originaltitle = this.movieinfo.original_title
-          this.voteaverage = this.movieinfo.vote_average
-          this.genres = this.movieinfo.genre_ids
+          this.originaltitle = this.movieinfo.original_title;
+          this.voteaverage = this.movieinfo.vote_average;
+          this.genres = this.movieinfo.genre_ids;
           if (this.movieinfo.our_ratings) {
-            this.ourrating = this.movieinfo.our_ratings
+            this.ourrating = this.movieinfo.our_ratings;
           }
         })
         .then(() => {
@@ -422,13 +424,13 @@ export default {
   cursor: pointer;
 }
 
-#contentInput {
+#contentInput2 {
   border: none;
   resize: none;
   background-color: rgb(241, 241, 241);
   border-radius: 10px;
   width: 100%;
-  height: 135px;
+  height: 210px;
 }
 
 #contentInput:focus {
