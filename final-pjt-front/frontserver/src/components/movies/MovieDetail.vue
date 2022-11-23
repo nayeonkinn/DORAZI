@@ -2,7 +2,8 @@
   <div>
     <div
       id="header"
-      :style="{background: `linear-gradient(
+      :style="{
+        background: `linear-gradient(
             to left,
             rgba(20, 20, 20, 0) 10%,
             rgba(20, 20, 20, 0.25) 25%,
@@ -17,7 +18,7 @@
           <div class="col-md-6">
             <div class="header-content">
               <h2>{{ movietitle }}</h2>
-              <hr>
+              <hr />
               <p>{{ originaltitle }}</p>
               <div id="contact">
                 <div class="container-fluid">
@@ -25,9 +26,7 @@
                     <div class="col-md-6">
                       <div class="contact-info">
                         <h2>평점 : {{ voteaverage }}</h2>
-                        <p>
-                          장르 : {{ genres }}
-                        </p>
+                        <p>장르 : {{ genres }}</p>
                       </div>
                     </div>
                   </div>
@@ -45,12 +44,12 @@
     <div class="container">
       <div class="row align-items-center text-start">
         <div class="col-md-3 my-3 mx-1">
-          <img :src="poster" alt="poster" style="border: 3px solid white"/>
+          <img :src="poster" alt="poster" style="border: 3px solid white" />
         </div>
-        <div class="product col-md-8 m-3" >
+        <div class="product col-md-8 m-3">
           <h3>{{ movietitle }}</h3>
-          <h5> 유저 평점 : {{ ourrating }} </h5>
-          <hr>
+          <h5>유저 평점 : {{ ourrating }}</h5>
+          <hr />
           <p class="desc">{{ overview }}</p>
         </div>
       </div>
@@ -58,90 +57,107 @@
     <!-- <b-button class="button"> 더보기 </b-button> -->
     <div>
       <b-button variant="light" id="show-btn" @click="showModal"
-        >게시글 작성</b-button>
+        >게시글 작성</b-button
+      >
 
-      <b-modal ref="my-modal" hide-footer title="Using Component Methods">
-        <div class="d-block text-center">
-          <h3>게시글 작성</h3>
-          <form @submit.prevent="createArticle" class="form-control">
-            <label for="content">내용 : </label>
-            <textarea
-              id="content"
-              cols="30"
-              rows="10"
-              v-model="articlecontent"
-            ></textarea>
-            <!-- 별점 -->
-            <!-- https://melthleeth.tistory.com/entry/HTML-CSS%EB%A1%9C-%EB%B3%84%EC%B0%8D%EA%B8%B0-Star-Rating -->
-            <div class="star-rating space-x-4 mx-auto">
-              <input
-                type="radio"
-                id="5-stars"
-                name="rating"
-                value="5"
-                v-model="ratings"
-              />
-              <label for="5-stars" class="star pr-4">★</label>
-              <input
-                type="radio"
-                id="4-stars"
-                name="rating"
-                value="4"
-                v-model="ratings"
-              />
-              <label for="4-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="3-stars"
-                name="rating"
-                value="3"
-                v-model="ratings"
-              />
-              <label for="3-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="2-stars"
-                name="rating"
-                value="2"
-                v-model="ratings"
-              />
-              <label for="2-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="1-star"
-                name="rating"
-                value="1"
-                v-model="ratings"
-              />
-              <label for="1-star" class="star">★</label>
+      <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer hide-header-close title="게시글 작성">
+        <div class="formBox d-flex mb-5">
+          <div id="poster" @click="showModal"></div>
+          <div id="content" class="p-2" style="width: 100%">
+            <form @submit.prevent="createArticle">
+              <div class="container d-flex">
+                <div class="col-md-8">
+                  <p 
+                  style="font-size: 20px; font-weight: 600; margin-right: 10px"
+                  >
+                  {{ movietitle }}
+                </p>
+              </div>
+              <div class="col-md-2 mt-2">
+                <label class="checkbox">
+                  <input
+                    id="spoiler"
+                    type="checkbox"
+                    v-model="spoiler"
+                    true-value="yes"
+                    false-value="no"
+                    name="spolier"
+                  />
+                  <span class="checkbox_icon"></span>
+                  <span class="checkbox_text">스포일러</span>
+                </label>
+              </div>
+              <!-- <div class="col-md-1"></div> -->
+
+              <div class="star-rating2 space-x-4 mx-1 col-md-2">
+                <input
+                  type="radio"
+                  id="5-stars"
+                  name="rating"
+                  value="5"
+                  v-model="ratings"
+                />
+                <label for="5-stars" class="star pr-4">★</label>
+                <input
+                  type="radio"
+                  id="4-stars"
+                  name="rating"
+                  value="4"
+                  v-model="ratings"
+                />
+                <label for="4-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="3-stars"
+                  name="rating"
+                  value="3"
+                  v-model="ratings"
+                />
+                <label for="3-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="2-stars"
+                  name="rating"
+                  value="2"
+                  v-model="ratings"
+                />
+                <label for="2-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="1-star"
+                  name="rating"
+                  value="1"
+                  v-model="ratings"
+                />
+                <label for="1-star" class="star">★</label>
+              </div>
             </div>
-            <!-- 스포일러 여부 -->
-            <label for="spoiler"> 스포일러 여부 </label>
-            <input
-              type="checkbox"
-              v-model="spoiler"
-              true-value="yes"
-              false-value="no"
-              name="spolier"
-            />
 
-            <br />
-            <b-button
-              variant="outline-success"
-              block
-              @click="createArticle"
-            >
-              작성
-            </b-button>
-            <b-button
-              class="mt-3"
-              variant="outline-danger"
-              block
-              @click="hideModal"
-            >
-              취소
-            </b-button>
-          </form>
+              <div id="contentForm">
+                <textarea
+                  id="contentInput2"
+                  class="p-3"
+                  v-model="articlecontent"
+                  placeholder="후기를 입력해주세요"
+                ></textarea>
+                <button id="contentBtn" class="btn btn-link">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-arrow-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </b-modal>
     </div>
@@ -182,9 +198,9 @@ export default {
       spoiler: false,
       iswished: null,
       originaltitle: null,
-      voteaverage : 0,
-      genres : null,
-      ourrating: '아직 평가가 없어요',
+      voteaverage: 0,
+      genres: null,
+      ourrating: "아직 평가가 없어요",
     };
   },
   computed: {
@@ -265,11 +281,11 @@ export default {
           this.release_date = this.movieinfo.release_date.slice(0, 4);
           this.articlelist = this.movieinfo.articles_list;
           this.iswished = wishUsers.some((user) => user.id === this.userId);
-          this.originaltitle = this.movieinfo.original_title
-          this.voteaverage = this.movieinfo.vote_average
-          this.genres = this.movieinfo.genre_ids
+          this.originaltitle = this.movieinfo.original_title;
+          this.voteaverage = this.movieinfo.vote_average;
+          this.genres = this.movieinfo.genre_ids;
           if (this.movieinfo.our_ratings) {
-            this.ourrating = this.movieinfo.our_ratings
+            this.ourrating = this.movieinfo.our_ratings;
           }
         })
         .then(() => {
@@ -299,25 +315,10 @@ export default {
 
 <style >
 @import "@/assets/style.css";
-
-#loginBtn {
-  height: 58px;
-  color: white;
-  background-color: rgb(53, 53, 53);
-  z-index: 1;
-}
-
-.button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent;
-}
-
-.star-rating {
+.star-rating2 {
   display: flex;
   flex-direction: row-reverse;
-  font-size: 2.25rem;
+  font-size: 1.5rem;
   line-height: 2.5rem;
   justify-content: space-around;
   padding: 0 0.2em;
@@ -325,23 +326,127 @@ export default {
   width: 5em;
 }
 
-.star-rating input {
+.star-rating2 input {
   display: none;
 }
 
-.star-rating label {
+.star-rating2 label {
   -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-width: 1.5px;
   -webkit-text-stroke-color: #2b2a29;
   cursor: pointer;
 }
 
-.star-rating :checked ~ label {
+.star-rating2 :checked ~ label {
   -webkit-text-fill-color: gold;
 }
 
-.star-rating label:hover,
-.star-rating label:hover ~ label {
+.star-rating2 label:hover,
+.star-rating2 label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
+}
+
+.formBox {
+  height: 250px;
+  outline: none;
+  background: white;
+  color: black;
+}
+
+#poster {
+  cursor: pointer;
+  position: relative;
+  top: 10px;
+  left: 10px;
+}
+
+#content {
+  margin: 10px;
+  margin-left: 20px;
+}
+
+.checkbox input {
+  display: none;
+}
+
+.checkbox_icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 1px solid rgb(0, 0, 0);
+  position: relative;
+  top: 3px;
+  left: 3px;
+  cursor: pointer;
+}
+
+.checkbox_icon::before,
+.checkbox_icon::after {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0;
+  background-color: rgb(0, 0, 0);
+  position: absolute;
+  transform-origin: left top;
+}
+
+.checkbox_icon::before {
+  top: 9px;
+  left: 2px;
+  transform: rotate(-45deg);
+}
+
+.checkbox_icon::after {
+  top: 16px;
+  left: 9px;
+  transform: rotate(-135deg);
+}
+
+.checkbox input:checked + .checkbox_icon {
+  border-color: rgb(0, 0, 0);
+}
+
+.checkbox input:checked + .checkbox_icon::before {
+  height: 10px;
+  transition: all 0.15s ease;
+}
+
+.checkbox input:checked + .checkbox_icon::after {
+  height: 20px;
+  transition: all 0.15s ease 0.15s;
+}
+
+.checkbox_text {
+  margin-left: 8px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+#contentInput2 {
+  border: none;
+  resize: none;
+  background-color: rgb(241, 241, 241);
+  border-radius: 10px;
+  width: 100%;
+  height: 210px;
+}
+
+#contentInput:focus {
+  outline: none;
+}
+
+#contentForm {
+  position: relative;
+}
+
+#contentBtn {
+  position: absolute;
+  border: none;
+  right: 3px;
+  bottom: 10px;
+  color: black;
+  text-decoration: none;
 }
 </style>
