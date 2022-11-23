@@ -21,6 +21,7 @@ import MovieDetailView from '@/views/movies/MovieDetailView'
 
 // search
 import SearchView from '@/views/search/SearchView'
+import SearchResultView from '@/views/search/SearchResultView'
 
 Vue.use(VueRouter)
 
@@ -86,9 +87,14 @@ const routes = [
     component: MovieDetailView
   },
   {
-    path: '/search/:q',
+    path: '/search',
     name: 'SearchView',
     component: SearchView
+  },
+  {
+    path: '/search/:q',
+    name: 'SearchResultView',
+    component: SearchResultView
   },
   {
     path: '/articles/:article_id',

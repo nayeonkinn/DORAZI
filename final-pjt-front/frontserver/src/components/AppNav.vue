@@ -33,29 +33,25 @@
         />
       </form>
 
-      <div class="d-flex">
-        <div class="d-block d-md-none">
-          <b-dropdown size="lg" right variant="link" no-caret>
-            <template #button-content>
-              <svg
-                id="searchBtnSmall"
-                xmlns="http://www.w3.org/2000/svg"
-                width="25"
-                height="25"
-                fill="currentColor"
-                class="bi bi-search"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                />
-              </svg>
-            </template>
-            <b-dropdown-item href="#">Action</b-dropdown-item>
-            <b-dropdown-item href="#">Another action</b-dropdown-item>
-            <b-dropdown-item href="#">Something else here...</b-dropdown-item>
-          </b-dropdown>
-        </div>
+      <div class="d-flex" style="margin-top: 7px">
+        <router-link
+          :to="{ name: 'SearchView' }"
+          class="d-block d-md-none px-2"
+        >
+          <svg
+            id="searchBtnSmall"
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </router-link>
 
         <router-link
           id="profileBtn"
@@ -78,7 +74,6 @@
           </svg>
           {{ usernameField }}
         </router-link>
-
         <b-dropdown right size="lg" variant="link" no-caret>
           <template #button-content>
             <svg
@@ -138,7 +133,7 @@ export default {
       return this.$store.state.username;
     },
     usernameField() {
-      return this.isLogin ? this.username : "로그인하세요";
+      return this.isLogin ? this.username : "로그인";
     },
   },
   methods: {
@@ -152,7 +147,7 @@ export default {
         alert("검색어를 입력해 주세요");
       } else {
         this.$store.commit("SEARCH", this.q);
-        this.$router.push({ name: "SearchView", params: { q: this.q } });
+        this.$router.push({ name: "SearchResultView", params: { q: this.q } });
         this.$router.go();
       }
     },
@@ -176,7 +171,7 @@ nav {
 #searchForm {
   position: relative;
   height: 40px;
-  width: 600px;
+  width: 320px;
 }
 
 #searchBtn {
@@ -188,6 +183,7 @@ nav {
 
 #searchBtnSmall {
   color: white;
+  margin-top: 8px;
 }
 
 #searchInput {
@@ -206,6 +202,7 @@ nav {
 
 #settingBtn {
   color: white;
+  margin-bottom: 9px;
 }
 
 #profileBtn {

@@ -72,16 +72,16 @@ def delete(request):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-def recommend(request):
-    user = request.user
-    serializer = ProfileSerializer(user)
-    search_data = serializer.data["search"]
-    return Response(search_data, status=status.HTTP_200_OK)
+def recommend(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
+    movies = user.search_movies.all()
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
-
+import json
 @api_view(['GET'])
-def recommend_friend(request):
-    user = request.user
+def recommend_friend(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
     serializer = ProfileSerializer(user)
     followers = serializer.data["followers"]
     result = []
