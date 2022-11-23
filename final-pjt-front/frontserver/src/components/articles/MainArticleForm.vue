@@ -89,7 +89,7 @@
             />
             <label for="1-star" class="star">★</label>
           </div>
-          <form id="contentForm">
+          <div id="contentForm">
             <textarea
               id="contentInput"
               class="p-3"
@@ -111,7 +111,7 @@
                 />
               </svg>
             </button>
-          </form>
+          </div>
         </form>
       </div>
     </div>
@@ -281,6 +281,7 @@ export default {
   outline: none;
   background: white;
   color: black;
+  border-radius: 5px;
 }
 
 #poster {
