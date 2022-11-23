@@ -29,7 +29,7 @@
             </p>
             <p
               v-else
-              style="font-size: 20px; font-weight: 600; margin-right: 10px;"
+              style="font-size: 20px; font-weight: 600; margin-right: 10px"
             >
               영화를 선택해주세요
             </p>
@@ -115,12 +115,31 @@
         </form>
       </div>
     </div>
-    <b-modal ref="my-modal" hide-footer title="Search Movie">
-      <div class="d-block text-center">
-        <form @submit.prevent="searchMovie">
-          <label for="search">영화 제목 </label>
-          <input id="search" v-model="keyword" />
-          <button>검색</button><br />
+    <b-modal ref="my-modal" hide-footer hide-header-close title="영화 검색">
+      <div class="d-block">
+        <form id="searchForm" class="d-flex" @submit.prevent="searchMovie">
+          <button id="searchBtn2" class="btn btn-link" type="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
+          </button>
+          <input
+            id="searchInput2"
+            type="text"
+            class="form-control"
+            style="color: black; background-color: rgb(241, 241, 241)"
+            placeholder="영화 제목을 입력해주세요"
+            v-model="keyword"
+          />
         </form>
       </div>
       <div v-if="result">
@@ -177,6 +196,11 @@ export default {
       this.result = null;
     },
     searchMovie() {
+      if (!this.keyword || !this.keyword.trim()) {
+        alert("검색어를 입력해주세요.");
+        this.keyword = null;
+        return;
+      }
       axios({
         method: "get",
         url: `${API_URL}/movies/search/`,
@@ -379,5 +403,26 @@ export default {
   bottom: 10px;
   color: black;
   text-decoration: none;
+}
+
+#searchBtn2 {
+  position: absolute;
+  left: 2px;
+  bottom: 1.5px;
+  color: black;
+}
+
+#searchInput2 {
+  height: 40px;
+  border: none;
+  border-radius: 30px;
+  text-indent: 30px;
+  vertical-align: middle;
+  color: black;
+  background-color: rgb(241, 241, 241);
+}
+
+#searchInput2::placeholder {
+  color: black;
 }
 </style>

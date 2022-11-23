@@ -143,8 +143,8 @@ export default {
     },
     search() {
       // console.log(this.q);
-      if (!this.q.trim()) {
-        alert("검색어를 입력해 주세요.");
+      if (!this.q || !this.q.trim()) {
+        alert("검색어를 입력해주세요.");
         this.q = null
       } else {
         this.$store.commit("SEARCH", this.q);
@@ -195,6 +195,10 @@ nav {
   vertical-align: middle;
   color: white;
   background-color: rgb(53, 53, 53);
+}
+
+#searchInput:focus {
+  outline: none;
 }
 
 #searchInput::placeholder {
