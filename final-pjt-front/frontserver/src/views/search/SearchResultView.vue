@@ -1,24 +1,26 @@
 <template>
   <div>
     <h1>검색결과</h1>
-    <div>{{ this.$router.params }}    </div>
-    <div>
-        <div>
-          <h3>영화</h3>
-            <Movie v-for="movie in movies" :key="movie.id" :movie="movie"/>
-            <div v-if="movieresult"> 검색 결과가 없습니다</div>
-        </div>
-        <hr>
-        <h3>게시글</h3>
-            <ArticleSimple v-for="article in articles" :key="article.id" :article="article"/>
-            <div v-if="articleresult"> 검색 결과가 없습니다</div>
-        <div>
-        <hr>
-        <h3>유저</h3>
-          <UserSearch v-for="user in users" :key="user.id" :user="user" />
-          <div v-if="userresult"> 검색 결과가 없습니다</div>
-        </div>
-    </div>
+    <section class="movies">
+      <h3>영화</h3>
+      <div class="movies-grid">
+        <Movie v-for="movie in movies" :key="movie.id" :movie="movie"/>
+      </div>
+      <div v-if="movieresult"> 검색 결과가 없습니다</div>
+      <hr>
+      <h3>게시글</h3>
+      <div class="movies-grid">
+        <ArticleSimple v-for="article in articles" :key="article.id" :article="article"/>
+      </div>
+      <div v-if="articleresult"> 검색 결과가 없습니다</div>
+      <hr>
+      <h3>유저</h3>
+      <div class="movies-grid">
+        <UserSearch v-for="user in users" :key="user.id" :user="user" />
+      </div>
+      <div v-if="userresult"> 검색 결과가 없습니다</div>
+    </section>
+
   </div>
 </template>
 

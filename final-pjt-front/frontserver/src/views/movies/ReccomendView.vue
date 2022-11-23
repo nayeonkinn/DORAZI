@@ -1,5 +1,6 @@
 <template>
   <div class="container3">
+    <!-- 영화 배너 -->
     <section class="banner">
       <div class="banner-card">
         <img class="banner-img" :src="url" alt="none">
@@ -19,6 +20,7 @@
         </div>
       </div>
     </section>
+    <!-- 영화 리스트 -->
     <section class="movies">
       <h1>추천 영화 리스트</h1>
       <h2> 내가 검색해 본 영화들 </h2>
