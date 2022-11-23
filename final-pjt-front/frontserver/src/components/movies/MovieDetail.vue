@@ -14,18 +14,19 @@
     >
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-8">
+          <div class="col-md-6">
             <div class="header-content">
               <h2>{{ movietitle }}</h2>
-              <p>{{ movieinfo.original_title }}</p>
+              <hr>
+              <p>{{ originaltitle }}</p>
               <div id="contact">
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="contact-info">
-                        <h2>{{ movieinfo.vote_average }}</h2>
+                        <h2>평점 : {{ voteaverage }}</h2>
                         <p>
-                          {{ movieinfo.genre_ids }}
+                          장르 : {{ genres }}
                         </p>
                       </div>
                     </div>
@@ -43,16 +44,18 @@
 
     <div class="container">
       <div class="row align-items-center text-start">
-        <div class="col-md-3">
-          <img :src="poster" alt="poster" />
+        <div class="col-md-3 my-3 mx-1">
+          <img :src="poster" alt="poster" style="border: 3px solid white"/>
         </div>
-        <div class="product col-md-6">
+        <div class="product col-md-8 m-3" >
           <h3>{{ movietitle }}</h3>
+          <h5> 유저 평점 : {{ ourrating }} </h5>
+          <hr>
           <p class="desc">{{ overview }}</p>
         </div>
       </div>
     </div>
-    <b-button class="button"> 더보기 </b-button>
+    <!-- <b-button class="button"> 더보기 </b-button> -->
     <div>
       <b-button variant="light" id="show-btn" @click="showModal"
         >게시글 작성</b-button>
@@ -60,7 +63,7 @@
       <b-modal ref="my-modal" hide-footer title="Using Component Methods">
         <div class="d-block text-center">
           <h3>게시글 작성</h3>
-          <form @submit.prevent="createArticle">
+          <form @submit.prevent="createArticle" class="form-control">
             <label for="content">내용 : </label>
             <textarea
               id="content"
@@ -124,7 +127,6 @@
 
             <br />
             <b-button
-              class="mt-3"
               variant="outline-success"
               block
               @click="createArticle"
@@ -143,20 +145,7 @@
         </div>
       </b-modal>
     </div>
-    <!-- <div>
-      <h3>게시글 작성</h3>
-      <form @submit.prevent="createArticle">
-        <label for="content">내용 : </label>
-        <textarea
-          id="content"
-          cols="30"
-          rows="10"
-          v-model="articlecontent"
-        ></textarea
-        ><br />
-        <input type="submit" id="submit" />
-      </form>
-    </div> -->
+
     <div class="cotainer">
       <ArticleList
         v-for="article in articlelist.slice().reverse()"
@@ -192,6 +181,10 @@ export default {
       ratings: 0,
       spoiler: false,
       iswished: null,
+      originaltitle: null,
+      voteaverage : 0,
+      genres : null,
+      ourrating: '아직 평가가 없어요',
     };
   },
   computed: {
@@ -272,6 +265,12 @@ export default {
           this.release_date = this.movieinfo.release_date.slice(0, 4);
           this.articlelist = this.movieinfo.articles_list;
           this.iswished = wishUsers.some((user) => user.id === this.userId);
+          this.originaltitle = this.movieinfo.original_title
+          this.voteaverage = this.movieinfo.vote_average
+          this.genres = this.movieinfo.genre_ids
+          if (this.movieinfo.our_ratings) {
+            this.ourrating = this.movieinfo.our_ratings
+          }
         })
         .then(() => {
           axios({
@@ -300,6 +299,14 @@ export default {
 
 <style >
 @import "@/assets/style.css";
+
+#loginBtn {
+  height: 58px;
+  color: white;
+  background-color: rgb(53, 53, 53);
+  z-index: 1;
+}
+
 .button {
   -webkit-appearance: none;
   -moz-appearance: none;

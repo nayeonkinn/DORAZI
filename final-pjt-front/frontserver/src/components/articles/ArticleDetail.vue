@@ -4,6 +4,7 @@
       :src="poster_path"
       alt="poster_img"
       style="width: 200px; height: 300px"
+      @click="goMovie" 
     />
     <h3 @click="goProfile(article.user.username)">
       {{ article.user.username }}
@@ -204,6 +205,12 @@ export default {
     }
   },
   methods: {
+    tomovie() {
+      this.$router.push({
+        name: "MovieDetailView",
+        params: { movie_pk: this.article.movie.id },
+      });
+    },
     deleteArticle() {
       axios({
         method: "delete",

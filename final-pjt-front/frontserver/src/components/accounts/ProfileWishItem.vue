@@ -1,11 +1,20 @@
 <template>
-	<div class="card text-bg-dark">
-		<img :src="poster_path" alt="poster_img" style="width: 300px; height: 400px;">
-		<div class="card-img-overlay">
-			<h5 class="card-title">{{ movie_title }}</h5>
-			<p class="card-text"><small>{{ movie_release_date }}</small></p>
-		</div>
-	</div>
+
+
+<div class="movie-card" @click="tomovie">
+    <div class="card-head1">
+			<img class="card-img align-center" :src="poster_path" alt="poster_img">
+    </div>  
+    <div class="card-body">
+      <h3 class="card-title1">{{ movie_title }}</h3>
+
+      <div class="card-info">
+        <!-- <span class="genre"> {{ genres }} </span> -->
+        <span class="year">{{ movie_release_date }}</span>
+      </div>
+    </div>
+</div>
+
 </template>
 
 <script>
@@ -25,6 +34,14 @@ export default {
 			return this.wish.release_date.substr(0, 4)
 		}
 	},
+	methods: {
+    tomovie() {
+			this.$router.push({
+        name: "MovieDetailView",
+        params: { movie_pk: this.wish.id },
+      });
+		}
+	}
 }
 </script>
 
