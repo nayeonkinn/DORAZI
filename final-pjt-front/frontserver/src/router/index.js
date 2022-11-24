@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 
 import store from '@/store/index.js'
 
+// errors
+import ErrorPage404 from '@/views/errors/ErrorPage404'
+
 // accounts
 import SignupView from '@/views/accounts/SignupView'
 import LoginView from '@/views/accounts/LoginView'
@@ -27,6 +30,11 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path: '/404',
+    name: 'ErrorPage404',
+    component: ErrorPage404,
+  },
   {
     path: '/main',
     name: 'MainView',
@@ -100,8 +108,11 @@ const routes = [
     path: '/articles/:article_id',
     name: 'ArticleDetailView',
     component: ArticleDetailView
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
-
 ]
 
 const router = new VueRouter({
