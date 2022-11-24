@@ -88,6 +88,12 @@ def recommend(request, username):
 def recommend_friend(request, username):
     user = get_object_or_404(get_user_model(), username=username)
     serializer = ProfileSerializer(user)
+    # return Response(serializer.data, status=status.HTTP_200_OK)
+    articles = serializer.data["articles_list"]
+    seen = []
+    for article in articles:
+        seen.append(article["movie"]["id"])
+    seen = list(set(seen))
     followers = serializer.data["followers"]
     result = []
     for follower in followers:
@@ -95,5 +101,7 @@ def recommend_friend(request, username):
         you_serializer = ProfileSerializer(you)
         articles = you_serializer.data["articles_list"]
         for article in articles:
+            if article["movie"]["id"] in seen:
+                continue
             result.append(article["movie"])
     return Response(result, status=status.HTTP_200_OK)
