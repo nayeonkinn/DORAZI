@@ -327,6 +327,7 @@ export default {
       likeUsers: null,
       commentDiv: false,
       comments: null,
+      spoiler: null,
     };
   },
   computed: {
@@ -355,14 +356,6 @@ export default {
     commentCount() {
       return this.comments.length;
     },
-    spoiler: {
-      get() {
-        return this.$store.state.articledetail.spoiler
-      },
-      set(newdata) {
-        return newdata
-      }
-    }
   },
   methods: {
     getActiveStar(index) {
@@ -545,6 +538,7 @@ export default {
     // console.log(this.article)
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
+    this.spoiler = this.article.spoiler;
   },
 };
 </script>
