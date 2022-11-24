@@ -88,7 +88,7 @@
       </div>
 
       <div class="p-5">
-        <p v-if="!spoiler" style="line-height: 170%;">{{ article.content }}</p>
+        <p v-if="!spoiler" style="line-height: 170%">{{ article.content }}</p>
         <p v-else>
           주의! 스포일러가 포함되어 있습니다.
           <span
@@ -110,7 +110,7 @@
         <div class="formBox d-flex mb-5">
           <div id="poster" @click="showModal"></div>
           <div id="content" class="p-2" style="width: 100%">
-            <form @submit.prevent="createArticle">
+            <form @submit.prevent="sending">
               <div class="container d-flex">
                 <div class="col-md-4">
                   <p
@@ -124,7 +124,7 @@
                   </p>
                 </div>
                 <div class="col-lg-4 md-auto"></div>
-                <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap;">
+                <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap">
                   <label class="checkbox">
                     <input
                       id="spoiler"
