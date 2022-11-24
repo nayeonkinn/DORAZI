@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>검색 결과</h1>
+    <h1 style="margin-top: 50px">검색 결과</h1>
     <br /><br />
     <section class="movies">
       <h3 style="text-align: start; margin-left: 10px; margin-bottom: 30px">
@@ -30,7 +30,7 @@
       </h3>
       <div class="mb-5">
         <div v-if="users.length" class="movies-grid">
-          <UserSearch v-for="user in users" :key="user.id" :user="user" />
+          <UserSearch class="usersResultBox" v-for="user in users" :key="user.id" :user="user" />
         </div>
         <div class='m-5' v-if="userresult">검색 결과가 없습니다</div>
       </div>
@@ -135,4 +135,10 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.usersResultBox {
+  width: 100%;
+  height: 100px;
+}
+
 </style>
