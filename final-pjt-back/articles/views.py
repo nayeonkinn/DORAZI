@@ -96,8 +96,7 @@ def child_comment_create(request, article_pk, comment_pk):
     comment = get_object_or_404(ArticleComment, pk=comment_pk)
     mention_to = None
     if comment.parent_comment:
-        comment = comment.parent_comment
-        mention_to = comment.user.username
+        comment, mention_to = comment.parent_comment, comment.user.username
     serializer = ArticleCommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(article=article, user_id=request.user.id,

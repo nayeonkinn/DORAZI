@@ -55,7 +55,7 @@
 
     <div v-if="childDiv" class="childCommentBox">
       <form @submit.prevent="createChildComment">
-        <textarea v-model="childComment" class="childCommentText"></textarea>
+        <textarea v-model="childComment" class="childCommentText" rows="1"></textarea>
         <div class="d-flex justify-content-end">
           <button class="buttons">등록</button>
         </div>
@@ -306,5 +306,6 @@ export default {
   resize: none;
   background-color: rgb(187, 187, 187);
   border-radius: 5px;
+  padding: 20px;
 }
 </style>
