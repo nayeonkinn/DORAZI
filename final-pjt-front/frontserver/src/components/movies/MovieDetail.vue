@@ -3,14 +3,14 @@
     <div
       id="header"
       :style="{
-        background: `linear-gradient(
+            background: `linear-gradient(
             to left,
             rgba(20, 20, 20, 0) 10%,
             rgba(20, 20, 20, 0.25) 25%,
             rgba(20, 20, 20, 0.5) 50%,
             rgba(20, 20, 20, 0.75) 75%,
             rgba(20, 20, 20, 1) 100%
-          ),url(https://image.tmdb.org/t/p/original/${this.backdrop}) center fixed`,
+          ),url(https://image.tmdb.org/t/p/original/${this.backdrop}) center fixed no-repeat`,
       }"
     >
       <div class="container">
@@ -32,9 +32,23 @@
                   </div>
                 </div>
               </div>
-              <b-button variant="light" @click="wishtoggle">
-                {{ wishMsg }}
-              </b-button>
+              <span style="cursor: pointer" @click="wishtoggle">
+                <svg
+              id="likeBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-heart-fill"
+              viewBox="0 0 16 16"
+              :class="[iswished  ? 'likeColor' : 'notLikeColor']"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+              />
+            </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -42,22 +56,26 @@
     </div>
 
     <div class="container">
-      <div class="row align-items-center text-start">
+      <div class="row align-items-start text-start">
         <div class="col-md-3 my-3 mx-1">
           <img :src="poster" alt="poster" style="border: 3px solid white" />
         </div>
-        <div class="product col-md-8 m-3">
-          <h3>{{ movietitle }}</h3>
-          <h5>유저 평점 : {{ ourrating }}</h5>
-          <hr />
-          <p class="desc">{{ overview }}</p>
+        <div class="product col-md-8 mt-5">
+          <div class="col">
+            <h3>{{ movietitle }}</h3>
+            <h5>유저 평점 : {{ ourrating }}</h5>
+            <hr/>
+          </div>
+          <div>
+            <p class="desc">{{ overview }}</p>
+          </div>
         </div>
       </div>
     </div>
     <!-- <b-button class="button"> 더보기 </b-button> -->
     <div>
-      <b-button variant="light" id="show-btn" @click="showModal"
-        >게시글 작성</b-button
+      <button class="buttons" variant="light" id="show-btn" @click="showModal"
+        >게시글 작성</button
       >
 
       <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer hide-header-close title="게시글 작성">
@@ -66,14 +84,15 @@
           <div id="content" class="p-2" style="width: 100%">
             <form @submit.prevent="createArticle">
               <div class="container d-flex">
-                <div class="col-md-8">
+                <div class="col-md-4">
                   <p 
                   style="font-size: 20px; font-weight: 600; margin-right: 10px"
                   >
                   {{ movietitle }}
                 </p>
               </div>
-              <div class="col-md-2 mt-2">
+              <div class="col-lg-4 md-auto"></div>
+              <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap;">
                 <label class="checkbox">
                   <input
                     id="spoiler"
@@ -89,7 +108,7 @@
               </div>
               <!-- <div class="col-md-1"></div> -->
 
-              <div class="star-rating2 space-x-4 mx-1 col-md-2">
+              <div class="star-rating2 space-x-4 m-auto col-md-2">
                 <input
                   type="radio"
                   id="5-stars"
@@ -272,7 +291,7 @@ export default {
       })
         .then((res) => {
           this.movieinfo = res.data;
-          console.log(this.movieinfo);
+          // console.log(this.movieinfo);
           const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
           this.backdrop = this.movieinfo.backdrop_path;
@@ -280,7 +299,7 @@ export default {
           this.overview = this.movieinfo.overview;
           this.release_date = this.movieinfo.release_date.slice(0, 4);
           this.articlelist = this.movieinfo.articles_list;
-          this.iswished = wishUsers.some((user) => user.id === this.userId);
+          this.iswished = wishUsers.some((user) => user === this.userId);
           this.originaltitle = this.movieinfo.original_title;
           this.voteaverage = this.movieinfo.vote_average;
           this.genres = this.movieinfo.genre_ids;
@@ -429,7 +448,7 @@ export default {
   resize: none;
   background-color: rgb(241, 241, 241);
   border-radius: 10px;
-  width: 100%;
+  width: 99%;
   height: 210px;
 }
 

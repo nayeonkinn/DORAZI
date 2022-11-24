@@ -1,6 +1,6 @@
 <template>
   <div class="movie-card" @click="toarticle">
-    <div class="card-head1">
+    <div class="card-head2">
       <img class="card-img align-center" :src="poster_path" alt="poster_img" />
       <div class="card-overlay">
         <div class="bookmark">
@@ -12,7 +12,7 @@
           <span>{{ rating }}</span>
         </div>
 
-        <div class="play">
+        <div class="play" style="font-size:large">
           <p>{{ content }}</p>
         </div>
       </div>
@@ -71,21 +71,20 @@ export default {
 </script>
 
 <style>
-.movie-card {
-  /**
-   * variable for scaling overlay element on card hover 
-   */
-  --scale: 0.9;
-
-  cursor: pointer;
+.movie-card .card-head2 {
+  position: relative;
+  height: 350px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  overflow: hidden;
 }
 .play {
-  width: 150px; /* 너비는 변경될수 있습니다. */
-  height: 100px;
+  width: 250px; /* 너비는 변경될수 있습니다. */
+  height: 200px;
   line-height: 20px;
   overflow: hidden; /* 내용이 길면 감춤니다 */
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
 }
 </style>

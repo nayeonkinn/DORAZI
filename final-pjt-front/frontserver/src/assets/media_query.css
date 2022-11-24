@@ -66,7 +66,7 @@
   .navbar-menu-btn .two   { width: 20px; }
   .navbar-menu-btn .three { width: 15px; }
 
-  .navbar-menu-btn.active span { background: var(--light-azure); }
+  .navbar-menu-btn.active span { background: #0080FF; }
 
   .navbar-menu-btn.active .one { transform: rotate(45deg) translateY(14px); }
 
@@ -93,7 +93,7 @@
     justify-content: center;
     align-items:     flex-start;
     padding-left: var(--px);
-    border-bottom: 1px solid var(--oxford-blue);
+    border-bottom: 1px solid #002147;
   }
 
   .navbar-nav li:not(:last-child) {
@@ -131,7 +131,7 @@
 
   .navbar-form-close ion-icon {
     font-size: 20px;
-    color: var(--light-azure);
+    color: #0080FF;
   }
 
   .navbar-search-btn {
