@@ -3,16 +3,14 @@
     <div class="card-head2">
       <img class="card-img align-center" :src="poster_path" alt="poster_img" />
       <div class="card-overlay">
-        <div class="bookmark">
-          <ion-icon name="bookmark-outline"></ion-icon>
-        </div>
+
 
         <div class="rating">
           <ion-icon name="star-outline"></ion-icon>
           <span>{{ rating }}</span>
         </div>
 
-        <div class="play" style="font-size:large">
+        <div class="play">
           <p>{{ content }}</p>
         </div>
       </div>

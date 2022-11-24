@@ -6,12 +6,12 @@
  * copyright 2021 @codewithsadee 
  */
 
- * {
+/* {
   margin: 0;
   padding: 0;
   transition: all 0.5s ease;
 }
-
+ */
 
 
 
@@ -123,7 +123,7 @@ header { background: var(--rich-black-fogra-29); }
   font-weight: var(--fw-5);
 }
 
-.navbar-link:hover { color: #0080FF; } */
+.navbar-link:hover { color: #ffc82f; } */
 
 /**
  * live indicator style 
@@ -177,7 +177,7 @@ header { background: var(--rich-black-fogra-29); }
 .navbar-form-btn ion-icon,
 .navbar-search-btn ion-icon {
   font-size: 20px;
-  color: #0080FF;
+  color: #ffc82f;
   --ionicon-stroke-width: 50px;
 }
 
@@ -200,12 +200,12 @@ header { background: var(--rich-black-fogra-29); }
 
 .navbar-signin ion-icon {
   font-size: 22px;
-  color: #0080FF;
+  color: #ffc82f;
   margin-left: 5px;
   --ionicon-stroke-width: 30px;
 }
 
-.navbar-signin:hover span { color: #0080FF; }
+.navbar-signin:hover span { color: #ffc82f; }
 
 
 
@@ -332,7 +332,7 @@ header { background: var(--rich-black-fogra-29); }
 }
 
 .filter-radios input:checked + label,
-.filter-radios label:hover { color: #0080FF; }
+.filter-radios label:hover { color: #ffc82f; }
 
 input ~ .checked-radio-bg {
   /**
@@ -397,7 +397,7 @@ input ~ .checked-radio-bg {
   position: absolute;
   inset: 0;
   opacity: 0;
-  backdrop-filter: blur(5px) brightness(80%);
+  backdrop-filter: blur(5px) brightness(70%);
 }
 
 .movie-card:hover .card-overlay { opacity: 1; }
@@ -408,7 +408,7 @@ input ~ .checked-radio-bg {
   top: 15px;
   padding: 6px;
   border-radius: 10px;
-  color: #0080FF;
+  color: #ffc82f;
   transform: scale(var(--scale));
 }
 
@@ -465,7 +465,7 @@ input ~ .checked-radio-bg {
 
 }
 
-.movie-card:hover .card-title1 { color: #0080FF; }
+.movie-card:hover .card-title1 { color: #ffc82f; }
 
 .movie-card .card-info {
   margin:auto;
@@ -491,7 +491,7 @@ input ~ .checked-radio-bg {
   color: var(--white);
 }
 
-.load-more:hover { background: #0080FF; }
+.load-more:hover { background: #ffc82f; }
 
 
 
@@ -547,7 +547,7 @@ input ~ .checked-radio-bg {
   border-radius: 8px;
 }
 
-.category-card:hover .name { color: #0080FF; }
+.category-card:hover .name { color: #ffc82f; }
 
 
 
@@ -643,7 +643,7 @@ input ~ .checked-radio-bg {
   font-weight: var(--fw-5);
 }
 
-.live-card:hover .card-title { color: #0080FF; }
+.live-card:hover .card-title { color: #ffc82f; }
 
 
 
@@ -703,7 +703,7 @@ footer {
 
 ul .link-item:not(:last-child) { margin-bottom: 10px; }
 
-.link-item:hover a { color: #0080FF; }
+.link-item:hover a { color: #ffc82f; }
 
 .footer-copyright {
   display:         flex;
@@ -715,7 +715,7 @@ ul .link-item:not(:last-child) { margin-bottom: 10px; }
 .footer-copyright p,
 .wrapper a { font-size: var(--fs-sm); }
 
-.wrapper a:hover { color: #0080FF; }
+.wrapper a:hover { color: #ffc82f; }
 
 .wrapper { display: flex; }
 

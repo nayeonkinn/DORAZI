@@ -180,7 +180,7 @@
         </div>
       </b-modal>
     </div>
-
+<!-- 게시글 리스트 -->
     <div class="cotainer">
       <ArticleList
         v-for="article in articlelist.slice().reverse()"
