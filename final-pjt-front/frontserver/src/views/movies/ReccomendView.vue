@@ -83,8 +83,9 @@ export default {
       })
       .then((res) => {
         console.log(res.data);  
-        const recommend = res.data
-        this.recommendlist = 14 ? recommend.slice(0,14) : recommend
+        this.recommendlist = res.data
+        // const recommend = res.data
+        // this.recommendlist = 14 ? recommend.slice(0,14) : recommend
       })
       .catch((err) =>{
         console.log(err);
@@ -97,8 +98,9 @@ export default {
       })
       .then((res) => {
         console.log(res);
-        const recommendlist = res.data;
-        this.friendrecommendlist = 14 ? recommendlist.slice(0,14) : recommendlist
+        this.friendrecommendlist = res.data
+        // const recommendlist = res.data;
+        // this.friendrecommendlist = 14 ? recommendlist.slice(0,14) : recommendlist
       })
       .catch((err) =>{
         console.log(err);
