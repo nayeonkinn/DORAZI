@@ -127,7 +127,7 @@
   <button id="recoBtn" class="buttons" variant="light" @click="showModal">게시물 작성</button>
 
     <Carousel :per-page="1" class="banner_list" paginationColor="#999" :paginationPadding=3 :perPage='pagelim' :navigationEnabled=true>
-      <Slide v-for="article in articlelist.slice().reverse()" :key="article.id" style="width:50px">
+      <Slide v-for="article in articlelist.slice().reverse()" :key="article.id" style="width:300px">
         <ArticleList
           :article="article"
           @update="detaildata"

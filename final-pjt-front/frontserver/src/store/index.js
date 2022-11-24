@@ -18,12 +18,15 @@ export default new Vuex.Store({
     userId: null,
     username: null,
     search: null,
-    articledetail: null,
+    articledetail: {},
     resultOn: false,
   },
   getters: {
     isLogin(state) {
       return state.token ? true : false
+    },
+    articledetail: (response) => {
+      return response
     }
   },
   mutations: {

@@ -88,7 +88,7 @@
       </div>
 
       <div class="p-5">
-        <p v-if="!spoiler"><pre style="font-size:1rem;">{{ article.content }}</pre></p>
+        <p v-if="!spoiler"><pre style="font-size:1rem;">{{ content }}</pre></p>
         <p v-else>
           주의! 스포일러가 포함되어 있습니다.
           <span
@@ -129,7 +129,7 @@
                     <input
                       id="spoiler"
                       type="checkbox"
-                      v-model="spoiler"
+                      :value = "spoiler"
                       true-value="yes"
                       false-value="no"
                       name="spolier"
@@ -188,7 +188,7 @@
                 <textarea
                   id="contentInput2"
                   class="p-3"
-                  v-model="content"
+                  :value="content"
                   placeholder="후기를 입력해주세요"
                 ></textarea>
                 <button id="contentBtn" class="btn btn-link">
@@ -323,7 +323,6 @@ export default {
   data() {
     return {
       article: this.$store.state.articledetail,
-      articlecontent: null,
       isLiked: null,
       likeCount: null,
       likeDiv: false,
@@ -333,6 +332,12 @@ export default {
     };
   },
   computed: {
+    articlecontent() {
+      return this.article.content
+    },
+    content() {
+      return this.article.content
+    },
     movieTitle() {
       return this.article.movie.title;
     },
@@ -365,9 +370,6 @@ export default {
     spoiler() {
       return this.article.spoiler;
     },
-    content() {
-      return this.article.content;
-    },
     backdrop_path() {
       return (
         "https://image.tmdb.org/t/p/w1280/" + this.article.movie.backdrop_path
@@ -378,6 +380,9 @@ export default {
     },
   },
   methods: {
+    spoilerToggle() {
+      this.spoiler = !this.spoiler;
+    },
     tomovie() {
       this.$router.push({
         name: "MovieDetailView",
@@ -392,9 +397,10 @@ export default {
           Authorization: `Token ${this.token}`,
         },
       })
-        .then(() => {
-          // console.log(response)
-          this.$emit("delete-article", this.article.id);
+        .then((response) => {
+          console.log(response)
+          this.$router.push({name: "MainView"})
+          // this.$emit("delete-article", this.article.id);
         })
         .catch((error) => {
           console.log(error);
@@ -416,12 +422,12 @@ export default {
       this.likeUsers = this.article.like_users;
     },
     sending() {
-      const content = this.articlecontent;
+      const content = this.content;
       if (!content) {
         alert("내용을 입력해주세요");
         return;
       }
-      // console.log(content);
+      console.log(content);
       axios({
         method: "PUT",
         url: `${API_URL}/articles/${this.article.id}/`,
@@ -434,10 +440,12 @@ export default {
           Authorization: `Token ${this.$store.state.token}`,
         },
       })
-        .then(() => {
-          // console.log(res);
+        .then((res) => {
+          console.log(res);
+          // this.$store.state.articledetail = res.data
+          this.article = res.data
           this.hideModal();
-          this.$emit("update", this.article);
+          // this.$emit("update", this.article);
         })
         .catch((err) => {
           console.log(err);
@@ -452,7 +460,9 @@ export default {
         },
       })
         .then((response) => {
-          // console.log(response)
+          console.log(response)
+          // this.$store.state.articledetail = response.data
+          this.article = response.data
           this.setLikeData(response.data);
         })
         .catch((error) => {
@@ -553,7 +563,7 @@ export default {
   },
   created() {
     // console.log(this.$store.state.articledetail);
-    this.article = this.$store.state.articledetail;
+    // this.article = this.$store.state.articledetail;
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
   },
@@ -567,139 +577,139 @@ export default {
 
 
 <style lang="scss" scoped>
-.comments {
-  position: relative;
-  width: 638px;
-  overflow: hidden;
+// .comments {
+//   position: relative;
+//   width: 638px;
+//   overflow: hidden;
 
-  .process-move-arrow {
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    color: #7b7c82;
-    background-color: white;
-    font-size: 20px;
-    border-radius: 50%;
-    box-shadow: 0px 0px 1px 0px;
-    cursor: pointer;
-    opacity: 0.2;
-    transition: all 0.5s ease-in-out;
+//   .process-move-arrow {
+//     display: flex;
+//     position: absolute;
+//     justify-content: center;
+//     align-items: center;
+//     width: 30px;
+//     height: 30px;
+//     color: #7b7c82;
+//     background-color: white;
+//     font-size: 20px;
+//     border-radius: 50%;
+//     box-shadow: 0px 0px 1px 0px;
+//     cursor: pointer;
+//     opacity: 0.2;
+//     transition: all 0.5s ease-in-out;
 
-    &:hover {
-      color: black;
-      opacity: 0.8;
-    }
-  }
+//     &:hover {
+//       color: black;
+//       opacity: 0.8;
+//     }
+//   }
 
-  .left-arrow {
-    left: 10px;
-    top: 175px;
-    z-index: 10;
-  }
+//   .left-arrow {
+//     left: 10px;
+//     top: 175px;
+//     z-index: 10;
+//   }
 
-  .right-arrow {
-    right: 10px;
-    top: 175px;
-  }
+//   .right-arrow {
+//     right: 10px;
+//     top: 175px;
+//   }
 
-  .title {
-    margin: 10px 20px 20px;
-  }
+//   .title {
+//     margin: 10px 20px 20px;
+//   }
 
-  > ul {
-    display: flex;
-    justify-content: flex-start;
-    margin: 14px 0px 30px;
-    transition: all 0.8s;
+//   > ul {
+//     display: flex;
+//     justify-content: flex-start;
+//     margin: 14px 0px 30px;
+//     transition: all 0.8s;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+//     &::-webkit-scrollbar {
+//       display: none;
+//     }
 
-    > li {
-      display: flex;
-      flex-direction: column;
-      padding: 15px;
-      margin: 0 10px;
-      background-color: #f2f2f2;
-      border-radius: 5px;
-      opacity: 0.9;
+//     > li {
+//       display: flex;
+//       flex-direction: column;
+//       padding: 15px;
+//       margin: 0 10px;
+//       background-color: #f2f2f2;
+//       border-radius: 5px;
+//       opacity: 0.9;
 
-      &:first-child {
-        margin-left: 15px;
-      }
+//       &:first-child {
+//         margin-left: 15px;
+//       }
 
-      > div {
-        .comment-title {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 265px;
+//       > div {
+//         .comment-title {
+//           display: flex;
+//           justify-content: space-between;
+//           align-items: center;
+//           width: 265px;
 
-          > h3 {
-            font-size: 17px;
-            font-weight: 600;
-          }
+//           > h3 {
+//             font-size: 17px;
+//             font-weight: 600;
+//           }
 
-          > span {
-            padding: 5px 12px;
-            font-size: 15px;
-            border: 1px solid #eaeaea;
-            border-radius: 15px;
-            background-color: #ffff;
-          }
-        }
-        &::after {
-          content: "";
-          display: block;
-          margin-top: 10px;
-          border-bottom: 1px solid #e5e5e5;
-        }
-      }
+//           > span {
+//             padding: 5px 12px;
+//             font-size: 15px;
+//             border: 1px solid #eaeaea;
+//             border-radius: 15px;
+//             background-color: #ffff;
+//           }
+//         }
+//         &::after {
+//           content: "";
+//           display: block;
+//           margin-top: 10px;
+//           border-bottom: 1px solid #e5e5e5;
+//         }
+//       }
 
-      .comment {
-        display: -webkit-box;
-        max-width: 270px;
-        height: 9rem;
-        margin: 15px 0;
-        font-size: 15px;
-        line-height: 1.5rem;
-        word-wrap: break-word;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 6; /* 라인수 */
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+//       .comment {
+//         display: -webkit-box;
+//         max-width: 270px;
+//         height: 9rem;
+//         margin: 15px 0;
+//         font-size: 15px;
+//         line-height: 1.5rem;
+//         word-wrap: break-word;
+//         -webkit-box-orient: vertical;
+//         -webkit-line-clamp: 6; /* 라인수 */
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//       }
 
-      .comment-good {
-        .fa-thumbs-up {
-          margin-right: 5px;
-          color: #787878;
-          cursor: pointer;
-        }
+//       .comment-good {
+//         .fa-thumbs-up {
+//           margin-right: 5px;
+//           color: #787878;
+//           cursor: pointer;
+//         }
 
-        .like {
-          color: pink;
-        }
+//         .like {
+//           color: pink;
+//         }
 
-        &::before {
-          content: "";
-          display: block;
-          margin-bottom: 10px;
-          border-bottom: 1px solid #e5e5e5;
-        }
-      }
-    }
-  }
-  &::after {
-    content: "";
-    display: block;
-    margin: 0 auto;
-    width: 598px;
-    border-bottom: 1px solid #f0f0f0;
-  }
-}
+//         &::before {
+//           content: "";
+//           display: block;
+//           margin-bottom: 10px;
+//           border-bottom: 1px solid #e5e5e5;
+//         }
+//       }
+//     }
+//   }
+//   &::after {
+//     content: "";
+//     display: block;
+//     margin: 0 auto;
+//     width: 598px;
+//     border-bottom: 1px solid #f0f0f0;
+//   }
+// }
 </style>

@@ -110,7 +110,7 @@
         <div class="formBox d-flex mb-5">
           <div id="poster" @click="showModal"></div>
           <div id="content" class="p-2" style="width: 100%">
-            <form @submit.prevent="sending">
+            <form>
               <div class="container d-flex">
                 <div class="col-md-4">
                   <p
@@ -191,7 +191,7 @@
                   v-model="articlecontent"
                   placeholder="후기를 입력해주세요"
                 ></textarea>
-                <button id="contentBtn" class="btn btn-link">
+                <button id="contentBtn" class="btn btn-link" @click.prevent="sending">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -322,16 +322,14 @@ export default {
   },
   data() {
     return {
-      articlecontent: this.article.content,
+      articlecontent: this.$store.state.articledetail,
       ratings: this.article.rating,
-
       isLiked: null,
       likeCount: null,
       likeDiv: false,
       likeUsers: null,
       commentDiv: false,
       comments: null,
-      spoiler: null,
     };
   },
   computed: {
@@ -360,6 +358,14 @@ export default {
     commentCount() {
       return this.comments.length;
     },
+    spoiler: {
+      get() {
+        return this.$store.state.articledetail.spoiler
+      },
+      set(newdata) {
+        return newdata
+      }
+    }
   },
   methods: {
     getActiveStar(index) {
@@ -542,7 +548,6 @@ export default {
     // console.log(this.article)
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
-    this.spoiler = this.article.spoiler;
   },
 };
 </script>
