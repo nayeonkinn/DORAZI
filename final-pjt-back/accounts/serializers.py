@@ -46,5 +46,5 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('id', 'followers_count', 'followers', 'followings_count',
+        fields = ('id', 'followers_count', 'followers', 'followings_count', 'followings',
                   'articles_count', 'articles_list', 'wishes_count', 'wishes_list', 'search')

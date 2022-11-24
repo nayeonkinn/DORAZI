@@ -94,7 +94,7 @@ def recommend_friend(request, username):
     for article in articles:
         seen.append(article["movie"]["id"])
     seen = list(set(seen))
-    followers = serializer.data["followers"]
+    followers = serializer.data["followings"]
     result = []
     for follower in followers:
         you = get_object_or_404(get_user_model(), pk=follower)
