@@ -329,7 +329,7 @@ export default {
       likeCount: null,
       likeDiv: false,
       likeUsers: null,
-      commentDiv: true, //false,
+      commentDiv: false,
       comments: null,
       spoiler: null,
     };

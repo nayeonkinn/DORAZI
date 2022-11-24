@@ -38,7 +38,7 @@
           </button>
         </div>
       </div>
-      <div class="commentText" :class="{'updating' : updateOn}">
+      <div class="commentText" :class="{ updating: updateOn }">
         <span v-if="!updateOn">{{ comment.content }} </span>
         <span v-else>
           <textarea
@@ -53,10 +53,12 @@
       </div>
     </div>
 
-    <div v-if="childDiv">
+    <div v-if="childDiv" class="childCommentBox">
       <form @submit.prevent="createChildComment">
-        <input v-model="childComment" cols="40" rows="1" />
-        <button>등록</button>
+        <textarea v-model="childComment" class="childCommentText"></textarea>
+        <div class="d-flex justify-content-end">
+          <button class="buttons">등록</button>
+        </div>
       </form>
     </div>
 
@@ -204,6 +206,7 @@ export default {
           // console.log(response);
           this.$emit("update-comment", this.comment.id, response.data);
           this.updateOnToggle();
+          alert("댓글이 수정되었습니다.");
         })
         .catch((error) => {
           console.log(error);
@@ -223,6 +226,7 @@ export default {
         .then(() => {
           // console.log(response);
           this.$emit("delete-comment", this.comment.id);
+          alert("댓글이 삭제되었습니다.");
         })
         .catch((error) => {
           console.log(error);
@@ -250,7 +254,7 @@ export default {
       );
     },
     adjustHeight() {
-      const textarea = document.querySelector('.commentUpdate')
+      const textarea = document.querySelector(".commentUpdate");
       textarea.style.height = "1px";
       textarea.style.height = 12 + textarea.scrollHeight + "px";
     },
@@ -281,11 +285,26 @@ export default {
   width: 100%;
   border: none;
   resize: none;
-  background-color: rgb(255, 200, 47);
+  background-color: rgb(187, 187, 187);
   border-radius: 5px;
 }
 
 .commentUpdate:focus {
   outline: none;
+}
+
+.childCommentBox {
+  background-color: white;
+  width: 100%;
+  padding: 0px 1.5rem 1.5rem 1.5rem;
+  text-align: left;
+}
+
+.childCommentText {
+  width: 100%;
+  border: none;
+  resize: none;
+  background-color: rgb(187, 187, 187);
+  border-radius: 5px;
 }
 </style>
