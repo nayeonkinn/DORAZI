@@ -72,7 +72,7 @@
               d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
             />
           </svg>
-          {{ usernameField }}
+          <span style="white-space: nowrap;">{{ usernameField }}</span>
         </router-link>
         <b-dropdown right size="lg" variant="link" no-caret>
           <template #button-content>
@@ -94,22 +94,22 @@
             class="dropdown-item"
             v-if="!isLogin"
             :to="{ name: 'SignupView' }"
-            >Signup
+            >회원가입
           </b-dropdown-item>
           <b-dropdown-item
             class="dropdown-item"
             v-if="!isLogin"
             :to="{ name: 'LoginView' }"
-            >Login</b-dropdown-item
+            >로그인</b-dropdown-item
           >
           <b-dropdown-item
             class="dropdown-item"
             v-if="isLogin"
             :to="{ name: 'SettingView' }"
-            >Setting</b-dropdown-item
+            >설정</b-dropdown-item
           >
           <b-dropdown-item class="dropdown-item" v-if="isLogin" @click="logout">
-            Logout</b-dropdown-item
+            로그아웃</b-dropdown-item
           >
         </b-dropdown>
       </div>
@@ -145,7 +145,7 @@ export default {
       // console.log(this.q);
       if (!this.q || !this.q.trim()) {
         alert("검색어를 입력해주세요.");
-        this.q = null
+        this.q = null;
       } else {
         this.$store.commit("SEARCH", this.q);
         this.$router.push({ name: "SearchResultView", params: { q: this.q } });

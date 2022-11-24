@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="mb-5" style="margin-top: 250px; line-height: 170%">
+    <h1 class="mb-5" style="margin-top: 100px; line-height: 170%">
       <span class="logoFont">cinema.log</span>에 가입하고<br />친구들과 영화로
       대화를 나눠 보세요
     </h1>
