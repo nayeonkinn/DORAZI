@@ -46,6 +46,7 @@ def detail(request, article_pk):
         serializer = ArticleSerializer(article)
         return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == 'PUT':
+        print(request.data)
         serializer = ArticleSerializer(article, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
