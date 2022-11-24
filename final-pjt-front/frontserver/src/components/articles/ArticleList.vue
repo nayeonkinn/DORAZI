@@ -1,109 +1,111 @@
 <template>
-  <div @click="toarticle">
-    <router-link :to="{ name: 'ProfileView', params: { username: writer } }">
-      <h3>{{ writer }}</h3>
-    </router-link>
-    <h4>{{ content }}</h4>
-    <div>{{ updatedate }}</div>
-    <div>{{ likenum }}</div>
-
-    <div v-if="userId === article.user.id">
-      <b-button variant="light" @click="Delete">삭제하기</b-button>
-      <b-button variant="light" id="show-btn" @click="showModal">
-        수정하기
-      </b-button>
-    </div>
-    <b-modal ref="my-modal" hide-footer title="게시물 수정">
-      <div class="d-block text-center">
-        <h3>게시글 수정</h3>
-        <form @submit.prevent="sending">
-          <label for="content">내용 : </label>
-          <textarea
-            id="content"
-            cols="30"
-            rows="10"
-            v-model="articlecontent"
-          ></textarea>
-          <!-- 별점 -->
-          <!-- https://melthleeth.tistory.com/entry/HTML-CSS%EB%A1%9C-%EB%B3%84%EC%B0%8D%EA%B8%B0-Star-Rating -->
-          <div class="star-rating space-x-4 mx-auto">
-            <input
-              type="radio"
-              id="5-stars"
-              name="rating"
-              value="5"
-              v-model="ratings"
-            />
-            <label for="5-stars" class="star pr-4">★</label>
-            <input
-              type="radio"
-              id="4-stars"
-              name="rating"
-              value="4"
-              v-model="ratings"
-            />
-            <label for="4-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="3-stars"
-              name="rating"
-              value="3"
-              v-model="ratings"
-            />
-            <label for="3-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="2-stars"
-              name="rating"
-              value="2"
-              v-model="ratings"
-            />
-            <label for="2-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="1-star"
-              name="rating"
-              value="1"
-              v-model="ratings"
-            />
-            <label for="1-star" class="star">★</label>
-          </div>
-          <!-- 스포일러 여부 -->
-          <label for="spoiler"> 스포일러 여부 </label>
-          <input
-            type="checkbox"
-            v-model="spoiler"
-            true-value="yes"
-            false-value="no"
-            name="spolier"
-          />
-
-          <br />
-
-          <b-button
-            class="mt-3"
-            variant="outline-success"
-            block
-            @click="sending"
+  <div class="container">
+    <div
+      class="articleBox"
+      style="
+        height: 250px;
+        word-wrap: break-word;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 6; /* 라인수 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+      "
+      @click="todetail"
+    >
+      <div class="p-5">
+        <p v-if="!spoiler" style="word-break: break-all">
+          {{ article.content }}
+        </p>
+        <p v-else>
+          주의! 스포일러가 포함되어 있습니다.
+          <span
+            @click="spoilerToggle"
+            style="cursor: pointer; color: rgb(148, 148, 148)"
+            >내용 확인하기</span
           >
-            수정
-          </b-button>
-          <b-button
-            class="mt-3"
-            variant="outline-danger"
-            block
-            @click="hideModal"
-          >
-            취소
-          </b-button>
-        </form>
+        </p>
       </div>
-    </b-modal>
+
+      <div
+        style="text-align: left; margin-left: 25px; color: rgb(148, 148, 148)"
+      >
+        <span
+          v-if="likeUsers"
+          @click="likeDivToggle"
+          style="cursor: pointer"
+          id="likeUserComment"
+        >
+          {{ likeUsers[likeCount.length - 1].username }}님 외
+          {{ likeCount - 1 }}명이 이 글을 좋아합니다.
+        </span>
+        <div v-if="likeDiv" class="my-1">
+          <span v-for="user in likeUsers" :key="`user-${user.id}`">
+            <span
+              id="likeUserName"
+              @click="goProfile(user.username)"
+              style="cursor: pointer"
+              >{{ user.username }}</span
+            >
+          </span>
+        </div>
+      </div>
+      <div class="d-flex p-4">
+        <div>
+          <span @click="like" style="cursor: pointer">
+            <svg
+              id="likeBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-heart-fill"
+              viewBox="0 0 16 16"
+              :class="[isLiked ? 'likeColor' : 'notLikeColor']"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+              />
+            </svg>
+            <span style="cursor: pointer; margin-left: 10px; font-size: 17px">{{
+              likeCount
+            }}</span>
+          </span>
+        </div>
+        <div class="mx-4">
+          <span @click="commentDivToggle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="27"
+              height="27"
+              fill="currentColor"
+              class="bi bi-chat-left-fill notLikeColor"
+              id="likeBtn"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+              />
+            </svg>
+            <span style="cursor: pointer; margin-left: 10px; font-size: 17px">{{
+              commentCount
+            }}</span>
+          </span>
+        </div>
+        <div>
+          <span @click="toprofile">
+            {{ article.user.username }}
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import moment from "moment";
+
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
@@ -115,34 +117,47 @@ export default {
     return {
       articlecontent: this.article.content,
       ratings: this.article.rating,
-      spoiler: this.article.spoiler,
+
+      isLiked: null,
+      likeCount: null,
+      likeDiv: false,
+      likeUsers: null,
+      commentDiv: false,
+      comments: null,
+      spoiler: null,
     };
   },
   computed: {
+    token() {
+      console.log(this.article);
+      return this.$store.state.token;
+    },
     userId() {
       return this.$store.state.userId;
     },
-    writer() {
-      return this.article.user.username;
-    },
-    updatedate() {
-      return this.article.updated_at.slice(0, 10);
+    article_created_at() {
+      return moment(String(this.article.created_at)).format("YYYY-MM-DD HH:mm");
     },
 
-    likenum() {
-      return this.article.like_users.lenght;
+    movieTitle() {
+      return this.article.movie.title;
     },
-    content() {
-      return this.article.content;
+    commentCount() {
+      return this.comments ? this.comments.length : 0;
     },
   },
   methods: {
-    toarticle() {
-      // console.log(this.article)
+    todetail() {
       this.$store.state.articledetail = this.article;
       this.$router.push({
         name: "ArticleDetailView",
         params: { article_id: this.article.id },
+      });
+    },
+    toprofile() {
+      this.$router.push({
+        name: "ProfileView",
+        params: { username: this.writer },
       });
     },
     getActiveStar(index) {
@@ -198,6 +213,40 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    setLikeData(article) {
+      const likeUsers = article.like_users;
+      this.isLiked = likeUsers.some((user) => user.id === this.userId);
+      this.likeCount = likeUsers ? likeUsers.length : 0;
+      this.likeUsers = article.like_users;
+    },
+    like() {
+      axios({
+        method: "post",
+        url: `${API_URL}/articles/${this.article.id}/like/`,
+        headers: {
+          Authorization: `Token ${this.token}`,
+        },
+      })
+        .then((response) => {
+          // console.log(response)
+          this.setLikeData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    likeDivToggle() {
+      if (this.commentDiv) {
+        this.commentDiv = !this.commentDiv;
+      }
+      this.likeDiv = !this.likeDiv;
+    },
+    commentDivToggle() {
+      if (this.likeDiv) {
+        this.likeDiv = !this.likeDiv;
+      }
+      this.commentDiv = !this.commentDiv;
     },
   },
 };

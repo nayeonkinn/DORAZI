@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-    </div>
+
     <!-- <b-button class="button"> 더보기 </b-button> -->
     <div>
       <button class="buttons" variant="light" id="show-btn" @click="showModal"
@@ -128,14 +128,17 @@
       </b-modal>
     </div>
 <!-- 게시글 리스트 -->
-    <div class="cotainer">
-      <ArticleList
-        v-for="article in articlelist.slice().reverse()"
-        :key="article.id"
-        :article="article"
-        @update="detaildata"
-      />
-    </div>
+
+    <Carousel :per-page="1" class="banner_list" paginationColor="#999" :paginationPadding=3 :perPage='pagelim' :navigationEnabled=true>
+      <Slide v-for="article in articlelist.slice().reverse()" :key="article.id" style="width:50px">
+        <ArticleList
+          :article="article"
+          @update="detaildata"
+          class="m-2"
+        />
+      </Slide>
+    </Carousel>
+  </div>
   </div>
 </template>
 
@@ -144,15 +147,21 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 import ArticleList from "@/components/articles/ArticleList";
 import Moviebanner from "@/components/movies/Moviebanner";
+import { Carousel, Slide } from 'vue-carousel';
+
 
 export default {
   name: "MovieDetail",
   components: {
     ArticleList,
     Moviebanner,
+    Slide,
+    Carousel,
   },
   data() {
     return {
+      enabled:true,
+      pagelim: 5,
       movieinfo: false,
       poster: null,
       backdrop: "?",
