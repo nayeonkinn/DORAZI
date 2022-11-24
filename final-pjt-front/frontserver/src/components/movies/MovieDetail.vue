@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <div class="container3">
       <div 
         class="single img"
@@ -13,138 +14,144 @@
           <div class="movie-release">
             <div class="title">{{ release_date }}</div>
             <span></span>
+=======
+    <Moviebanner v-if="movieinfo" :movie='movieinfo'/>
+
+    <div class="container">
+      <div class="row align-items-start text-start my-5 mx-2">
+        <div class="col-md-3 my-3 mx-1">
+          <img :src="poster" alt="poster" style="border: 3px solid white" />
+        </div>
+        <div class="product col-md-8 mt-5">
+          <div class="col">
+            <h3>{{ movietitle }}</h3>
+            <h5>유저 평점 : {{ ourrating }}</h5>
+            <hr/>
+>>>>>>> 799f31fa39332f8dd6c76f52f220958e98f049bc
           </div>
-        </header>
-        <div class="movie-info-all"></div>
-
-        <div class="basic-info">
-          <div class="title">{{ movietitle }}</div>
-          <b-button variant="light" @click="wishtoggle">
-            {{ wishMsg }}
-          </b-button>
-          <div class="info-summary">
-            <div class="story-summary">
-              {{ overview }}
-            </div>
-
-            <b-button class="button"> 더보기 </b-button>
+          <div>
+            <p class="desc">{{ overview }}</p>
           </div>
         </div>
       </div>
-    </div>
     <div>
-      <b-button variant="light" id="show-btn" @click="showModal"
-        >게시글 작성</b-button
-      >
 
-      <b-modal ref="my-modal" hide-footer title="Using Component Methods">
-        <div class="d-block text-center">
-          <h3>게시글 작성</h3>
-          <form @submit.prevent="createArticle">
-            <label for="content">내용 : </label>
-            <textarea
-              id="content"
-              cols="30"
-              rows="10"
-              v-model="articlecontent"
-            ></textarea>
-            <!-- 별점 -->
-            <!-- https://melthleeth.tistory.com/entry/HTML-CSS%EB%A1%9C-%EB%B3%84%EC%B0%8D%EA%B8%B0-Star-Rating -->
-            <div class="star-rating space-x-4 mx-auto">
-              <input
-                type="radio"
-                id="5-stars"
-                name="rating"
-                value="5"
-                v-model="ratings"
-              />
-              <label for="5-stars" class="star pr-4">★</label>
-              <input
-                type="radio"
-                id="4-stars"
-                name="rating"
-                value="4"
-                v-model="ratings"
-              />
-              <label for="4-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="3-stars"
-                name="rating"
-                value="3"
-                v-model="ratings"
-              />
-              <label for="3-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="2-stars"
-                name="rating"
-                value="2"
-                v-model="ratings"
-              />
-              <label for="2-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="1-star"
-                name="rating"
-                value="1"
-                v-model="ratings"
-              />
-              <label for="1-star" class="star">★</label>
+
+      <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer hide-header-close title="게시글 작성">
+        <div class="formBox d-flex mb-5">
+          <div id="poster" @click="showModal"></div>
+          <div id="content" class="p-2" style="width: 100%">
+            <form @submit.prevent="createArticle">
+              <div class="container d-flex">
+                <div class="col-md-4">
+                  <p 
+                  style="font-size: 20px; font-weight: 600; margin-right: 10px"
+                  >
+                  {{ movietitle }}
+                </p>
+              </div>
+              <div class="col-lg-4 md-auto"></div>
+              <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap;">
+                <label class="checkbox">
+                  <input
+                    id="spoiler"
+                    type="checkbox"
+                    v-model="spoiler"
+                    true-value="yes"
+                    false-value="no"
+                    name="spolier"
+                  />
+                  <span class="checkbox_icon"></span>
+                  <span class="checkbox_text">스포일러</span>
+                </label>
+              </div>
+              <!-- <div class="col-md-1"></div> -->
+
+              <div class="star-rating2 space-x-4 m-auto col-md-2">
+                <input
+                  type="radio"
+                  id="5-stars"
+                  name="rating"
+                  value="5"
+                  v-model="ratings"
+                />
+                <label for="5-stars" class="star pr-4">★</label>
+                <input
+                  type="radio"
+                  id="4-stars"
+                  name="rating"
+                  value="4"
+                  v-model="ratings"
+                />
+                <label for="4-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="3-stars"
+                  name="rating"
+                  value="3"
+                  v-model="ratings"
+                />
+                <label for="3-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="2-stars"
+                  name="rating"
+                  value="2"
+                  v-model="ratings"
+                />
+                <label for="2-stars" class="star">★</label>
+                <input
+                  type="radio"
+                  id="1-star"
+                  name="rating"
+                  value="1"
+                  v-model="ratings"
+                />
+                <label for="1-star" class="star">★</label>
+              </div>
             </div>
-            <!-- 스포일러 여부 -->
-            <label for="spoiler"> 스포일러 여부 </label>
-            <input
-              type="checkbox"
-              v-model="spoiler"
-              true-value="yes"
-              false-value="no"
-              name="spolier"
-            />
 
-            <br />
-            <b-button
-              class="mt-3"
-              variant="outline-success"
-              block
-              @click="createArticle"
-            >
-              작성
-            </b-button>
-            <b-button
-              class="mt-3"
-              variant="outline-danger"
-              block
-              @click="hideModal"
-            >
-              취소
-            </b-button>
-          </form>
+              <div id="contentForm">
+                <textarea
+                  id="contentInput2"
+                  class="p-3"
+                  v-model="articlecontent"
+                  placeholder="후기를 입력해주세요"
+                ></textarea>
+                <button id="contentBtn" class="btn btn-link">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-arrow-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </b-modal>
     </div>
-    <!-- <div>
-      <h3>게시글 작성</h3>
-      <form @submit.prevent="createArticle">
-        <label for="content">내용 : </label>
-        <textarea
-          id="content"
-          cols="30"
-          rows="10"
-          v-model="articlecontent"
-        ></textarea
-        ><br />
-        <input type="submit" id="submit" />
-      </form>
-    </div> -->
-    <div class="cotainer">
-      <ArticleList
-        v-for="article in articlelist.slice().reverse()"
-        :key="article.id"
-        :article="article"
-        @update="detaildata"
-      />
-    </div>
+<!-- 게시글 리스트 -->
+  <button id="recoBtn" class="buttons" variant="light" @click="showModal">게시물 작성</button>
+
+    <Carousel :per-page="1" class="banner_list" paginationColor="#999" :paginationPadding=3 :perPage='pagelim' :navigationEnabled=true>
+      <Slide v-for="article in articlelist.slice().reverse()" :key="article.id" style="width:50px">
+        <ArticleList
+          :article="article"
+          @update="detaildata"
+          class="m-2"
+        />
+      </Slide>
+    </Carousel>
+  </div>
   </div>
 </template>
 
@@ -152,17 +159,25 @@
 import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 import ArticleList from "@/components/articles/ArticleList";
+import Moviebanner from "@/components/movies/Moviebanner";
+import { Carousel, Slide } from 'vue-carousel';
+
 
 export default {
   name: "MovieDetail",
   components: {
     ArticleList,
+    Moviebanner,
+    Slide,
+    Carousel,
   },
   data() {
     return {
-      movieinfo: null,
+      enabled:true,
+      pagelim: 5,
+      movieinfo: false,
       poster: null,
-      backdrop: '?',
+      backdrop: "?",
       movietitle: null,
       overview: null,
       release_date: null,
@@ -172,6 +187,10 @@ export default {
       ratings: 0,
       spoiler: false,
       iswished: null,
+      originaltitle: null,
+      voteaverage: 0,
+      genres: null,
+      ourrating: "아직 평가가 없어요",
     };
   },
   computed: {
@@ -243,7 +262,7 @@ export default {
       })
         .then((res) => {
           this.movieinfo = res.data;
-          console.log(this.movieinfo)
+          // console.log(this.movieinfo);
           const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
           this.backdrop = this.movieinfo.backdrop_path;
@@ -251,7 +270,13 @@ export default {
           this.overview = this.movieinfo.overview;
           this.release_date = this.movieinfo.release_date.slice(0, 4);
           this.articlelist = this.movieinfo.articles_list;
-          this.iswished = wishUsers.some((user) => user.id === this.userId);
+          this.iswished = wishUsers.some((user) => user === this.userId);
+          this.originaltitle = this.movieinfo.original_title;
+          this.voteaverage = this.movieinfo.vote_average;
+          this.genres = this.movieinfo.genre_ids;
+          if (this.movieinfo.our_ratings) {
+            this.ourrating = this.movieinfo.our_ratings.toFixed(1);
+          }
         })
         .then(() => {
           axios({
@@ -260,20 +285,17 @@ export default {
             headers: {
               Authorization: `Token ${this.$store.state.token}`,
             },
-          })
-            .catch((err) => {
-              console.log(err);
-            });
+          }).catch((err) => {
+            console.log(err);
+          });
         })
         .catch((err) => {
           console.log(err);
         });
     },
-
   },
   created() {
     this.detaildata();
-    
   },
   mounted() {
     this.detaildata();
@@ -282,6 +304,7 @@ export default {
 </script>
 
 <style >
+<<<<<<< HEAD
 .img{ 
   object-position: top; 
   width: 100%;
@@ -300,9 +323,13 @@ export default {
   height: 15%;
 }
 .star-rating {
+=======
+@import "@/assets/style.css";
+.star-rating2 {
+>>>>>>> 799f31fa39332f8dd6c76f52f220958e98f049bc
   display: flex;
   flex-direction: row-reverse;
-  font-size: 2.25rem;
+  font-size: 1.5rem;
   line-height: 2.5rem;
   justify-content: space-around;
   padding: 0 0.2em;
@@ -310,181 +337,127 @@ export default {
   width: 5em;
 }
 
-.star-rating input {
+.star-rating2 input {
   display: none;
 }
 
-.star-rating label {
+.star-rating2 label {
   -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-width: 1.5px;
   -webkit-text-stroke-color: #2b2a29;
   cursor: pointer;
 }
 
-.star-rating :checked ~ label {
+.star-rating2 :checked ~ label {
   -webkit-text-fill-color: gold;
 }
 
-.star-rating label:hover,
-.star-rating label:hover ~ label {
+.star-rating2 label:hover,
+.star-rating2 label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
 }
-</style>
 
-<style lang="scss" scoped>
-.movie-infos {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 220px;
-  margin: 0 auto 20px;
-  padding: 0 200px;
-  background-color: black;
-  border-bottom: 1px solid #e3e3e3;
-
-  > header {
-    position: relative;
-
-    .movie-poster {
-      width: 165px;
-      height: 234px;
-      margin-top: -36px;
-      border: 2px solid white;
-      border-radius: 5px;
-    }
-
-    .movie-release {
-      position: absolute;
-      width: 200px;
-      top: -25px;
-      left: 190px;
-      text-align: left;
-      color: white;
-      font-size: small;
-      font-weight: 400;
-
-      > span {
-        opacity: 0.75;
-        &:first-child {
-          opacity: 0.4;
-        }
-      }
-    }
-  }
-
-  .movie-info-all {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 16px 0 23px 25px;
-    text-align: left;
-
-    .movie-title {
-      .title {
-        font-size: 34px;
-        font-weight: 700;
-      }
-
-      .text {
-        width: 780px;
-        margin: 6px 0;
-        font-size: 17px;
-        color: #7f7f7f;
-      }
-    }
-
-    .rating-star {
-      width: 769px;
-      font-size: 19px;
-
-      &::before {
-        content: "";
-        display: block;
-        width: 100%;
-        margin-bottom: 10px;
-        border-top: 1px solid #f0f0f0;
-      }
-      &::after {
-        content: "";
-        display: block;
-        width: 100%;
-        margin-top: 8px;
-        // border-bottom: 1px solid #f0f0f0;
-      }
-
-      .rating-mystar {
-        color: pink;
-        margin-left: 16px;
-      }
-    }
-  }
+.formBox {
+  height: 250px;
+  outline: none;
+  background: white;
+  color: black;
 }
 
-.basic-info {
-  margin: 20px;
+#poster {
+  cursor: pointer;
+  position: relative;
+  top: 10px;
+  left: 10px;
+}
 
-  .title {
-    margin: 20px 0 20px;
-  }
+#content {
+  margin: 10px;
+  margin-left: 20px;
+}
 
-  .info-summary {
-    position: relative;
-    width: 598px;
-    margin: 10px 0 30px;
+.checkbox input {
+  display: none;
+}
 
-    &::after {
-      content: "";
-      display: block;
-      margin: 0 auto;
-      width: 598px;
-      // border-bottom: 1px solid #f0f0f0;
-    }
+.checkbox_icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 1px solid rgb(0, 0, 0);
+  position: relative;
+  top: 3px;
+  left: 3px;
+  cursor: pointer;
+}
 
-    .little-summary {
-      width: 598px;
-      margin-top: 8px;
-    }
+.checkbox_icon::before,
+.checkbox_icon::after {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0;
+  background-color: rgb(0, 0, 0);
+  position: absolute;
+  transform-origin: left top;
+}
 
-    .story-summary {
-      position: relative;
-      display: -webkit-box;
-      margin: 15px 0;
-      max-height: 4.5rem;
-      line-height: 23px;
-      overflow: hidden;
-      -webkit-line-clamp: 3; /* 라인수 */
+.checkbox_icon::before {
+  top: 9px;
+  left: 2px;
+  transform: rotate(-45deg);
+}
 
-      &.show {
-        display: block;
-        max-height: none;
-        overflow: auto;
-        -webkit-line-clamp: unset;
-      }
-    }
+.checkbox_icon::after {
+  top: 16px;
+  left: 9px;
+  transform: rotate(-135deg);
+}
 
-    > button {
-      position: absolute;
-      bottom: 19px;
-      right: 0;
-      max-height: 2rem;
-      line-height: 23px;
-      padding-left: 20px;
-      background: rgb(2, 0, 36);
-      background: linear-gradient(
-        90deg,
-        rgba(2, 0, 36, 1) 0%,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 18%
-      );
-      font-size: 15px;
-      font-weight: 500;
-      color: pink;
-      cursor: pointer;
+.checkbox input:checked + .checkbox_icon {
+  border-color: rgb(0, 0, 0);
+}
 
-      &.hide {
-        display: none;
-      }
-    }
-  }
+.checkbox input:checked + .checkbox_icon::before {
+  height: 10px;
+  transition: all 0.15s ease;
+}
+
+.checkbox input:checked + .checkbox_icon::after {
+  height: 20px;
+  transition: all 0.15s ease 0.15s;
+}
+
+.checkbox_text {
+  margin-left: 8px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+#contentInput2 {
+  border: none;
+  resize: none;
+  background-color: rgb(241, 241, 241);
+  border-radius: 10px;
+  width: 99%;
+  height: 210px;
+}
+
+#contentInput:focus {
+  outline: none;
+}
+
+#contentForm {
+  position: relative;
+}
+
+#contentBtn {
+  position: absolute;
+  border: none;
+  right: 3px;
+  bottom: 10px;
+  color: black;
+  text-decoration: none;
 }
 </style>

@@ -20,11 +20,10 @@ from django.db.models import Avg
 #         read_only_fields = ('user','movie','like_users')
 
 
-
 class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'genre_ids','release_date','poster_path',]
+        fields = ['id', 'title', 'genre_ids', 'release_date', 'poster_path',]
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -34,15 +33,15 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    articles_list = ArticleSerializer(source='article_set', many=True, read_only=True)
+    articles_list = ArticleSerializer(
+        source='article_set', many=True, read_only=True)
     our_ratings = serializers.SerializerMethodField()
+
     class Meta:
         model = Movie
         fields = '__all__'
-        read_only_fields = ['wish_users','ratings']
+        read_only_fields = ['wish_users', 'ratings']
 
     def get_our_ratings(self, obj):
         # return 'nothing'
         return obj.article_set.aggregate(Avg('rating'))['rating__avg']
-
-    

@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 
 import store from '@/store/index.js'
 
+// errors
+import ErrorPage404 from '@/views/errors/ErrorPage404'
+
 // accounts
 import SignupView from '@/views/accounts/SignupView'
 import LoginView from '@/views/accounts/LoginView'
@@ -27,6 +30,11 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path: '/404',
+    name: 'ErrorPage404',
+    component: ErrorPage404,
+  },
   {
     path: '/main',
     name: 'MainView',
@@ -100,8 +108,11 @@ const routes = [
     path: '/articles/:article_id',
     name: 'ArticleDetailView',
     component: ArticleDetailView
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
-
 ]
 
 const router = new VueRouter({
@@ -119,6 +130,15 @@ router.beforeEach((to, from, next) => {
     next({ name: 'LoginView' })
   } else if (to != from) {
     next()
+  }
+
+  const searchPages = ['SearchView', 'SearchResultView']
+  const isFromSearch = searchPages.includes(from.name)
+  const isToSearch = searchPages.includes(to.name)
+
+  if (isFromSearch && !isToSearch) {
+    store.state.q = null
+    store.state.resultOn = false
   }
 })
 

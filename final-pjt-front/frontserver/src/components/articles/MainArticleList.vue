@@ -1,6 +1,9 @@
 <template>
   <div>
     <MainArticleForm v-if="formOn" @create-article="createArticle" />
+    <div v-if="!recommendDiv" class="container">
+      <div class="boxForLine mb-5"></div>
+    </div>
     <MainArticleItem
       v-for="article in articles"
       :key="`article-${article.id}`"
@@ -23,6 +26,9 @@ export default {
   components: {
     MainArticleForm,
     MainArticleItem,
+  },
+  props: {
+    recommendDiv: Boolean,
   },
   data() {
     return {
@@ -64,6 +70,7 @@ export default {
         }
       });
       this.articles.splice(index, 1);
+      alert('후기가 삭제되었습니다.')
     },
     createArticle(article) {
       this.articles.unshift(article);
@@ -76,4 +83,12 @@ export default {
 </script>
 
 <style>
+
+.boxForLine {
+  height: 0.5px;
+  outline: none;
+  background: white;
+  border-radius: 5px;
+}
+
 </style>

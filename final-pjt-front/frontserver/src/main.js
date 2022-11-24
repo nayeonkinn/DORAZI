@@ -9,6 +9,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(IconsPlugin)
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
+Vue.config.ignoredElements = [/^ion-/]
+
 
 new Vue({
   store,

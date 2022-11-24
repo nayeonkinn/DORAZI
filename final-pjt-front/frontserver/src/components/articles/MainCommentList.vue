@@ -1,41 +1,64 @@
 <template>
   <div v-if="!comment.parent_comment">
-    <span @click="goProfile(comment.user.username)">
-      {{ comment.user.username }} </span
-    >-
-    <span v-if="!updateOn"
-      >{{ comment.content }}
-      <button @click="likeComment(comment.article, comment.id)">
-        {{ commentMsg(comment) }}
-      </button>
-      <span> {{ comment.like_users.length }} </span>
-      <span> {{ commentCreatedAt(comment) }} </span>
-      <button @click="childDivToggle">답글 달기</button>
-      <span v-if="comment.user.id === userId">
-        <button @click="updateOnToggle">수정</button>
-        <button @click="deleteComment">삭제</button>
-      </span>
-    </span>
-    <span v-else>
-      <textarea
-        cols="40"
-        rows="1"
-        :value="comment.content"
-        @input="updateInput"
-        @keyup.enter="updateComment"
-      ></textarea>
-      <button @click="updateComment">수정</button>
-      <button @click="updateOnToggle">취소</button>
-    </span>
+    <div class="commentBox p-4">
+      <div class="d-flex justify-content-between">
+        <div class="d-flex">
+          <div>
+            <span
+              @click="goProfile(comment.user.username)"
+              class="cursorPointer"
+            >
+              {{ comment.user.username }}
+            </span>
+          </div>
+          <div
+            class="p-1"
+            style="margin-left: 5px; font-size: 12px; color: rgb(100, 100, 100)"
+          >
+            <span>{{ commentCreatedAt(comment) }}</span>
+          </div>
+        </div>
+        <div>
+          <span v-if="updateOn">
+            <button class="buttons" @click="updateComment">수정</button>
+            <button class="buttons" @click="updateOnToggle">취소</button>
+          </span>
+          <span v-if="comment.user.id === userId">
+            <span v-if="!updateOn">
+              <button class="buttons" @click="updateOnToggle">수정</button>
+            </span>
+            <button class="buttons" @click="deleteComment">삭제</button>
+          </span>
+          <button class="buttons" @click="childDivToggle">답글 달기</button>
+          <button
+            class="buttons"
+            @click="likeComment(comment.article, comment.id)"
+          >
+            {{ commentMsg(comment) }} {{ comment.like_users.length }}
+          </button>
+        </div>
+      </div>
+      <div class="commentText" :class="{ updating: updateOn }">
+        <span v-if="!updateOn">{{ comment.content }} </span>
+        <span v-else>
+          <textarea
+            class="commentUpdate"
+            rows="1"
+            :value="comment.content"
+            @input="updateInput"
+            @keyup="adjustHeight()"
+            @keydown="adjustHeight()"
+          ></textarea>
+        </span>
+      </div>
+    </div>
 
-    <div v-if="childDiv">
+    <div v-if="childDiv" class="childCommentBox">
       <form @submit.prevent="createChildComment">
-        <input
-        v-model="childComment"
-        cols="40"
-        rows="1"
-        />
-        <button>등록</button>
+        <textarea v-model="childComment" class="childCommentText"></textarea>
+        <div class="d-flex justify-content-end">
+          <button class="buttons">등록</button>
+        </div>
       </form>
     </div>
 
@@ -152,7 +175,7 @@ export default {
       this.$emit("like-child-comment", this.comment.id, newComment);
     },
     createChildChildComment(childChildComment) {
-      const newComment = this.comment.child_comment
+      const newComment = this.comment.child_comment;
       newComment.push(childChildComment);
       this.$emit("create-child-child-comment", this.comment.id, newComment);
     },
@@ -163,6 +186,12 @@ export default {
       this.updateCommentData = event.target.value;
     },
     updateComment() {
+      if (!this.updateCommentData || !this.updateCommentData.trim()) {
+        alert("내용을 입력해주세요.");
+        this.updateCommentData = null;
+        return;
+      }
+
       axios({
         method: "PUT",
         url: `${API_URL}/articles/${this.articleId}/comment/${this.comment.id}/`,
@@ -170,17 +199,18 @@ export default {
           Authorization: `Token ${this.token}`,
         },
         data: {
-          content: this.updateCommentData,
+          content: this.updateCommentData.trim(),
         },
       })
-      .then((response) => {
-        // console.log(response);
-        this.$emit("update-comment", this.comment.id, response.data);
-        this.updateOnToggle();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          // console.log(response);
+          this.$emit("update-comment", this.comment.id, response.data);
+          this.updateOnToggle();
+          alert("댓글이 수정되었습니다.");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     deleteComment() {
       axios({
@@ -193,13 +223,14 @@ export default {
           content: this.updateCommentData,
         },
       })
-      .then(() => {
-        // console.log(response);
-        this.$emit("delete-comment", this.comment.id);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then(() => {
+          // console.log(response);
+          this.$emit("delete-comment", this.comment.id);
+          alert("댓글이 삭제되었습니다.");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     updateChildComment(commentId, commentData) {
       const newComment = this.comment.child_comment.map((child) => {
@@ -214,12 +245,66 @@ export default {
     deleteChildComment(commentId) {
       const newComment = this.comment.child_comment.filter((child) => {
         return child.id !== commentId;
-      })
-      this.$emit("delete-child-comment", this.comment.id, newComment, commentId);
+      });
+      this.$emit(
+        "delete-child-comment",
+        this.comment.id,
+        newComment,
+        commentId
+      );
+    },
+    adjustHeight() {
+      const textarea = document.querySelector(".commentUpdate");
+      textarea.style.height = "1px";
+      textarea.style.height = 12 + textarea.scrollHeight + "px";
     },
   },
 };
 </script>
 
 <style>
+.cursorPointer {
+  cursor: pointer;
+}
+
+.commentBox {
+  background-color: white;
+  width: 100%;
+  border-top: solid 1px rgb(187, 187, 187);
+  text-align: left;
+}
+
+.commentText {
+  background-color: rgb(241, 241, 241);
+  margin-top: 10px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.commentUpdate {
+  width: 100%;
+  border: none;
+  resize: none;
+  background-color: rgb(187, 187, 187);
+  border-radius: 5px;
+}
+
+.commentUpdate:focus {
+  outline: none;
+}
+
+.childCommentBox {
+  background-color: white;
+  width: 100%;
+  padding: 0px 1.5rem 1.5rem 1.5rem;
+  text-align: left;
+}
+
+.childCommentText {
+  width: 100%;
+  border: none;
+  resize: none;
+  background-color: rgb(187, 187, 187);
+  border-radius: 5px;
+}
 </style>

@@ -1,11 +1,15 @@
 <template>
-  <div id="app" class="p-2">
-    <app-nav />
+  <div id="app" class="p-2" style="min-height: 100vh">
+    <app-nav class='mb-3'/>
     <router-view />
   </div>
+  
 </template>
 
+
+
 <script>
+
 import AppNav from "@/components/AppNav";
 
 export default {
@@ -26,5 +30,9 @@ export default {
   text-align: center;
   color: white;
   background-color: black;
+}
+
+textarea:focus {
+  outline: none;
 }
 </style>

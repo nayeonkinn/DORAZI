@@ -76,10 +76,10 @@ input, button, select {
  * add button default
  */
 
-button {
+/* button {
   color: var(--off-white);
   cursor: pointer;
-}
+} */
 
 /**
  * remove list item marker 
@@ -103,11 +103,11 @@ a {
 /* 
 ::-webkit-scrollbar {
   background: transparent;
-  border-left: 1px solid var(--oxford-blue);
+  border-left: 1px solid #002147;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--light-azure);
+  background: #ffc82f;
   border-radius: 5em;
   border: 3px solid var(--rich-black-fogra-29);
 } */

@@ -28,13 +28,16 @@
           id="searchInput"
           type="text"
           class="form-control"
-          placeholder="Search"
+          placeholder="영화, 후기, 유저를 검색해보세요"
           v-model="q"
         />
       </form>
 
-      <div class="d-flex" style="margin-top: 7px;">
-        <router-link :to="{ name: 'SearchView' }" class="d-block d-md-none px-2">
+      <div class="d-flex" style="margin-top: 7px">
+        <router-link
+          :to="{ name: 'SearchView' }"
+          class="d-block d-md-none px-2"
+        >
           <svg
             id="searchBtnSmall"
             xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +72,7 @@
               d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
             />
           </svg>
-          {{ usernameField }}
+          <span style="white-space: nowrap;">{{ usernameField }}</span>
         </router-link>
         <b-dropdown right size="lg" variant="link" no-caret>
           <template #button-content>
@@ -91,22 +94,22 @@
             class="dropdown-item"
             v-if="!isLogin"
             :to="{ name: 'SignupView' }"
-            >Signup
+            >회원가입
           </b-dropdown-item>
           <b-dropdown-item
             class="dropdown-item"
             v-if="!isLogin"
             :to="{ name: 'LoginView' }"
-            >Login</b-dropdown-item
+            >로그인</b-dropdown-item
           >
           <b-dropdown-item
             class="dropdown-item"
             v-if="isLogin"
             :to="{ name: 'SettingView' }"
-            >Setting</b-dropdown-item
+            >설정</b-dropdown-item
           >
           <b-dropdown-item class="dropdown-item" v-if="isLogin" @click="logout">
-            Logout</b-dropdown-item
+            로그아웃</b-dropdown-item
           >
         </b-dropdown>
       </div>
@@ -130,7 +133,7 @@ export default {
       return this.$store.state.username;
     },
     usernameField() {
-      return this.isLogin ? this.username : "로그인하세요";
+      return this.isLogin ? this.username : "로그인";
     },
   },
   methods: {
@@ -139,9 +142,10 @@ export default {
       this.$router.push({ name: "LoginView" }).catch(() => {});
     },
     search() {
-      console.log(this.q);
-      if (!this.q) {
-        alert("검색어를 입력해 주세요");
+      // console.log(this.q);
+      if (!this.q || !this.q.trim()) {
+        alert("검색어를 입력해주세요.");
+        this.q = null;
       } else {
         this.$store.commit("SEARCH", this.q);
         this.$router.push({ name: "SearchResultView", params: { q: this.q } });
@@ -168,7 +172,7 @@ nav {
 #searchForm {
   position: relative;
   height: 40px;
-  width: 600px;
+  width: 320px;
 }
 
 #searchBtn {
@@ -191,6 +195,10 @@ nav {
   vertical-align: middle;
   color: white;
   background-color: rgb(53, 53, 53);
+}
+
+#searchInput:focus {
+  outline: none;
 }
 
 #searchInput::placeholder {
