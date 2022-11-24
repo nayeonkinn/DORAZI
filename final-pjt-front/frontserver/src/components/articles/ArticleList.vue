@@ -2,10 +2,7 @@
   <div class="container">
     <div class="articleBox" @click="todetail">
       <div class="articlecontent2 p-5">
-        <p
-          v-if="!spoiler"
-
-        >
+        <p v-if="!spoiler">
           {{ article.content }}
         </p>
         <p v-else>
