@@ -1,7 +1,6 @@
 <template>
   <div>
-    <Moviebanner v-if="movieinfo" :movie="movieinfo" />
-
+<Moviebanner v-if="movieinfo" :movie='movieinfo'/>
     <div class="container">
       <div class="row align-items-start text-start my-5 mx-2">
         <div class="col-md-3 my-3 mx-1">
@@ -307,8 +306,25 @@ export default {
 </script>
 
 <style >
-@import "@/assets/style.css";
-.star-rating2 {
+.img{ 
+  object-position: top; 
+  width: 100%;
+  height: 100px;
+  margin: auto;
+  display: block ;
+}
+.button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+}
+.poster {
+  width: 15%;
+  height: 15%;
+}
+.star-rating {
+
   display: flex;
   flex-direction: row-reverse;
   font-size: 1.5rem;
