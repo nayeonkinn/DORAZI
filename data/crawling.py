@@ -87,7 +87,7 @@ for idx, short_url in enumerate(url_list):
                 }
             movie_list.append(my_object)
         response.close()
-
+print('영화 갯수 : ', len(movie_list))
 with open('./data/movie.json', 'w',  encoding='utf-8') as f:
     json.dump(movie_list, f, ensure_ascii = False, indent="")
 
