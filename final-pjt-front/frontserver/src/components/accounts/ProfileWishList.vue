@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="movies">
-      <h1>보고 싶어하는 영화</h1>
+      <p class="profileTitle">{{ username }}님이 보고 싶어하는 영화</p>
       <div class="movies-grid">
         <ProfileWishItem
           v-for="wish in wishes_list"
@@ -10,8 +10,7 @@
           class="col"
         />
       </div>
-      <hr />
-    </section>
+    </section><br>
   </div>
 </template>
 
@@ -25,6 +24,11 @@ export default {
   },
   props: {
     wishes_list: Array,
+  },
+  computed: {
+    username() {
+      return this.$store.state.username;
+    },
   },
 };
 </script>
