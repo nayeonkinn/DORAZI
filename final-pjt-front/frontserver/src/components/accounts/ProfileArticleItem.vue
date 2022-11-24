@@ -3,11 +3,9 @@
     <div class="card-head2">
       <img class="card-img align-center" :src="poster_path" alt="poster_img" />
       <div class="card-overlay">
-
         <div class="bookmark">
             <span>{{ updatedate }}</span>
         </div>
-
         <div class="rating">
           <ion-icon name="star-outline"></ion-icon>
           <span>{{ rating }}</span>

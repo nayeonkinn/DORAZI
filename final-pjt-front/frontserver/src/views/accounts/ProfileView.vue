@@ -1,17 +1,50 @@
 <template>
-  <div>
-    <h1>{{ yourName }}</h1>
-    <form v-if="myName != yourName" @submit.prevent="follow">
-      <button>{{ followMsg }}</button>
-    </form>
-    <div>
-      <p>{{ articles_count }} posts</p>
-      <p>{{ wishes_count }} wishes</p>
-      <p>{{ followers_count }} followers</p>
-      <p>{{ followings_count }} followings</p>
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center">
+      <div>
+        <span id="profileUsername" class="logoFont">{{ yourName }}</span>
+      </div>
+      <div v-if="myName != yourName">
+        <svg
+          @click="follow"
+          id="likeBtn"
+          xmlns="http://www.w3.org/2000/svg"
+          width="50"
+          height="50"
+          fill="currentColor"
+          class="bi bi-heart-fill cursorPointer"
+          viewBox="0 0 16 16"
+          :class="[isFollowed ? 'likeColor' : 'notLikeColor']"
+          style="margin-left: 10px"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+          />
+        </svg>
+      </div>
     </div>
-    <ProfileArticleList :articles_list="articles_list"/>
-    <ProfileWishList :wishes_list="wishes_list"/>
+
+    <div class="d-flex justify-content-around my-4">
+      <div>
+        <span>{{ articles_count }}</span>
+        <p>posts</p>
+      </div>
+      <div>
+        <span>{{ wishes_count }}</span>
+        <p>wishes</p>
+      </div>
+      <div>
+        <span>{{ followers_count }}</span>
+        <p>followers</p>
+      </div>
+      <div>
+        <span>{{ followings_count }}</span>
+        <p>followings</p>
+      </div>
+    </div>
+    <ProfileArticleList :articles_list="articles_list" :yourName="yourName" />
+    <ProfileWishList :wishes_list="wishes_list" :yourName="yourName" />
   </div>
 </template>
 
@@ -49,12 +82,9 @@ export default {
     yourName() {
       return this.$route.params.username;
     },
-    followMsg() {
-      return this.isFollowed ? "Unfollow" : "Follow"
-    },
     token() {
       return this.$store.state.token;
-    }
+    },
   },
   methods: {
     getProfile() {
@@ -67,45 +97,45 @@ export default {
           const followers = response.data.followers;
           this.isFollowed = followers.includes(this.myId);
 
-          this.articles_count = response.data.articles_count
-          this.wishes_count = response.data.wishes_count
+          this.articles_count = response.data.articles_count;
+          this.wishes_count = response.data.wishes_count;
           this.followers_count = response.data.followers_count;
           this.followings_count = response.data.followings_count;
 
-          this.articles_list = response.data.articles_list
-          this.wishes_list = response.data.wishes_list
+          this.articles_list = response.data.articles_list;
+          this.wishes_list = response.data.wishes_list;
         })
         .catch((error) => {
           console.log(error);
         });
-      },
-      follow() {
-        axios({
-          method: "post",
-          url: `${API_URL}/profile/${this.yourName}/follow/`,
-          headers: {
-            Authorization: `Token ${this.token}`
-          }
-        })
+    },
+    follow() {
+      axios({
+        method: "post",
+        url: `${API_URL}/profile/${this.yourName}/follow/`,
+        headers: {
+          Authorization: `Token ${this.token}`,
+        },
+      })
         .then((response) => {
           // console.log(response)
-          this.isFollowed = response.data.is_followed
+          this.isFollowed = response.data.is_followed;
           this.followers_count = response.data.followers_count;
           this.followings_count = response.data.followings_count;
         })
         .catch((error) => {
-          console.log(error)
-        })
-    }
+          console.log(error);
+        });
+    },
   },
   created() {
     this.getProfile();
   },
   watch: {
-    '$route.params': function() {
+    "$route.params": function () {
       this.getProfile();
     },
-  }
+  },
   // updated() {
   //   this.getProfile()
   // },
@@ -113,4 +143,7 @@ export default {
 </script>
 
 <style>
+#profileUsername {
+  font-size: 100px;
+}
 </style>

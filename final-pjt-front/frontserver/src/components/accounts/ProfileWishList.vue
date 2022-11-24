@@ -1,8 +1,8 @@
 <template>
   <div>
     <section class="movies">
-      <h1>보고 싶어하는 영화</h1>
-      <div class="movies-grid">
+      <p class="profileTitle">{{ yourName }}님이 보고 싶어하는 영화</p>
+      <div v-if="wishes_list.length" class="movies-grid">
         <ProfileWishItem
           v-for="wish in wishes_list"
           :key="`movie-${wish.id}`"
@@ -10,8 +10,10 @@
           class="col"
         />
       </div>
-      <hr />
-    </section>
+      <div v-else style="margin: 100px 0px;">
+        <p>앗.. 아직 없어요!</p>
+      </div>
+    </section><br>
   </div>
 </template>
 
@@ -25,6 +27,7 @@ export default {
   },
   props: {
     wishes_list: Array,
+    yourName: String,
   },
 };
 </script>

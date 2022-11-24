@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <search class="m-3 mb-5 d-block d-md-none d-flex flex-column align-items-center">
+    <search
+      class="m-3 mb-5 d-block d-md-none d-flex flex-column align-items-center"
+    >
       <form id="searchForm" @submit.prevent="search">
         <button id="searchBtn" class="btn btn-link" type="submit">
           <svg
