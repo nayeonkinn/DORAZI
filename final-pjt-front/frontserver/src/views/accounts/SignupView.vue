@@ -22,20 +22,20 @@
               v-model.trim="password1"
               type="password"
               class="form-control"
-              id="floatingPassword"
+              id="floatingPassword1"
               placeholder="비밀번호"
             />
-            <label for="floatingPassword">비밀번호</label>
+            <label for="floatingPassword1">비밀번호</label>
           </div>
           <div class="form-floating mb-4">
             <input
               v-model.trim="password2"
               type="password"
               class="form-control"
-              id="floatingPassword"
+              id="floatingPassword2"
               placeholder="비밀번호 확인"
             />
-            <label for="floatingPassword">비밀번호 확인</label>
+            <label for="floatingPassword2">비밀번호 확인</label>
           </div>
           <div class="d-grid gap-2 mb-4">
             <button id="signupBtn" class="btn">회원가입</button>

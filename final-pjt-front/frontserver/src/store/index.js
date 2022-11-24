@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 
+import router from '@/router/index'
+
 Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -60,6 +62,7 @@ export default new Vuex.Store({
         })
         .then(() => {
           this.dispatch('save_user_info')
+          alert('회원가입 되었습니다.')
         })
         .catch((error) => {
           // console.log(error)
@@ -82,6 +85,7 @@ export default new Vuex.Store({
         })
         .then(() => {
           this.dispatch('save_user_info')
+          // router.push({ name: 'Mainview'})
         })
         .catch((error) => {
           console.log(error)
@@ -130,8 +134,15 @@ export default new Vuex.Store({
           Authorization: `Token ${this.state.token}`
         }
       })
+      .then(() => {
+        alert('비밀번호가 변경되었습니다.')
+        router.push({ name: 'SettingView'})
+      })
       .catch((error) => {
-        console.log(error)
+        // console.log(error)
+        const errors = error.response.data
+        const firstError = Object.values(errors)[0][0]
+        alert(firstError)
       })
     },
     deleteAccount(context) {
