@@ -188,7 +188,7 @@ export default {
           Authorization: `Token ${this.$store.state.token}`,
         },
       })
-        .then((res) => {
+        .then(() => {
           // console.log(res);
           this.hideModal();
           this.$emit("update", this.article);
@@ -205,7 +205,7 @@ export default {
           Authorization: `Token ${this.$store.state.token}`,
         },
       })
-        .then((res) => {
+        .then(() => {
           // console.log(res);
           this.hideModal();
           this.$emit("update");
