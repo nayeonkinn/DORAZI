@@ -1,17 +1,17 @@
 <template>
   <div>
     <!-- 영화 배너 -->
+    <div class="my-5">
+      <h1>오늘의 추천 영화는 이거예요</h1>
+    </div>
     <Moviebanner v-if="titlemovie" :movie="titlemovie" />
+    <br><br>
 
     <!-- 영화 리스트 -->
     <div class="container container3">
       <section class="movies">
-        <div class="my-5">
-          <h1>추천 영화 리스트</h1>
-        </div>
-        <hr>
         <div class="text-start my-5">
-          <h2>저번에 찾아본 이 영화들은 어때요?</h2>
+          <h2>저번에 찾아본 이 영화는 어때요?</h2>
         </div>
         <div class="movies-grid">
           <Movie
@@ -22,7 +22,7 @@
         </div>
         <hr />
         <div class="text-start my-5">
-          <h2>친구들이 후기를 남긴 이 영화들은 어때요?</h2>
+          <h2>친구들이 후기를 남긴 이 영화는 어때요?</h2>
         </div>
         <div class="movies-grid">
           <Movie
