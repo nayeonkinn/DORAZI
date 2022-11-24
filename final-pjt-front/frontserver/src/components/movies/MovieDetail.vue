@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div>
-      <div
-        class="single"
+    <div class="container3">
+      <div 
+        class="single img"
         :style="{
           'background-image': `url(https://image.tmdb.org/t/p/original/${this.backdrop})`,
         }"
@@ -282,6 +282,13 @@ export default {
 </script>
 
 <style >
+.img{ 
+  object-position: top; 
+  width: 100%;
+  height: 100px;
+  margin: auto;
+  display: block ;
+}
 .button {
   -webkit-appearance: none;
   -moz-appearance: none;
