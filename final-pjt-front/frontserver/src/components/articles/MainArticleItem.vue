@@ -110,7 +110,7 @@
         <div class="formBox d-flex mb-5">
           <div id="poster" @click="showModal"></div>
           <div id="content" class="p-2" style="width: 100%">
-            <form>
+            <form @submit.prevent="sending">
               <div class="container d-flex">
                 <div class="col-md-4">
                   <p
@@ -191,7 +191,7 @@
                   v-model="articlecontent"
                   placeholder="후기를 입력해주세요"
                 ></textarea>
-                <button id="contentBtn" class="btn btn-link" @click.prevent="sending">
+                <button id="contentBtn" class="btn btn-link">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -319,7 +319,7 @@ export default {
   },
   data() {
     return {
-      articlecontent: this.$store.state.articledetail,
+      articlecontent: this.article.content,
       ratings: this.article.rating,
       isLiked: null,
       likeCount: null,
