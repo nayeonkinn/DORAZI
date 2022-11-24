@@ -1,19 +1,11 @@
 <template>
   <div class="container">
-    <div
-      class="articleBox"
-      style="
-        height: 250px;
-        word-wrap: break-word;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 6; /* 라인수 */
-        overflow: hidden;
-        text-overflow: ellipsis;
-      "
-      @click="todetail"
-    >
-      <div class="p-5">
-        <p v-if="!spoiler" style="word-break: break-all">
+    <div class="articleBox" @click="todetail">
+      <div class="articlecontent2 p-5">
+        <p
+          v-if="!spoiler"
+
+        >
           {{ article.content }}
         </p>
         <p v-else>
@@ -286,5 +278,14 @@ export default {
 .star-rating label:hover,
 .star-rating label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
+}
+.articlecontent2 {
+  width: 250px; /* 너비는 변경될수 있습니다. */
+  height: 150px;
+  line-height: 20px;
+  overflow: hidden; /* 내용이 길면 감춤니다 */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 </style>
