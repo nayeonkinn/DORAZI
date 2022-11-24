@@ -110,7 +110,7 @@
         <div class="formBox d-flex mb-5">
           <div id="poster" @click="showModal"></div>
           <div id="content" class="p-2" style="width: 100%">
-            <form @submit.prevent="createArticle">
+            <form @submit.prevent="sending">
               <div class="container d-flex">
                 <div class="col-md-4">
                   <p
@@ -188,7 +188,7 @@
                 <textarea
                   id="contentInput2"
                   class="p-3"
-                  v-model="articlecontent"
+                  v-model="content"
                   placeholder="후기를 입력해주세요"
                 ></textarea>
                 <button id="contentBtn" class="btn btn-link">
