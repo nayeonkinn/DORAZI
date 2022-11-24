@@ -259,7 +259,7 @@ export default {
           this.voteaverage = this.movieinfo.vote_average;
           this.genres = this.movieinfo.genre_ids;
           if (this.movieinfo.our_ratings) {
-            this.ourrating = this.movieinfo.our_ratings;
+            this.ourrating = this.movieinfo.our_ratings.toFixed(1);
           }
         })
         .then(() => {
