@@ -1,24 +1,30 @@
 <template>
   <div class="container p-5">
-    <MainArticleList v-if="isLoggedIn" @no-articles="noArticles" :recommendDiv="recommendDiv" />
+    <MainArticleList
+      v-if="isLoggedIn"
+      @no-articles="noArticles"
+      :recommendDiv="recommendDiv"
+    />
     <div v-if="recommendDiv">
-      <br /><RecoFriendsList /> <br /><RecoArticlesList />
+      <h1>친구들을 팔로우하고 대화를 나눠 보세요!</h1>
+      <br /><RecoFriendsList /> <br />
+      <!-- <RecoArticlesList /> -->
     </div>
-    <button id="recoBtn" @click="goReco">오늘은 어떤 영화?</button>
+    <button v-if="!recommendDiv" id="recoBtn" @click="goReco">오늘은 어떤 영화?</button>
   </div>
 </template>
 
 <script>
 import MainArticleList from "@/components/articles/MainArticleList";
 import RecoFriendsList from "@/components/articles/RecoFriendsList";
-import RecoArticlesList from "@/components/articles/RecoArticlesList";
+// import RecoArticlesList from "@/components/articles/RecoArticlesList";
 
 export default {
   name: "MainView",
   components: {
     MainArticleList,
     RecoFriendsList,
-    RecoArticlesList,
+    // RecoArticlesList,
   },
   data() {
     return {
@@ -35,8 +41,8 @@ export default {
       this.recommendDiv = true;
     },
     goReco() {
-      this.$router.push({ name: 'ReccomendView' })
-    }
+      this.$router.push({ name: "ReccomendView" });
+    },
   },
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h3>RECOMMEND POPULAR USERS</h3>
+  <div class="container my-5">
     <RecoFriendsItem
       v-for="friend in friends"
+      class="my-5"
       :key="`user-${friend.id}`"
       :friend="friend"
     ></RecoFriendsItem>

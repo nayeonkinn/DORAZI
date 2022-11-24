@@ -1,17 +1,13 @@
 <template>
   <div>
-    <p @click="goProfile(friend.username)">{{ friend.username }}</p>
+    <span @click="goProfile(friend.username)" id="userResult" class="logoFont cursorPointer">{{ friend.username }}</span>
     <p>팔로워 : {{ friend.followers.length }}</p>
     <div v-if="friend.hot_article[0]">
-      <p>대표 게시글</p>
-      <img :src="posterPath" style="width: 150px; height: 200px" />
-      <p>{{ friend.hot_article[0].movie.title }}</p>
-      <p>
-        {{ friend.hot_article[0].content.substring(0, 10) }}...
-        <button @click="goDetail(friend.hot_article[0].id)">더보기</button>
+      <p>인기 있는 포스트 : {{ friend.hot_article[0].content.substring(0, 30) }}...
+        <button class="buttons" @click="goDetail(friend.hot_article[0].id)">더보기</button>
       </p>
     </div>
-    <hr />
+    <p><br><br>-</p>
   </div>
 </template>
 
