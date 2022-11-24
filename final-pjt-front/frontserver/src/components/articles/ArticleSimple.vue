@@ -3,14 +3,15 @@
     <div class="card-head2">
       <img class="card-img align-center" :src="poster_path" alt="poster_img" />
       <div class="card-overlay">
-
+        <div class="bookmark">
+            <span>{{ updatedate }}</span>
+        </div>
         <div class="rating">
           <ion-icon name="star-outline"></ion-icon>
           <span>{{ rating }}</span>
         </div>
-
-        <div class="play" style="font-size:large;">
-          <p style="font-size:large;">{{ content }}</p>
+        <div class="play" style="font-size: large">
+          <p style="font-size: large">{{ content }}</p>
         </div>
       </div>
     </div>
@@ -18,7 +19,7 @@
       <h3 class="card-title1" @click="toprofile">{{ writer }}</h3>
 
       <div class="card-info">
-        <!-- <span class="genre"> {{ genres }} </span> -->
+        <span class="genre"> {{ moviename }} </span>
         <span class="year">{{ updatedate }}</span>
       </div>
     </div>
@@ -57,8 +58,14 @@ export default {
       return this.article.rating;
     },
     poster_path() {
-      return "https://image.tmdb.org/t/p/original/" + this.article.movie.poster_path;
+      return (
+        "https://image.tmdb.org/t/p/original/" + this.article.movie.poster_path
+      );
     },
+    moviename() {
+      return this.article.movie.title
+
+    }
   },
   methods: {
     todetail() {
@@ -69,7 +76,10 @@ export default {
       });
     },
     toprofile() {
-      this.$router.push({ name: "ProfileView", params: { username: this.writer } });
+      this.$router.push({
+        name: "ProfileView",
+        params: { username: this.writer },
+      });
     },
   },
 };
@@ -83,5 +93,4 @@ export default {
   scale: 1;
   backdrop-filter: blur(5px) brightness(70%);
 }
-
 </style>

@@ -1,59 +1,6 @@
 <template>
   <div>
-    <div
-      id="header"
-      :style="{
-            background: `linear-gradient(
-            to left,
-            rgba(20, 20, 20, 0) 10%,
-            rgba(20, 20, 20, 0.25) 25%,
-            rgba(20, 20, 20, 0.5) 50%,
-            rgba(20, 20, 20, 0.75) 75%,
-            rgba(20, 20, 20, 1) 100%
-          ),url(https://image.tmdb.org/t/p/original/${this.backdrop}) center fixed no-repeat`,
-      }"
-    >
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <div class="header-content">
-              <h2>{{ movietitle }}</h2>
-              <hr />
-              <p>{{ originaltitle }}</p>
-              <div id="contact">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="contact-info">
-                        <h2>평점 : {{ voteaverage }}</h2>
-                        <p>장르 : {{ genres }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span style="cursor: pointer" @click="wishtoggle">
-                <svg
-              id="likeBtn"
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="currentColor"
-              class="bi bi-heart-fill"
-              viewBox="0 0 16 16"
-              :class="[iswished  ? 'likeColor' : 'notLikeColor']"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-              />
-            </svg>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Moviebanner v-if="movieinfo" :movie='movieinfo'/>
 
     <div class="container">
       <div class="row align-items-start text-start">
@@ -196,15 +143,17 @@
 import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 import ArticleList from "@/components/articles/ArticleList";
+import Moviebanner from "@/components/movies/Moviebanner";
 
 export default {
   name: "MovieDetail",
   components: {
     ArticleList,
+    Moviebanner,
   },
   data() {
     return {
-      movieinfo: null,
+      movieinfo: false,
       poster: null,
       backdrop: "?",
       movietitle: null,
@@ -291,7 +240,7 @@ export default {
       })
         .then((res) => {
           this.movieinfo = res.data;
-          // console.log(this.movieinfo);
+          console.log(this.movieinfo);
           const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
           this.backdrop = this.movieinfo.backdrop_path;

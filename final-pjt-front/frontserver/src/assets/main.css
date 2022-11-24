@@ -413,17 +413,17 @@ input ~ .checked-radio-bg {
 }
 
 .movie-card .bookmark {
-  background: #002147;
+  /* background: #002147; */
   left: 15px;
 }
 
-.movie-card .bookmark:hover { color: var(--yellow); }
+/* .movie-card .bookmark:hover { color: var(--yellow); } */
 
 .movie-card .rating {
   display:     flex;
   align-items: center;
   right: 15px;
-  background: #002147;
+  /* background: #002147; */
 }
 
 .movie-card .rating span {
