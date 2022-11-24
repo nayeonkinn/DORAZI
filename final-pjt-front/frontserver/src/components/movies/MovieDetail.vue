@@ -1,20 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <div class="container3">
-      <div 
-        class="single img"
-        :style="{
-          'background-image': `url(https://image.tmdb.org/t/p/original/${this.backdrop})`,
-        }"
-      ></div>
-      <div class="movie-infos">
-        <header>
-          <img :src="poster" class="poster movie-poster" alt="poster" />
-          <div class="movie-release">
-            <div class="title">{{ release_date }}</div>
-            <span></span>
-=======
     <Moviebanner v-if="movieinfo" :movie='movieinfo'/>
 
     <div class="container">
@@ -27,7 +12,6 @@
             <h3>{{ movietitle }}</h3>
             <h5>유저 평점 : {{ ourrating }}</h5>
             <hr/>
->>>>>>> 799f31fa39332f8dd6c76f52f220958e98f049bc
           </div>
           <div>
             <p class="desc">{{ overview }}</p>
@@ -304,7 +288,6 @@ export default {
 </script>
 
 <style >
-<<<<<<< HEAD
 .img{ 
   object-position: top; 
   width: 100%;
@@ -323,10 +306,7 @@ export default {
   height: 15%;
 }
 .star-rating {
-=======
-@import "@/assets/style.css";
-.star-rating2 {
->>>>>>> 799f31fa39332f8dd6c76f52f220958e98f049bc
+
   display: flex;
   flex-direction: row-reverse;
   font-size: 1.5rem;
