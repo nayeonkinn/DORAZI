@@ -88,7 +88,7 @@
       </div>
 
       <div class="p-5">
-        <p v-if="!spoiler" style="line-height: 170%">{{ article.content }}</p>
+        <p v-if="!spoiler" style="line-height: 170%"><pre style="font-size:1rem;">{{ article.content }}</pre></p>
         <p v-else>
           주의! 스포일러가 포함되어 있습니다.
           <span
