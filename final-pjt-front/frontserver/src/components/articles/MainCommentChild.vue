@@ -1,35 +1,58 @@
 <template>
-  <div>
-    ㄴ<span @click="goProfile(child.user.username)">{{
-      child.user.username
-    }}</span>
-    -
-    <span v-if="!updateOn">
-      <span v-if="child.mention_to">@{{ child.mention_to }} </span
-      >{{ child.content }}
-      <button @click="likeComment(articleId, child.id)">
-        {{ commentMsg(child) }}
-      </button>
-      <span> {{ child.like_users.length }} </span>
-      <span> {{ commentCreatedAt(child) }} </span>
-      <button @click="childChildDivToggle">답글 달기</button>
-      <span v-if="child.user.id === userId">
-        <button @click="updateOnToggle">수정</button>
-        <button @click="deleteComment">삭제</button>
-      </span>
-    </span>
+  <div class="commentBox p-4" style="padding-left: 60px !important">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex">
+        <div>
+          <span @click="goProfile(child.user.username)" class="cursorPointer">
+            {{ child.user.username }}
+          </span>
+        </div>
+        <div
+          class="p-1"
+          style="margin-left: 5px; font-size: 12px; color: rgb(100, 100, 100)"
+        >
+          <span>{{ commentCreatedAt(child) }}</span>
+        </div>
+      </div>
+      <div>
+        <span v-if="updateOn">
+          <button class="buttons" @click="updateComment">수정</button>
+          <button class="buttons" @click="updateOnToggle">취소</button>
+        </span>
+        <span v-if="child.user.id === userId">
+          <span v-if="!updateOn">
+            <button class="buttons" @click="updateOnToggle">수정</button>
+          </span>
+          <button class="buttons" @click="deleteComment">삭제</button>
+        </span>
+        <button class="buttons" @click="childChildDivToggle">답글 달기</button>
+        <button class="buttons" @click="likeComment(articleId, child.id)">
+          {{ commentMsg(child) }} {{ child.like_users.length }}
+        </button>
+      </div>
+    </div>
 
-    <span v-else>
-      <textarea
-        cols="40"
-        rows="1"
-        :value="child.content"
-        @input="updateInput"
-        @keyup.enter="updateComment"
-      ></textarea>
-      <button @click="updateComment">수정</button>
-      <button @click="updateOnToggle">취소</button>
-    </span>
+    <div class="commentText" :class="{'updating' : updateOn}">
+      <span v-if="!updateOn"
+        ><span
+          v-if="child.mention_to"
+          @click="goProfile(child.user.username)"
+          class="cursorPointer"
+          style="color: rgb(100, 100, 100); margin-right: 5px"
+          >@{{ child.mention_to }} </span
+        >{{ child.content }}
+      </span>
+      <span v-else>
+        <textarea
+          class="commentUpdate"
+          rows="1"
+          :value="child.content"
+          @input="updateInput"
+          @keyup="adjustHeight()"
+          @keydown="adjustHeight()"
+        ></textarea>
+      </span>
+    </div>
 
     <div v-if="childChildDiv">
       <textarea
@@ -135,6 +158,11 @@ export default {
       this.updateCommentData = event.target.value;
     },
     updateComment() {
+      if (!this.updateCommentData || !this.updateCommentData.trim()) {
+        alert("내용을 입력해주세요.");
+        this.updateCommentData = null;
+        return;
+      }
       axios({
         method: "PUT",
         url: `${API_URL}/articles/${this.articleId}/comment/${this.child.id}/`,
@@ -142,12 +170,12 @@ export default {
           Authorization: `Token ${this.token}`,
         },
         data: {
-          content: this.updateCommentData,
+          content: this.updateCommentData.trim(),
         },
       })
         .then((response) => {
           // console.log(response);
-          this.$emit('update-child-comment', this.child.id, response.data)
+          this.$emit("update-child-comment", this.child.id, response.data);
           this.updateOnToggle();
         })
         .catch((error) => {
@@ -173,13 +201,22 @@ export default {
           console.log(error);
         });
     },
-
+    adjustHeight() {
+      const textarea = document.querySelector('.commentUpdate')
+      textarea.style.height = "1px";
+      textarea.style.height = 12 + textarea.scrollHeight + "px";
+    },
   },
   created() {
-      this.child2 = this.child
-  }
+    this.child2 = this.child;
+  },
 };
 </script>
 
 <style>
+
+.updating {
+  background-color: rgb(255, 200, 47) !important;
+}
+
 </style>

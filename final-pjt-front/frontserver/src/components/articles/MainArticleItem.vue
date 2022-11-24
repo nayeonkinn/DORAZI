@@ -265,6 +265,7 @@
               height="27"
               fill="currentColor"
               class="bi bi-chat-left-fill notLikeColor"
+              id="likeBtn"
               viewBox="0 0 16 16"
             >
               <path
@@ -328,7 +329,7 @@ export default {
       likeCount: null,
       likeDiv: false,
       likeUsers: null,
-      commentDiv: false,
+      commentDiv: true, //false,
       comments: null,
       spoiler: null,
     };
@@ -589,7 +590,7 @@ export default {
 }
 
 .notLikeColor {
-  color: rgb(214, 214, 214);
+  color: rgb(241, 241, 241);
 }
 
 #likeUserName {
