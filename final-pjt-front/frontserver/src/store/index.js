@@ -113,7 +113,7 @@ export default new Vuex.Store({
         method: 'post',
         url: `${API_URL}/accounts/logout/`,
         headers: {
-          Authorization: `Token ${this.$store.state.token}`,
+          Authorization: `Token ${this.state.token}`,
         },
       })
         .then(() => {
