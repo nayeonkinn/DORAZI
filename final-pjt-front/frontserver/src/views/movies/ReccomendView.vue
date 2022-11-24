@@ -4,14 +4,14 @@
     <Moviebanner v-if="titlemovie" :movie="titlemovie" />
 
     <!-- 영화 리스트 -->
-    <div class="container3">
+    <div class="container container3">
       <section class="movies">
         <div class="my-5">
           <h1>추천 영화 리스트</h1>
         </div>
         <hr>
         <div class="text-start my-5">
-          <h2>내가 검색해 본 영화들</h2>
+          <h2>저번에 찾아본 이 영화들은 어때요?</h2>
         </div>
         <div class="movies-grid">
           <Movie
@@ -22,7 +22,7 @@
         </div>
         <hr />
         <div class="text-start my-5">
-          <h2>친구가 리뷰를 작성한 영화들</h2>
+          <h2>친구들이 후기를 남긴 이 영화들은 어때요?</h2>
         </div>
         <div class="movies-grid">
           <Movie
