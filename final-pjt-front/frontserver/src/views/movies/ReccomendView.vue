@@ -6,9 +6,13 @@
     <!-- 영화 리스트 -->
     <div class="container3">
       <section class="movies">
-        <h1>추천 영화 리스트</h1>
+        <div class="my-5">
+          <h1>추천 영화 리스트</h1>
+        </div>
         <hr>
-        <h2>내가 검색해 본 영화들</h2>
+        <div class="text-start my-5">
+          <h2>내가 검색해 본 영화들</h2>
+        </div>
         <div class="movies-grid">
           <Movie
             v-for="movie in recommendlist"
@@ -17,7 +21,9 @@
           />
         </div>
         <hr />
-        <h2>친구가 리뷰를 작성한 영화들</h2>
+        <div class="text-start my-5">
+          <h2>친구가 리뷰를 작성한 영화들</h2>
+        </div>
         <div class="movies-grid">
           <Movie
             v-for="movie in friendrecommendlist"

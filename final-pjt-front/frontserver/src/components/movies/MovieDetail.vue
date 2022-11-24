@@ -3,7 +3,7 @@
     <Moviebanner v-if="movieinfo" :movie='movieinfo'/>
 
     <div class="container">
-      <div class="row align-items-start text-start">
+      <div class="row align-items-start text-start my-5 mx-2">
         <div class="col-md-3 my-3 mx-1">
           <img :src="poster" alt="poster" style="border: 3px solid white" />
         </div>
@@ -18,12 +18,8 @@
           </div>
         </div>
       </div>
-
-    <!-- <b-button class="button"> 더보기 </b-button> -->
     <div>
-      <button class="buttons" variant="light" id="show-btn" @click="showModal"
-        >게시글 작성</button
-      >
+
 
       <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer hide-header-close title="게시글 작성">
         <div class="formBox d-flex mb-5">
@@ -128,6 +124,7 @@
       </b-modal>
     </div>
 <!-- 게시글 리스트 -->
+  <button id="recoBtn" class="buttons" variant="light" @click="showModal">게시물 작성</button>
 
     <Carousel :per-page="1" class="banner_list" paginationColor="#999" :paginationPadding=3 :perPage='pagelim' :navigationEnabled=true>
       <Slide v-for="article in articlelist.slice().reverse()" :key="article.id" style="width:50px">
