@@ -146,19 +146,17 @@
         <p style="color: rgb(158, 158, 158)">검색 결과</p>
         <div v-if="result.length">
           <div v-for="movie in result" :key="`movie-${movie.id}`" class="p-1">
-            <span
-              @click="selectMovie(movie)"
-              class="d-flex align-items-center mb-2"
-              style="cursor: pointer"
-            >
-              <img
-                :src="posterPath(movie.poster_path)"
-                style="width: 20px; height: 30px"
-              />
-              <span style="margin-left: 8px; font-size: 18px">{{
+            <div class="d-flex align-items-center mb-2">
+              <span @click="selectMovie(movie)" class="cursorPointer">
+                <img
+                  :src="posterPath(movie.poster_path)"
+                  style="width: 20px; height: 30px"
+                />
+              </span>
+              <span @click="selectMovie(movie)" class="cursorPointer" style="margin-left: 8px; font-size: 18px">{{
                 movie.title
               }}</span>
-            </span>
+            </div>
           </div>
         </div>
         <div v-else>검색 결과가 없습니다.</div>
@@ -265,7 +263,7 @@ export default {
           this.ratings = null;
           this.spoiler = null;
           this.content = null;
-          alert('후기가 작성되었습니다.')
+          alert("후기가 작성되었습니다.");
         })
         .catch((err) => {
           console.log(err);
