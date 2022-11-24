@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container p-5">
     <MainArticleList v-if="isLoggedIn" @no-articles="noArticles" :recommendDiv="recommendDiv" />
     <div v-if="recommendDiv">
       <br /><RecoFriendsList /> <br /><RecoArticlesList />
