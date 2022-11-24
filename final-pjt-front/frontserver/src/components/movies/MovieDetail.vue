@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <Moviebanner v-if="movieinfo" :movie='movieinfo'/>
@@ -242,7 +240,9 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/movies/${movie_pk}/`,
-        data: {},
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((res) => {
           this.movieinfo = res.data;
