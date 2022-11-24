@@ -146,7 +146,7 @@
                     id="5-stars"
                     name="rating"
                     value="5"
-                    v-model="ratings"
+                    v-model="rating"
                   />
                   <label for="5-stars" class="star pr-4">★</label>
                   <input
@@ -154,7 +154,7 @@
                     id="4-stars"
                     name="rating"
                     value="4"
-                    v-model="ratings"
+                    v-model="rating"
                   />
                   <label for="4-stars" class="star">★</label>
                   <input
@@ -162,7 +162,7 @@
                     id="3-stars"
                     name="rating"
                     value="3"
-                    v-model="ratings"
+                    v-model="rating"
                   />
                   <label for="3-stars" class="star">★</label>
                   <input
@@ -170,7 +170,7 @@
                     id="2-stars"
                     name="rating"
                     value="2"
-                    v-model="ratings"
+                    v-model="rating"
                   />
                   <label for="2-stars" class="star">★</label>
                   <input
@@ -178,7 +178,7 @@
                     id="1-star"
                     name="rating"
                     value="1"
-                    v-model="ratings"
+                    v-model="rating"
                   />
                   <label for="1-star" class="star">★</label>
                 </div>
@@ -323,6 +323,7 @@ export default {
   data() {
     return {
       article: this.$store.state.articledetail,
+      articlecontent: null,
       isLiked: null,
       likeCount: null,
       likeDiv: false,
@@ -332,7 +333,9 @@ export default {
     };
   },
   computed: {
-
+    movieTitle() {
+      return this.article.movie.title;
+    },
     token() {
       return this.$store.state.token;
     },
