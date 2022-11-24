@@ -4,6 +4,9 @@
       <img class="card-img align-center" :src="poster_path" alt="poster_img" />
       <div class="card-overlay">
 
+        <div class="bookmark">
+            <span>{{ updatedate }}</span>
+        </div>
 
         <div class="rating">
           <ion-icon name="star-outline"></ion-icon>
@@ -50,7 +53,10 @@ export default {
     },
 		rating() {
 			return this.article.rating
-		}
+		},
+    updatedate() {
+      return this.article.updated_at.slice(0, 10);
+    },
   },
   methods: {
     toarticle() {
