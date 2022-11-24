@@ -105,7 +105,7 @@
         ref="my-modal"
         hide-footer
         hide-header-close
-        title="게시글 작성"
+        title="게시글 수정"
       >
         <div class="formBox d-flex mb-5">
           <div id="poster" @click="showModal"></div>
@@ -123,8 +123,8 @@
                     {{ movieTitle }}
                   </p>
                 </div>
-                <div class="col-md-4"></div>
-                <div class="col-md-2 mt-2">
+                <div class="col-lg-4 md-auto"></div>
+                <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap;">
                   <label class="checkbox">
                     <input
                       id="spoiler"
@@ -140,7 +140,7 @@
                 </div>
                 <!-- <div class="col-md-1"></div> -->
 
-                <div class="star-rating2 space-x-4 mx-1 col-md-2">
+                <div class="star-rating2 m-auto col-md-2">
                   <input
                     type="radio"
                     id="5-stars"
