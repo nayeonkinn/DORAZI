@@ -43,8 +43,8 @@
         <p>followings</p>
       </div>
     </div>
-    <ProfileArticleList :articles_list="articles_list" />
-    <ProfileWishList :wishes_list="wishes_list" />
+    <ProfileArticleList :articles_list="articles_list" :yourName="yourName" />
+    <ProfileWishList :wishes_list="wishes_list" :yourName="yourName" />
   </div>
 </template>
 

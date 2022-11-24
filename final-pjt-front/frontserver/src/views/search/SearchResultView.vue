@@ -1,34 +1,47 @@
 <template>
-  <div>
-    <h1>검색결과</h1>
-    <hr>
+  <div class="container">
+    <h1>검색 결과</h1>
+    <br /><br />
     <section class="movies">
-      <h3 style="text-align: start;" class="ml-3">영화</h3>
-      <div class="movies-grid">
-        <Movie v-for="movie in movies" :key="movie.id" :movie="movie"/>
+      <h3 style="text-align: start; margin-left: 10px; margin-bottom: 30px">
+        영화
+      </h3>
+      <div v-if="movies.length" class="movies-grid">
+        <Movie v-for="movie in movies" :key="movie.id" :movie="movie" />
       </div>
-      <div v-if="movieresult"> 검색 결과가 없습니다</div>
-      <hr>
-      <h3 style="text-align: start;" class="ml-3" >게시글</h3>
-      <div class="movies-grid2">
-        <ArticleSimple v-for="article in articles" :key="article.id" :article="article"/>
+      <div class='m-5' v-if="movieresult">검색 결과가 없습니다</div>
+      <br />
+      <hr />
+      <br />
+      <h3 style="text-align: start; margin: 60px 0px 30px 10px">게시글</h3>
+      <div v-if="articles.length" class="movies-grid2">
+        <ArticleSimple
+          v-for="article in articles"
+          :key="article.id"
+          :article="article"
+        />
       </div>
-      <div v-if="articleresult"> 검색 결과가 없습니다</div>
-      <hr>
-      <h3 style="text-align: start;" class="ml-3">유저</h3>
-      <div class="movies-grid">
-        <UserSearch v-for="user in users" :key="user.id" :user="user" />
+      <div class='m-5' v-if="articleresult">검색 결과가 없습니다</div>
+      <br />
+      <hr />
+      <br />
+      <h3 style="text-align: start; margin: 60px 0px 30px 10px">
+        유저
+      </h3>
+      <div class="mb-5">
+        <div v-if="users.length" class="movies-grid">
+          <UserSearch v-for="user in users" :key="user.id" :user="user" />
+        </div>
+        <div class='m-5' v-if="userresult">검색 결과가 없습니다</div>
       </div>
-      <div v-if="userresult"> 검색 결과가 없습니다</div>
     </section>
-
   </div>
 </template>
 
 <script>
 import Movie from "@/components/movies/Movie";
-import ArticleSimple from '@/components/articles/ArticleSimple'
-import UserSearch from '@/components/accounts/UserSearch'
+import ArticleSimple from "@/components/articles/ArticleSimple";
+import UserSearch from "@/components/accounts/UserSearch";
 
 import axios from "axios";
 
@@ -39,28 +52,27 @@ export default {
   components: {
     Movie,
     ArticleSimple,
-    UserSearch
-
+    UserSearch,
   },
   data() {
     return {
       movies: [],
-      articles : [],
+      articles: [],
       users: [],
-      movieresult : false,
+      movieresult: false,
       articleresult: false,
-      userresult: false
+      userresult: false,
     };
   },
-//   computed:{
-//     q : this.$store.state.search
-//   },
+  //   computed:{
+  //     q : this.$store.state.search
+  //   },
   methods: {
     makelist() {
       axios({
         method: "get",
         url: `${API_URL}/movies/search/`,
-        params: {'search': this.$store.state.search},
+        params: { search: this.$store.state.search },
       })
         .then((res) => {
           console.log(res.data);
@@ -77,7 +89,7 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/articles/search/`,
-        params: {'search': this.$store.state.search},
+        params: { search: this.$store.state.search },
       })
         .then((response) => {
           console.log(response.data);
@@ -90,11 +102,11 @@ export default {
           console.error(error);
         });
     },
-    getUsers(){
+    getUsers() {
       axios({
         method: "get",
         url: `${API_URL}/profile/search/`,
-        params: {'search': this.$store.state.search},
+        params: { search: this.$store.state.search },
       })
         .then((response) => {
           console.log(response.data);
@@ -106,24 +118,21 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-    }
+    },
   },
   mounted() {
     this.makelist();
     this.getArticles();
     this.getUsers();
-    
   },
-
 };
 </script>
 
 <style>
-  @import '@/assets/main.css';
+@import "@/assets/main.css";
 
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
-
 </style>

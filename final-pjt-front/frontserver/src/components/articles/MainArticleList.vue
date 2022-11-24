@@ -70,6 +70,7 @@ export default {
         }
       });
       this.articles.splice(index, 1);
+      alert('후기가 삭제되었습니다.')
     },
     createArticle(article) {
       this.articles.unshift(article);

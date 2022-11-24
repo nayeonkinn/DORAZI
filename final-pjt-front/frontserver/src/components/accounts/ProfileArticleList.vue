@@ -2,13 +2,16 @@
   <div class="my-5">
     <hr><br><br>
     <section class="movies">
-      <p class="profileTitle"> {{ username }}님이 작성한 후기</p>
-      <div class="movies-grid2">
+      <p class="profileTitle"> {{ yourName }}님이 작성한 후기</p>
+      <div v-if="articles_list.length" class="movies-grid2">
         <ProfileArticleItem
           v-for="article in articles_list"
           :key="`article-${article.id}`"
           :article="article"
         />
+      </div>
+      <div v-else style="margin: 100px 0px;">
+        <p>앗.. 아직 없어요!</p>
       </div>
       <hr />
     </section>
@@ -25,11 +28,7 @@ export default {
   },
   props: {
     articles_list: Array,
-  },
-  computed: {
-    username() {
-      return this.$store.state.username;
-    },
+    yourName: String,
   },
 };
 </script>
