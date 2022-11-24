@@ -33,4 +33,8 @@ export default {
   color: white;
   background-color: black;
 }
+
+textarea:focus {
+  outline: none;
+}
 </style>

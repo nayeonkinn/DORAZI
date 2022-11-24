@@ -54,15 +54,15 @@
       </span>
     </div>
 
-    <div v-if="childChildDiv">
-      <textarea
-        v-model="childChildComment"
-        @keyup.enter="createChildChildComment"
-        cols="40"
-        rows="1"
-      ></textarea>
-      <button type="button" @click="createChildChildComment">등록</button>
+    <div v-if="childChildDiv" class="childCommentBox paddingChildChild">
+      <form @submit.prevent="createChildChildComment">
+        <textarea v-model="childChildComment" class="childCommentText"></textarea>
+        <div class="d-flex justify-content-end">
+          <button class="buttons">등록</button>
+        </div>
+      </form>
     </div>
+
   </div>
 </template>
 
@@ -177,6 +177,7 @@ export default {
           // console.log(response);
           this.$emit("update-child-comment", this.child.id, response.data);
           this.updateOnToggle();
+          alert('댓글이 수정되었습니다.')
         })
         .catch((error) => {
           console.log(error);
@@ -196,6 +197,7 @@ export default {
         .then(() => {
           // console.log(response);
           this.$emit("delete-child-comment", this.child.id);
+          alert('댓글이 삭제되었습니다.')
         })
         .catch((error) => {
           console.log(error);
@@ -216,7 +218,11 @@ export default {
 <style>
 
 .updating {
-  background-color: rgb(255, 200, 47) !important;
+  background-color: rgb(187, 187, 187) !important;
+}
+
+.paddingChildChild {
+  padding: 1.5rem 0px 0px 0px !important;
 }
 
 </style>
