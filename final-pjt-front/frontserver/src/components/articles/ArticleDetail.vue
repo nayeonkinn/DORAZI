@@ -124,7 +124,7 @@
                   </p>
                 </div>
                 <div class="col-lg-4 md-auto"></div>
-                <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap;">
+                <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap">
                   <label class="checkbox">
                     <input
                       id="spoiler"
@@ -360,13 +360,13 @@ export default {
       return this.user.username;
     },
     rating() {
-      return this.article.rating
+      return this.article.rating;
     },
     spoiler() {
-      return this.article.spoiler
+      return this.article.spoiler;
     },
-    content () {
-      return this.article.content
+    content() {
+      return this.article.content;
     },
     backdrop_path() {
       return (
@@ -421,7 +421,7 @@ export default {
         alert("내용을 입력해주세요");
         return;
       }
-      console.log(content);
+      // console.log(content);
       axios({
         method: "PUT",
         url: `${API_URL}/articles/${this.article.id}/`,
@@ -435,7 +435,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.hideModal();
           this.$emit("update", this.article);
         })
@@ -514,7 +514,7 @@ export default {
         } else {
           return comment;
         }
-      })
+      });
     },
     createChildChildComment(commentId, commentData) {
       this.comments = this.comments.map((comment) => {
@@ -526,7 +526,7 @@ export default {
           return comment;
         }
       });
-      this.comments.push(commentData)
+      this.comments.push(commentData);
     },
     deleteChildComment(commentId, commentData, childId) {
       this.comments = this.comments.map((comment) => {
@@ -537,11 +537,10 @@ export default {
         } else {
           return comment;
         }
-      })
+      });
       this.comments = this.comments.filter((comment) => {
         return comment.id !== childId;
-      })
-
+      });
     },
     createChildComment(commentId, commentData) {
       this.comments.forEach((comment) => {
@@ -549,21 +548,21 @@ export default {
           comment.child_comment.push(commentData);
         }
       });
-      this.comments.push(commentData)
+      this.comments.push(commentData);
     },
   },
   created() {
-    console.log(this.$store.state.articledetail)
-    this.article = this.$store.state.articledetail
+    // console.log(this.$store.state.articledetail);
+    this.article = this.$store.state.articledetail;
     this.setLikeData(this.article);
     this.comments = this.article.articlecomment_set;
   },
   watch: {
-    '$store.state.detailarticle': function() {
-      this.article = this.$store.state.articledetail
-    }
-  }
-}
+    "$store.state.detailarticle": function () {
+      this.article = this.$store.state.articledetail;
+    },
+  },
+};
 </script>
 
 
@@ -654,7 +653,7 @@ export default {
           }
         }
         &::after {
-          content: '';
+          content: "";
           display: block;
           margin-top: 10px;
           border-bottom: 1px solid #e5e5e5;
@@ -687,7 +686,7 @@ export default {
         }
 
         &::before {
-          content: '';
+          content: "";
           display: block;
           margin-bottom: 10px;
           border-bottom: 1px solid #e5e5e5;
@@ -696,7 +695,7 @@ export default {
     }
   }
   &::after {
-    content: '';
+    content: "";
     display: block;
     margin: 0 auto;
     width: 598px;

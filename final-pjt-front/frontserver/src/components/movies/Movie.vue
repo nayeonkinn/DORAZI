@@ -50,7 +50,7 @@ export default {
       })
         .then((res) => {
           this.moviedetail = res.data;
-          console.log(this.moviedetail);
+          // console.log(this.moviedetail);
           const genre_ids = this.moviedetail.genre_ids.split(' ')
           if (genre_ids[1]) {
             this.genres = genre_ids[0] + '/' + genre_ids[1]

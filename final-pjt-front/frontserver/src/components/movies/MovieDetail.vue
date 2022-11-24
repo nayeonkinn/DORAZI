@@ -246,7 +246,7 @@ export default {
       })
         .then((res) => {
           this.movieinfo = res.data;
-          console.log(this.movieinfo);
+          // console.log(this.movieinfo);
           const wishUsers = this.movieinfo.wish_users;
           this.poster = `https://image.tmdb.org/t/p/w185/${res.data.poster_path}`;
           this.backdrop = this.movieinfo.backdrop_path;

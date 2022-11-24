@@ -129,7 +129,7 @@ export default {
   },
   computed: {
     token() {
-      console.log(this.article);
+      // console.log(this.article);
       return this.$store.state.token;
     },
     userId() {
@@ -175,7 +175,7 @@ export default {
         alert("내용을 입력해주세요");
         return;
       }
-      console.log(content);
+      // console.log(content);
       axios({
         method: "PUT",
         url: `${API_URL}/articles/${this.article.id}/`,
@@ -189,7 +189,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.hideModal();
           this.$emit("update", this.article);
         })
@@ -206,7 +206,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.hideModal();
           this.$emit("update");
         })
