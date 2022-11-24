@@ -27,7 +27,7 @@ export default new Vuex.Store({
     },
     articledetail: (response) => {
       return response
-    }
+    },
   },
   mutations: {
     SAVE_TOKEN(state, token) {

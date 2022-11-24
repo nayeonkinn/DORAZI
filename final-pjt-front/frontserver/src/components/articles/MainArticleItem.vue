@@ -305,12 +305,9 @@
 <script>
 import axios from "axios";
 import moment from "moment";
-
 import MainCommentList from "@/components/articles/MainCommentList";
 import MainCommentForm from "@/components/articles/MainCommentForm";
-
 const API_URL = "http://127.0.0.1:8000";
-
 export default {
   name: "MainArticleItem",
   components: {
@@ -561,7 +558,6 @@ export default {
   /* padding: 10px; */
   margin-bottom: 3rem;
 }
-
 .backdropImg {
   height: 300px;
   border-top-left-radius: 4px;
@@ -571,7 +567,6 @@ export default {
   color: white;
   padding: 20px;
 }
-
 .buttons {
   border: none;
   outline: none;
@@ -581,31 +576,24 @@ export default {
   padding-inline: 7px;
   background-color: white;
 }
-
 #likeBtn {
   transition: all 0.2s linear;
 }
-
 #likeBtn:hover {
   transform: scale(1.1);
 }
-
 .likeColor {
   color: rgb(255, 200, 47);
 }
-
 .notLikeColor {
   color: rgb(241, 241, 241);
 }
-
 #likeUserName {
   margin-right: 10px;
 }
-
 #likeUserName:hover {
   color: rgb(255, 200, 47);
 }
-
 #likeUserComment:hover {
   color: rgb(53, 53, 53);
 }
