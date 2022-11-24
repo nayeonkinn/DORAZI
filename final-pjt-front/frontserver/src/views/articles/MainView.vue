@@ -61,6 +61,7 @@ export default {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
+  z-index: 1;
 }
 
 #recoBtn:hover {
