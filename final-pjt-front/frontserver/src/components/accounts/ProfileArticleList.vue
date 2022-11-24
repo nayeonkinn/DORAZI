@@ -3,7 +3,7 @@
     <hr><br><br>
     <section class="movies">
       <p class="profileTitle"> {{ yourName }}님이 작성한 후기</p>
-      <div v-if="articles_list.length" class="movies-grid2">
+      <div v-if="articles_list?.length" class="movies-grid2">
         <ProfileArticleItem
           v-for="article in articles_list"
           :key="`article-${article.id}`"

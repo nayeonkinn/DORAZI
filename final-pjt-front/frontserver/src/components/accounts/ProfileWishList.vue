@@ -2,7 +2,7 @@
   <div>
     <section class="movies">
       <p class="profileTitle">{{ yourName }}님이 보고 싶어하는 영화</p>
-      <div v-if="wishes_list.length" class="movies-grid">
+      <div v-if="wishes_list?.length" class="movies-grid">
         <ProfileWishItem
           v-for="wish in wishes_list"
           :key="`movie-${wish.id}`"

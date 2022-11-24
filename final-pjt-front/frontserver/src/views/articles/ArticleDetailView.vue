@@ -24,6 +24,11 @@ export default {
       article: null,
     };
   },
+  computed: {
+    token() {
+      return this.$store.state.token;
+    }
+  },
   methods: {
     detaildata() {
       const article_pk = this.$route.params.article_id;
