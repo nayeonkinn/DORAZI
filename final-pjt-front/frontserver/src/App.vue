@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="p-2" style="min-height: 100vh">
     <app-nav class='mb-3'/>
-    <router-view />
+    <div class="p-5">
+      <router-view />
+    </div>
   </div>
   
 </template>

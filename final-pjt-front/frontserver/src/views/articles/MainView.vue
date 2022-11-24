@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MainArticleList v-if="isLoggedIn" @no-articles="noArticles" />
+    <MainArticleList v-if="isLoggedIn" @no-articles="noArticles" :recommendDiv="recommendDiv" />
     <div v-if="recommendDiv">
       <br /><RecoFriendsList /> <br /><RecoArticlesList />
     </div>
