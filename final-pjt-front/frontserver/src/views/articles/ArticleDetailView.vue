@@ -30,9 +30,9 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/articles/${article_pk}/`,
-        // headers: {
-        //   Authorization: `Token ${this.token}`,
-        // },
+        headers: {
+          Authorization: `Token ${this.token}`,
+        },
       })
         .then((res) => {
           // console.log(res);

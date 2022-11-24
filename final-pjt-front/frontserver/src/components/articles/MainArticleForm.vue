@@ -153,9 +153,12 @@
                   style="width: 20px; height: 30px"
                 />
               </span>
-              <span @click="selectMovie(movie)" class="cursorPointer" style="margin-left: 8px; font-size: 18px">{{
-                movie.title
-              }}</span>
+              <span
+                @click="selectMovie(movie)"
+                class="cursorPointer"
+                style="margin-left: 8px; font-size: 18px"
+                >{{ movie.title }}</span
+              >
             </div>
           </div>
         </div>
@@ -210,6 +213,9 @@ export default {
         url: `${API_URL}/movies/search/`,
         params: {
           search: this.keyword,
+        },
+        headers: {
+          Authorization: `Token ${this.token}`,
         },
       })
         .then((response) => {

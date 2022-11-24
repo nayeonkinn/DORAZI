@@ -112,6 +112,9 @@ export default new Vuex.Store({
       axios({
         method: 'post',
         url: `${API_URL}/accounts/logout/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then(() => {
           context.commit('DELETE_USER_INFO')

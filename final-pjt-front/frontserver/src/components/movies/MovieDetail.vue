@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Moviebanner v-if="movieinfo" :movie='movieinfo'/>
+    <Moviebanner v-if="movieinfo" :movie="movieinfo" />
 
     <div class="container">
       <div class="row align-items-start text-start my-5 mx-2">
@@ -11,131 +11,149 @@
           <div class="col">
             <h3>{{ movietitle }}</h3>
             <h5>유저 평점 : {{ ourrating }}</h5>
-            <hr/>
+            <hr />
           </div>
           <div>
             <p class="desc">{{ overview }}</p>
           </div>
         </div>
       </div>
-    <div>
+      <div>
+        <b-modal
+          id="modal-lg"
+          size="lg"
+          ref="my-modal"
+          hide-footer
+          hide-header-close
+          title="게시글 작성"
+        >
+          <div class="formBox d-flex mb-5">
+            <div id="poster" @click="showModal"></div>
+            <div id="content" class="p-2" style="width: 100%">
+              <form @submit.prevent="createArticle">
+                <div class="container d-flex">
+                  <div class="col-md-4">
+                    <p
+                      style="
+                        font-size: 20px;
+                        font-weight: 600;
+                        margin-right: 10px;
+                      "
+                    >
+                      {{ movietitle }}
+                    </p>
+                  </div>
+                  <div class="col-lg-4 md-auto"></div>
+                  <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap">
+                    <label class="checkbox">
+                      <input
+                        id="spoiler"
+                        type="checkbox"
+                        v-model="spoiler"
+                        true-value="yes"
+                        false-value="no"
+                        name="spolier"
+                      />
+                      <span class="checkbox_icon"></span>
+                      <span class="checkbox_text">스포일러</span>
+                    </label>
+                  </div>
+                  <!-- <div class="col-md-1"></div> -->
 
-
-      <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer hide-header-close title="게시글 작성">
-        <div class="formBox d-flex mb-5">
-          <div id="poster" @click="showModal"></div>
-          <div id="content" class="p-2" style="width: 100%">
-            <form @submit.prevent="createArticle">
-              <div class="container d-flex">
-                <div class="col-md-4">
-                  <p 
-                  style="font-size: 20px; font-weight: 600; margin-right: 10px"
-                  >
-                  {{ movietitle }}
-                </p>
-              </div>
-              <div class="col-lg-4 md-auto"></div>
-              <div class="col-md-2 mt-3 pb-3" style="white-space: nowrap;">
-                <label class="checkbox">
-                  <input
-                    id="spoiler"
-                    type="checkbox"
-                    v-model="spoiler"
-                    true-value="yes"
-                    false-value="no"
-                    name="spolier"
-                  />
-                  <span class="checkbox_icon"></span>
-                  <span class="checkbox_text">스포일러</span>
-                </label>
-              </div>
-              <!-- <div class="col-md-1"></div> -->
-
-              <div class="star-rating2 space-x-4 m-auto col-md-2">
-                <input
-                  type="radio"
-                  id="5-stars"
-                  name="rating"
-                  value="5"
-                  v-model="ratings"
-                />
-                <label for="5-stars" class="star pr-4">★</label>
-                <input
-                  type="radio"
-                  id="4-stars"
-                  name="rating"
-                  value="4"
-                  v-model="ratings"
-                />
-                <label for="4-stars" class="star">★</label>
-                <input
-                  type="radio"
-                  id="3-stars"
-                  name="rating"
-                  value="3"
-                  v-model="ratings"
-                />
-                <label for="3-stars" class="star">★</label>
-                <input
-                  type="radio"
-                  id="2-stars"
-                  name="rating"
-                  value="2"
-                  v-model="ratings"
-                />
-                <label for="2-stars" class="star">★</label>
-                <input
-                  type="radio"
-                  id="1-star"
-                  name="rating"
-                  value="1"
-                  v-model="ratings"
-                />
-                <label for="1-star" class="star">★</label>
-              </div>
-            </div>
-
-              <div id="contentForm">
-                <textarea
-                  id="contentInput2"
-                  class="p-3"
-                  v-model="articlecontent"
-                  placeholder="후기를 입력해주세요"
-                ></textarea>
-                <button id="contentBtn" class="btn btn-link">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    class="bi bi-arrow-right"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                  <div class="star-rating2 space-x-4 m-auto col-md-2">
+                    <input
+                      type="radio"
+                      id="5-stars"
+                      name="rating"
+                      value="5"
+                      v-model="ratings"
                     />
-                  </svg>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </b-modal>
-    </div>
-<!-- 게시글 리스트 -->
-  <button id="recoBtn" class="buttons" variant="light" @click="showModal">게시물 작성</button>
+                    <label for="5-stars" class="star pr-4">★</label>
+                    <input
+                      type="radio"
+                      id="4-stars"
+                      name="rating"
+                      value="4"
+                      v-model="ratings"
+                    />
+                    <label for="4-stars" class="star">★</label>
+                    <input
+                      type="radio"
+                      id="3-stars"
+                      name="rating"
+                      value="3"
+                      v-model="ratings"
+                    />
+                    <label for="3-stars" class="star">★</label>
+                    <input
+                      type="radio"
+                      id="2-stars"
+                      name="rating"
+                      value="2"
+                      v-model="ratings"
+                    />
+                    <label for="2-stars" class="star">★</label>
+                    <input
+                      type="radio"
+                      id="1-star"
+                      name="rating"
+                      value="1"
+                      v-model="ratings"
+                    />
+                    <label for="1-star" class="star">★</label>
+                  </div>
+                </div>
 
-    <Carousel :per-page="1" class="banner_list" paginationColor="#999" :paginationPadding=3 :perPage='pagelim' :navigationEnabled=true>
-      <Slide v-for="article in articlelist.slice().reverse()" :key="article.id" style="width:50px">
-        <ArticleList
-          :article="article"
-          @update="detaildata"
-          class="m-2"
-        />
-      </Slide>
-    </Carousel>
-  </div>
+                <div id="contentForm">
+                  <textarea
+                    id="contentInput2"
+                    class="p-3"
+                    v-model="articlecontent"
+                    placeholder="후기를 입력해주세요"
+                  ></textarea>
+                  <button id="contentBtn" class="btn btn-link">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      class="bi bi-arrow-right"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </b-modal>
+      </div>
+      <!-- 게시글 리스트 -->
+      <button id="recoBtn" class="buttons" variant="light" @click="showModal">
+        게시물 작성
+      </button>
+
+      <Carousel
+        :per-page="1"
+        class="banner_list"
+        paginationColor="#999"
+        :paginationPadding="3"
+        :perPage="pagelim"
+        :navigationEnabled="true"
+      >
+        <Slide
+          v-for="article in articlelist.slice().reverse()"
+          :key="article.id"
+          style="width: 50px"
+        >
+          <ArticleList :article="article" @update="detaildata" class="m-2" />
+        </Slide>
+      </Carousel>
+    </div>
   </div>
 </template>
 
@@ -144,8 +162,7 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 import ArticleList from "@/components/articles/ArticleList";
 import Moviebanner from "@/components/movies/Moviebanner";
-import { Carousel, Slide } from 'vue-carousel';
-
+import { Carousel, Slide } from "vue-carousel";
 
 export default {
   name: "MovieDetail",
@@ -157,7 +174,7 @@ export default {
   },
   data() {
     return {
-      enabled:true,
+      enabled: true,
       pagelim: 5,
       movieinfo: false,
       poster: null,
@@ -242,7 +259,9 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/movies/${movie_pk}/`,
-        data: {},
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((res) => {
           this.movieinfo = res.data;

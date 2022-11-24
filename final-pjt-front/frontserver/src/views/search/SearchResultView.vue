@@ -76,6 +76,9 @@ export default {
         method: "get",
         url: `${API_URL}/movies/search/`,
         params: { search: this.$store.state.search },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((res) => {
           // console.log(res.data);
@@ -93,6 +96,9 @@ export default {
         method: "get",
         url: `${API_URL}/articles/search/`,
         params: { search: this.$store.state.search },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((response) => {
           // console.log(response.data);
@@ -110,6 +116,9 @@ export default {
         method: "get",
         url: `${API_URL}/profile/search/`,
         params: { search: this.$store.state.search },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((response) => {
           // console.log(response.data);

@@ -91,6 +91,9 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/profile/${this.yourName}/`,
+        headers: {
+          Authorization: `Token ${this.token}`,
+        },
       })
         .then((response) => {
           // console.log(response)

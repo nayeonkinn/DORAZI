@@ -84,6 +84,9 @@ export default {
       axios({
         method: "GET",
         url: `${APIURL}/profile/${this.username}/recommend/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((res) => {
           // console.log(res.data);
@@ -101,6 +104,9 @@ export default {
       axios({
         method: "get",
         url: `${APIURL}/profile/${this.username}/recommend_friend/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((res) => {
           // console.log(res);
@@ -118,6 +124,9 @@ export default {
       axios({
         method: "GET",
         url: `${APIURL}/movies/${this.randommovie.id}`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
       })
         .then((res) => {
           // console.log(res.data);
