@@ -27,7 +27,11 @@
               fill="currentColor"
               class="bi bi-person-circle mx-2"
               viewBox="0 0 16 16"
-              style="position: relative; bottom: 3px; filter: drop-shadow(1px 1px 1px gray);"
+              style="
+                position: relative;
+                bottom: 3px;
+                filter: drop-shadow(1px 1px 1px gray);
+              "
             >
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
               <path
@@ -35,9 +39,14 @@
                 d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
               />
             </svg>
-            <span style="font-size: 30px; font-weight: 700;text-shadow: 1px 1px 1px gray;">{{
-              article.user.username
-            }}</span>
+            <span
+              style="
+                font-size: 30px;
+                font-weight: 700;
+                text-shadow: 1px 1px 1px gray;
+              "
+              >{{ article.user.username }}</span
+            >
           </span>
           <div>
             <div v-if="userId === article.user.id">
@@ -202,18 +211,26 @@
           </div>
         </div>
       </b-modal>
-      <div style="text-align: left; margin-left:25px">
+      <div
+        style="text-align: left; margin-left: 25px; color: rgb(148, 148, 148)"
+      >
         <span
           v-if="likeUsers.length"
           @click="likeDivToggle"
-          style="cursor: pointer; color: rgb(148, 148, 148);"
+          style="cursor: pointer"
+          id="likeUserComment"
         >
           {{ likeUsers[likeUsers.length - 1].username }}님 외
           {{ likeCount - 1 }}명이 이 글을 좋아합니다.
         </span>
-        <div v-if="likeDiv">
+        <div v-if="likeDiv" class="my-1">
           <span v-for="user in likeUsers" :key="`user-${user.id}`">
-            <span @click="goProfile(user.username)" style="cursor: pointer">{{ user.username }}</span>
+            <span
+              id="likeUserName"
+              @click="goProfile(user.username)"
+              style="cursor: pointer"
+              >{{ user.username }}</span
+            >
           </span>
         </div>
       </div>
@@ -573,5 +590,17 @@ export default {
 
 .notLikeColor {
   color: rgb(214, 214, 214);
+}
+
+#likeUserName {
+  margin-right: 10px;
+}
+
+#likeUserName:hover {
+  color: rgb(255, 200, 47);
+}
+
+#likeUserComment:hover {
+  color: rgb(53, 53, 53);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <MainArticleForm v-if="formOn" @create-article="createArticle" />
-    <div class="container">
+    <div v-if="!recommendDiv" class="container">
       <div class="boxForLine mb-5"></div>
     </div>
     <MainArticleItem
@@ -26,6 +26,9 @@ export default {
   components: {
     MainArticleForm,
     MainArticleItem,
+  },
+  props: {
+    recommendDiv: Boolean,
   },
   data() {
     return {
