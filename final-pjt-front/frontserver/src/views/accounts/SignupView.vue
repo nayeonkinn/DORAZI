@@ -38,12 +38,12 @@
             <label for="floatingPassword2">비밀번호 확인</label>
           </div>
           <div class="d-grid gap-2 mb-4">
-            <button id="signupBtn" class="btn">회원가입</button>
+            <button id="submitBtn" class="btn">회원가입</button>
           </div>
         </form>
         <p style="font-size: 18px">
           계정이 이미 있으신가요?
-          <router-link id="toLogin" :to="{ name: 'LoginView' }"
+          <router-link class="linkGray" :to="{ name: 'LoginView' }"
             >로그인</router-link
           >
         </p>
@@ -93,23 +93,4 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Gothic+A1&family=Noto+Sans+KR&display=swap");
-
-.logoFont {
-  font-family: "Crimson Text", serif;
-  font-size: 50px;
-  /* color: rgb(255, 200, 47) */
-}
-
-#signupBtn {
-  height: 58px;
-  color: white;
-  background-color: rgb(53, 53, 53);
-  z-index: 1;
-}
-
-#toLogin {
-  color: rgb(158, 158, 158);
-  text-decoration: none;
-}
 </style>

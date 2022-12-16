@@ -38,11 +38,11 @@
             <label for="floatingPassword2">새 비밀번호 확인</label>
           </div>
           <div class="d-grid gap-2 mb-4">
-            <button id="signupBtn" class="btn">변경</button>
+            <button id="submitBtn" class="btn">변경</button>
           </div>
         </form>
         <p style="font-size: 18px">
-          <router-link id="toLogin" :to="{ name: 'SettingView' }"
+          <router-link class="linkGray" :to="{ name: 'SettingView' }"
             >뒤로가기</router-link
           >
         </p>
@@ -90,5 +90,4 @@ export default {
 </script>
 
 <style>
-
 </style>

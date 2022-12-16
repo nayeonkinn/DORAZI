@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex justify-content-center align-items-center">
       <div>
-        <span id="profileUsername" class="logoFont">{{ yourName }}</span>
+        <span class="logoFont" style="font-size: 100px">{{ yourName }}</span>
       </div>
       <div v-if="myName != yourName">
         <svg
@@ -146,7 +146,4 @@ export default {
 </script>
 
 <style>
-#profileUsername {
-  font-size: 100px;
-}
 </style>

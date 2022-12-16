@@ -10,43 +10,18 @@
       유저네임을 동일하게 입력해 주세요.
     </span>
 
-    <div
-      style="
-        width: 420px;
-        height: 40px;
-        background-color: rgb(214, 214, 214);
-        margin: auto;
-        margin-top: 25px;
-        border-radius: 30px;
-        color: black;
-        padding: 10px;
-      "
-    >
+    <div id="idExample" class="deleteBox">
       <span>{{ username }}</span>
     </div>
 
     <form @submit.prevent="deleteAccount" class="my-3">
       <div>
-        <input
-          id="searchInput"
-          style="width: 420px; text-align: center; text-indent: 0px"
-          v-model="input"
-        />
+        <input id="idInput" class="deleteBox" v-model="input" />
       </div>
-      <button
-        class="buttons"
-        style="
-          color: white;
-          background-color: black;
-          margin-top: 30px;
-          font-size: 18px;
-        "
-      >
-        탈퇴하겠습니다.
-      </button>
+      <button class="deleteBtn">탈퇴하겠습니다.</button>
     </form>
     <p style="font-size: 18px">
-      <router-link id="toLogin" :to="{ name: 'SettingView' }"
+      <router-link class="linkGray" :to="{ name: 'SettingView' }"
         >탈퇴하지 않고 뒤로가기</router-link
       >
     </p>

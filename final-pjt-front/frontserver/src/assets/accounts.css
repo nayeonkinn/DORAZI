@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Gothic+A1&family=Noto+Sans+KR&display=swap");
+
+.logoFont {
+  font-family: "Crimson Text", serif;
+  font-size: 50px;
+}
+
+.logoImg {
+	animation: rotate_image 6s linear infinite;
+	transform-origin: 50% 50%;
+}
+
+@keyframes rotate_image {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+#submitBtn {
+  height: 58px;
+  color: white;
+  background-color: rgb(53, 53, 53);
+}
+
+#settingUserBtn {
+	width: 230px;
+  height: 70px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 700;
+  color: #000;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 30px;
+}
+
+#settingUserBtn:hover {
+	background-color: rgb(151, 151, 151);
+  box-shadow: 0px 15px 20px rgba(158, 158, 158, 0.15);
+  color: #fff;
+}
+
+.deleteBox {
+  width: 420px;
+  height: 40px;
+  border-radius: 30px;
+}
+
+#idExample {
+  background-color: rgb(214, 214, 214);
+  margin: auto;
+  margin-top: 25px;
+  color: black;
+  padding: 10px;
+}
+
+#idInput {
+  text-align: center;
+  border: none;
+  vertical-align: middle;
+  color: white;
+  background-color: rgb(53, 53, 53);
+}
+
+#idInput:focus {
+  outline: none;
+}
+
+.deleteBtn {
+  border: none;
+  outline: none;
+  margin-top: 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  padding-inline: 7px;
+  background-color: black;
+  color: white;
+}
+
+.deleteBtn:hover {
+	color: rgb(158, 158, 158);
+}
+
+.linkGray {
+	color: rgb(158, 158, 158);
+	text-decoration: none;
+}
+
+.linkGray:hover {
+	color: rgb(255, 255, 255);
+}
