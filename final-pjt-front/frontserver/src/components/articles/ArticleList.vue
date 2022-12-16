@@ -242,40 +242,6 @@ export default {
 </script>
 
 <style>
-.poster {
-  width: 15%;
-  height: 15%;
-}
-.star-rating {
-  display: flex;
-  flex-direction: row-reverse;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  justify-content: space-around;
-  padding: 0 0.2em;
-  text-align: center;
-  width: 5em;
-}
-
-.star-rating input {
-  display: none;
-}
-
-.star-rating label {
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 2.3px;
-  -webkit-text-stroke-color: #2b2a29;
-  cursor: pointer;
-}
-
-.star-rating :checked ~ label {
-  -webkit-text-fill-color: gold;
-}
-
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-  -webkit-text-fill-color: #fff58c;
-}
 .articlecontent2 {
   width: 250px; /* 너비는 변경될수 있습니다. */
   height: 150px;

@@ -141,7 +141,6 @@ export default {
 </script>
 
 <style>
-@import "@/assets/main.css";
 
 a {
   text-decoration: none;

@@ -51,7 +51,7 @@
               </div>
               <!-- <div class="col-md-1"></div> -->
 
-              <div class="star-rating2 space-x-4 m-auto col-md-2">
+              <div class="star-rating space-x-4 m-auto col-md-2">
                 <input
                   type="radio"
                   id="5-stars"
@@ -289,119 +289,4 @@ export default {
 </script>
 
 <style >
-@import "@/assets/style.css";
-.star-rating2 {
-  display: flex;
-  flex-direction: row-reverse;
-  font-size: 1.5rem;
-  line-height: 2.5rem;
-  justify-content: space-around;
-  padding: 0 0.2em;
-  text-align: center;
-  width: 5em;
-}
-.star-rating2 input {
-  display: none;
-}
-.star-rating2 label {
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1.5px;
-  -webkit-text-stroke-color: #2b2a29;
-  cursor: pointer;
-}
-.star-rating2 :checked ~ label {
-  -webkit-text-fill-color: gold;
-}
-.star-rating2 label:hover,
-.star-rating2 label:hover ~ label {
-  -webkit-text-fill-color: #fff58c;
-}
-.formBox {
-  height: 250px;
-  outline: none;
-  background: white;
-  color: black;
-}
-#poster {
-  cursor: pointer;
-  position: relative;
-  top: 10px;
-  left: 10px;
-}
-#content {
-  margin: 10px;
-  margin-left: 20px;
-}
-.checkbox input {
-  display: none;
-}
-.checkbox_icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-color: transparent;
-  border: 1px solid rgb(0, 0, 0);
-  position: relative;
-  top: 3px;
-  left: 3px;
-  cursor: pointer;
-}
-.checkbox_icon::before,
-.checkbox_icon::after {
-  content: "";
-  display: inline-block;
-  width: 1px;
-  height: 0;
-  background-color: rgb(0, 0, 0);
-  position: absolute;
-  transform-origin: left top;
-}
-.checkbox_icon::before {
-  top: 9px;
-  left: 2px;
-  transform: rotate(-45deg);
-}
-.checkbox_icon::after {
-  top: 16px;
-  left: 9px;
-  transform: rotate(-135deg);
-}
-.checkbox input:checked + .checkbox_icon {
-  border-color: rgb(0, 0, 0);
-}
-.checkbox input:checked + .checkbox_icon::before {
-  height: 10px;
-  transition: all 0.15s ease;
-}
-.checkbox input:checked + .checkbox_icon::after {
-  height: 20px;
-  transition: all 0.15s ease 0.15s;
-}
-.checkbox_text {
-  margin-left: 8px;
-  font-size: 17px;
-  cursor: pointer;
-}
-#contentInput2 {
-  border: none;
-  resize: none;
-  background-color: rgb(241, 241, 241);
-  border-radius: 10px;
-  width: 99%;
-  height: 210px;
-}
-#contentInput:focus {
-  outline: none;
-}
-#contentForm {
-  position: relative;
-}
-#contentBtn {
-  position: absolute;
-  border: none;
-  right: 3px;
-  bottom: 10px;
-  color: black;
-  text-decoration: none;
-}
 </style>

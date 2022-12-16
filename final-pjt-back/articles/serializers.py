@@ -47,15 +47,8 @@ class UserSerializer(serializers.ModelSerializer):
         return response
 
 
-class SimpleUserSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = get_user_model()
-        fields = ('id', 'username')
-
-
 class ChildCommentSerializer(serializers.ModelSerializer):
-    user = SimpleUserSerializer(read_only=True)
+    user = UserExampleSerializer(read_only=True)
 
     class Meta:
         model = ArticleComment
@@ -63,7 +56,7 @@ class ChildCommentSerializer(serializers.ModelSerializer):
 
 
 class ArticleCommentSerializer(serializers.ModelSerializer):
-    user = SimpleUserSerializer(read_only=True)
+    user = UserExampleSerializer(read_only=True)
     child_comment = ChildCommentSerializer(many=True, read_only=True)
 
     class Meta:
@@ -75,7 +68,7 @@ class ArticleCommentSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     movie = MovieSerializer(read_only=True)
-    like_users = SimpleUserSerializer(many=True, read_only=True)
+    like_users = UserExampleSerializer(many=True, read_only=True)
     articlecomment_set = ArticleCommentSerializer(many=True, read_only=True)
 
     class Meta:
