@@ -44,7 +44,7 @@
 <script>
 import Movie from "@/components/movies/Movie";
 import ArticleSimple from "@/components/articles/ArticleSimple";
-import UserSearch from "@/components/accounts/UserSearch";
+import UserSearch from "@/components/search/UserSearch";
 
 import axios from "axios";
 
