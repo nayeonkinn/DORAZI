@@ -140,7 +140,7 @@
                 </div>
                 <!-- <div class="col-md-1"></div> -->
 
-                <div class="star-rating2 m-auto col-md-2">
+                <div class="star-rating m-auto col-md-2">
                   <input
                     type="radio"
                     id="5-stars"
